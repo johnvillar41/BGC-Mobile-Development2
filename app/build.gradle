@@ -4,6 +4,13 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     defaultConfig {
         applicationId "emp.project.softwareengineeringprojectcustomer"
         minSdkVersion 16
@@ -26,8 +33,18 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation files('libs/mysql-connector-java-8.0.21.jar')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    //Circular Image View
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //CardView
+    implementation "androidx.cardview:cardview:1.0.0"
+
+    //Lottie Animations
+    implementation "com.airbnb.android:lottie:3.5.0"
 
 }
