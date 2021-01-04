@@ -1,4 +1,4 @@
-package emp.project.softwareengineeringprojectcustomer.Service;
+package emp.project.softwareengineeringprojectcustomer.Models.Service;
 
 import android.os.StrictMode;
 
@@ -12,6 +12,7 @@ import emp.project.softwareengineeringprojectcustomer.Interface.DatabaseCredenti
 import emp.project.softwareengineeringprojectcustomer.Interface.ILogin;
 
 public class LoginService implements ILogin.ILoginService {
+
     private static LoginService SINGLE_INSTANCE = null;
 
     public static LoginService getInstance() {
@@ -54,6 +55,4 @@ public class LoginService implements ILogin.ILoginService {
             return false;
         }
     }
-
-
 }

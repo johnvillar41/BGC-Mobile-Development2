@@ -2,6 +2,7 @@ package emp.project.softwareengineeringprojectcustomer.Views;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputLayout;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.IRegister;
-import emp.project.softwareengineeringprojectcustomer.Models.CustomerModel;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 import emp.project.softwareengineeringprojectcustomer.Presenter.RegisterPresenter;
 import emp.project.softwareengineeringprojectcustomer.R;
 
@@ -30,6 +31,11 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
         setContentView(R.layout.activity_register_view);
 
         presenter = new RegisterPresenter(this, new CustomerModel(), this);
+
+        Toolbar toolbar = findViewById(R.id.loginToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         TextInputLayout txt_username = findViewById(R.id.txt_username);
         TextInputLayout txt_password = findViewById(R.id.txt_password);

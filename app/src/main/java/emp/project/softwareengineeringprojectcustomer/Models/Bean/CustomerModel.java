@@ -1,4 +1,4 @@
-package emp.project.softwareengineeringprojectcustomer.Models;
+package emp.project.softwareengineeringprojectcustomer.Models.Bean;
 
 public class CustomerModel {
     private String user_id, user_username, user_password, user_fullname, user_status;

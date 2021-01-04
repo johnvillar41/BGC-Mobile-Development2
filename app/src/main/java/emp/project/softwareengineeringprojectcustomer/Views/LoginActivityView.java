@@ -17,11 +17,11 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.textfield.TextInputLayout;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.ILogin;
-import emp.project.softwareengineeringprojectcustomer.Models.CustomerModel;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 import emp.project.softwareengineeringprojectcustomer.Presenter.LoginPresenter;
 import emp.project.softwareengineeringprojectcustomer.R;
 
-public class LoginActivityView extends AppCompatActivity implements ILogin.ILoginView {
+public class LoginActivityView extends AppCompatActivity implements ILogin.ILoginView{
     private ILogin.ILoginPresenter presenter;
     private LottieAnimationView lottieAnimationView_Loader;
 
@@ -61,10 +61,10 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
         }
         return super.onOptionsItemSelected(item);
     }
-
     @Override
     public void onSuccess() {
         Toast.makeText(this, "Login Successfull!", Toast.LENGTH_SHORT).show();
+        //menu
     }
 
     @Override
@@ -81,4 +81,5 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
     public void hideProgressLoader() {
         lottieAnimationView_Loader.setVisibility(View.GONE);
     }
+
 }

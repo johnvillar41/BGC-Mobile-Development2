@@ -4,8 +4,8 @@ import java.lang.ref.WeakReference;
 import java.sql.SQLException;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.IRegister;
-import emp.project.softwareengineeringprojectcustomer.Models.CustomerModel;
-import emp.project.softwareengineeringprojectcustomer.Service.RegisterService;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
+import emp.project.softwareengineeringprojectcustomer.Models.Service.RegisterService;
 import emp.project.softwareengineeringprojectcustomer.Views.RegisterActivityView;
 
 public class RegisterPresenter implements IRegister.IRegisterPresenter {

@@ -1,13 +1,11 @@
 package emp.project.softwareengineeringprojectcustomer.Presenter;
 
-import android.content.Context;
-
 import java.lang.ref.WeakReference;
 import java.sql.SQLException;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.ILogin;
-import emp.project.softwareengineeringprojectcustomer.Models.CustomerModel;
-import emp.project.softwareengineeringprojectcustomer.Service.LoginService;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
+import emp.project.softwareengineeringprojectcustomer.Models.Service.LoginService;
 import emp.project.softwareengineeringprojectcustomer.Views.LoginActivityView;
 
 public class LoginPresenter implements ILogin.ILoginPresenter {
@@ -40,7 +38,12 @@ public class LoginPresenter implements ILogin.ILoginPresenter {
                     });
                     if (model.validateLogin(username, password)) {
                         if (service.fetchCustomerLoginCredentials(username, password)) {
-                            view.onSuccess();
+                            weakReference_Context.get().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    view.onSuccess();
+                                }
+                            });
                         } else {
                             weakReference_Context.get().runOnUiThread(new Runnable() {
                                 @Override

@@ -2,7 +2,7 @@ package emp.project.softwareengineeringprojectcustomer.Interface;
 
 import java.sql.SQLException;
 
-import emp.project.softwareengineeringprojectcustomer.Models.CustomerModel;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 
 public interface IRegister {
     interface IRegisterView {

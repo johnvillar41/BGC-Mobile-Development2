@@ -14,10 +14,10 @@ public interface ILogin {
     }
 
     interface ILoginPresenter {
-        void onLoginButtonClicked(String username,String password);
+        void onLoginButtonClicked(String username, String password);
     }
 
-    interface ILoginService extends IStrictMode{
-        boolean fetchCustomerLoginCredentials(String username,String password) throws SQLException, ClassNotFoundException;
+    interface ILoginService extends IStrictMode {
+        boolean fetchCustomerLoginCredentials(String username, String password) throws SQLException, ClassNotFoundException;
     }
 }

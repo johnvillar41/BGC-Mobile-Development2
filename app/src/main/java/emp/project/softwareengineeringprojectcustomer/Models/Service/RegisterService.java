@@ -1,4 +1,4 @@
-package emp.project.softwareengineeringprojectcustomer.Service;
+package emp.project.softwareengineeringprojectcustomer.Models.Service;
 
 import android.os.StrictMode;
 
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.DatabaseCredentials;
 import emp.project.softwareengineeringprojectcustomer.Interface.IRegister;
-import emp.project.softwareengineeringprojectcustomer.Models.CustomerModel;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 
 public class RegisterService implements IRegister.IRegisterService {
 
