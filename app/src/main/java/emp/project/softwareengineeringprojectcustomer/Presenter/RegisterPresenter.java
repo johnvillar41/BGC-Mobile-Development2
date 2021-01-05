@@ -1,5 +1,6 @@
 package emp.project.softwareengineeringprojectcustomer.Presenter;
 
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.sql.SQLException;
 
@@ -23,19 +24,26 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
     }
 
     @Override
-    public void onRegisterButtonClicked(String username, String password_1, String password_2, String fullname) {
+    public void onRegisterButtonClicked(String username, String password_1, String password_2, String fullname, String email, InputStream FILE_INPUT_STREAM) {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
+                weakReference.get().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.displayLoadingCircle();
+                    }
+                });
                 try {
-                    String errorMessage = model.validateRegistration(username, password_1, password_2);
-                    if (model.validateRegistration(username, password_1, password_2).equals(CustomerModel.VALID)) {
-                        model = new CustomerModel(username, CustomerModel.FINAL_PASSWORD, fullname, CustomerModel.CUSTOMER_STATUS_ACTIVE);
+                    String errorMessage = model.validateRegistration(username, password_1, password_2, email);
+                    if (errorMessage.equals(CustomerModel.VALID)) {
+                        model = new CustomerModel(username, CustomerModel.FINAL_PASSWORD, fullname, CustomerModel.CUSTOMER_STATUS_ACTIVE, email, FILE_INPUT_STREAM);
                         service.insertCustomerToDB(model);
                         weakReference.get().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 view.onSuccess();
+                                view.hideLoadingCircler();
                             }
                         });
                     } else {
@@ -43,6 +51,7 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                             @Override
                             public void run() {
                                 view.onError(errorMessage);
+                                view.hideLoadingCircler();
                             }
                         });
                     }
@@ -51,6 +60,7 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                         @Override
                         public void run() {
                             view.onError(e.getMessage());
+                            view.hideLoadingCircler();
                         }
                     });
                     e.printStackTrace();
@@ -59,5 +69,10 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
             }
         });
         thread.start();
+    }
+
+    @Override
+    public void onImageButtonClicked() {
+        view.loadImageFromGallery();
     }
 }

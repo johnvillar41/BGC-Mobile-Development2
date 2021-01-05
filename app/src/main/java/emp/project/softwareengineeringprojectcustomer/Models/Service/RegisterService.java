@@ -38,13 +38,15 @@ public class RegisterService implements IRegister.IRegisterService {
     public void insertCustomerToDB(CustomerModel model) throws ClassNotFoundException, SQLException {
         strictMode();
         Connection connection = DriverManager.getConnection(DatabaseCredentials.DB_NAME, DatabaseCredentials.USER, DatabaseCredentials.PASS);
-        String sqlInsert = "INSERT INTO customer_table(user_username,user_password,user_fullname,user_status)" +
-                "VALUES(?,?,?,?)";
+        String sqlInsert = "INSERT INTO customer_table(user_username,user_password,user_fullname,user_status,customer_email,profile_picture)" +
+                "VALUES(?,?,?,?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert);
         preparedStatement.setString(1, model.getUser_username());
         preparedStatement.setString(2, model.getUser_password());
         preparedStatement.setString(3, model.getUser_fullname());
         preparedStatement.setString(4, model.getUser_status());
+        preparedStatement.setString(5, model.getUser_email());
+        preparedStatement.setBlob(6, model.getInputStream());
         preparedStatement.execute();
         preparedStatement.close();
         connection.close();

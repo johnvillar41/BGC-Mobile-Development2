@@ -1,24 +1,39 @@
 package emp.project.softwareengineeringprojectcustomer.Models.Bean;
 
-public class CustomerModel {
-    private String user_id, user_username, user_password, user_fullname, user_status;
+import java.io.InputStream;
 
-    public CustomerModel(String user_id, String user_username, String user_password, String user_fullname, String user_status) {
+public class CustomerModel {
+    private String user_id, user_username, user_password, user_fullname, user_status, user_email;
+    private InputStream inputStream;
+
+    public CustomerModel(String user_id, String user_username, String user_password, String user_fullname, String user_status, String user_email, InputStream inputStream) {
         this.user_id = user_id;
         this.user_username = user_username;
         this.user_password = user_password;
         this.user_fullname = user_fullname;
         this.user_status = user_status;
+        this.user_email = user_email;
+        this.inputStream = inputStream;
     }
 
-    public CustomerModel(String user_username, String user_password, String user_fullname, String user_status) {
+    public CustomerModel(String user_username, String user_password, String user_fullname, String user_status, String user_email, InputStream inputStream) {
         this.user_username = user_username;
         this.user_password = user_password;
         this.user_fullname = user_fullname;
         this.user_status = user_status;
+        this.user_email = user_email;
+        this.inputStream = inputStream;
     }
 
     public CustomerModel() {
+    }
+
+    public InputStream getInputStream() {
+        return inputStream;
+    }
+
+    public String getUser_email() {
+        return user_email;
     }
 
     public String getUser_id() {
@@ -55,8 +70,8 @@ public class CustomerModel {
     public static String FINAL_PASSWORD = null;
     public static final String CUSTOMER_STATUS_ACTIVE = "Active";
 
-    public String validateRegistration(String username, String password_1, String password_2) {
-        if (username.isEmpty() || password_1.isEmpty() || password_2.isEmpty()) {
+    public String validateRegistration(String username, String password_1, String password_2, String user_email) {
+        if (username.isEmpty() || password_1.isEmpty() || password_2.isEmpty() || user_email.isEmpty()) {
             return EMPTY_FIELD;
         } else if (!password_1.equals(password_2)) {
             return PASSWORD_NOT_EQUAL;
