@@ -39,6 +39,11 @@ import emp.project.softwareengineeringprojectcustomer.R;
 public class RegisterActivityView extends AppCompatActivity implements IRegister.IRegisterView {
     private IRegister.IRegisterPresenter presenter;
     private LottieAnimationView progressIndicator;
+    private TextInputLayout txt_username;
+    private TextInputLayout txt_password;
+    private TextInputLayout txt_password2;
+    private TextInputLayout txt_fullname;
+    private TextInputLayout txt_email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +59,11 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        TextInputLayout txt_username = findViewById(R.id.txt_username);
-        TextInputLayout txt_password = findViewById(R.id.txt_password);
-        TextInputLayout txt_password2 = findViewById(R.id.txt_password2);
-        TextInputLayout txt_fullname = findViewById(R.id.txt_full_name);
-        TextInputLayout txt_email = findViewById(R.id.txt_email);
+        txt_username = findViewById(R.id.txt_username);
+        txt_password = findViewById(R.id.txt_password);
+        txt_password2 = findViewById(R.id.txt_password2);
+        txt_fullname = findViewById(R.id.txt_full_name);
+        txt_email = findViewById(R.id.txt_email);
         Button btn_register = findViewById(R.id.btn_register);
         PROFILE_PICTURE = findViewById(R.id.image_profile_picture);
         progressIndicator = findViewById(R.id.progressIndicator);
@@ -192,7 +197,7 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             this.finish();
         }
         return super.onOptionsItemSelected(item);

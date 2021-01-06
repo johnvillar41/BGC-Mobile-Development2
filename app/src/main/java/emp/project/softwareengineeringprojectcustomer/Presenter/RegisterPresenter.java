@@ -37,7 +37,7 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                 try {
                     String errorMessage = model.validateRegistration(username, password_1, password_2, email);
                     if (errorMessage.equals(CustomerModel.VALID)) {
-                        model = new CustomerModel(username, CustomerModel.FINAL_PASSWORD, fullname, CustomerModel.CUSTOMER_STATUS_ACTIVE, email, FILE_INPUT_STREAM);
+                        model = new CustomerModel(username, CustomerModel.FINAL_PASSWORD, fullname, CustomerModel.CUSTOMER_STATUS_PENDING, email, FILE_INPUT_STREAM);
                         service.insertCustomerToDB(model);
                         weakReference.get().runOnUiThread(new Runnable() {
                             @Override

@@ -64,11 +64,11 @@ public class CustomerModel {
         }
     }
 
-    private static final String EMPTY_FIELD = "One or more fields are empty!";
-    private static final String PASSWORD_NOT_EQUAL = "Password fields not equal!";
+    public static final String EMPTY_FIELD = "One or more fields are empty!";
+    public static final String PASSWORD_NOT_EQUAL = "Password fields not equal!";
     public static final String VALID = "Successfull!";
     public static String FINAL_PASSWORD = null;
-    public static final String CUSTOMER_STATUS_ACTIVE = "Active";
+    public static final String CUSTOMER_STATUS_PENDING = "Pending";
 
     public String validateRegistration(String username, String password_1, String password_2, String user_email) {
         if (username.isEmpty() || password_1.isEmpty() || password_2.isEmpty() || user_email.isEmpty()) {

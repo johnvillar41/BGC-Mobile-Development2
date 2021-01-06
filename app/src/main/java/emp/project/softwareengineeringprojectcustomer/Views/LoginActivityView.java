@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +23,7 @@ import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 import emp.project.softwareengineeringprojectcustomer.Presenter.LoginPresenter;
 import emp.project.softwareengineeringprojectcustomer.R;
 
-public class LoginActivityView extends AppCompatActivity implements ILogin.ILoginView{
+public class LoginActivityView extends AppCompatActivity implements ILogin.ILoginView {
     private ILogin.ILoginPresenter presenter;
     private LottieAnimationView lottieAnimationView_Loader;
 
@@ -32,7 +34,7 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login_view);
 
-        presenter = new LoginPresenter(this, new CustomerModel(),this);
+        presenter = new LoginPresenter(this, new CustomerModel(), this);
         Toolbar toolbar = findViewById(R.id.loginToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -61,10 +63,12 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onSuccess() {
         Toast.makeText(this, "Login Successfull!", Toast.LENGTH_SHORT).show();
-        //menu
+        Intent intent = new Intent(LoginActivityView.this, MainActivityView.class);
+        startActivity(intent);
     }
 
     @Override
