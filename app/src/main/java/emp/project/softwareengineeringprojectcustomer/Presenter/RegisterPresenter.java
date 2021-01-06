@@ -23,6 +23,10 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
         this.service = RegisterService.getInstance();
     }
 
+    private static final String ENTER_ALL_FIELDS = "Please enter all fields!";
+    private static final String PASSWORD_NOT_EQUAL = "Password fields are not equal!";
+    private static final String EMPTY_IMAGE = "Please Enter Image!";
+
     @Override
     public void onRegisterButtonClicked(String username, String password_1, String password_2, String fullname, String email, InputStream FILE_INPUT_STREAM) {
         Thread thread = new Thread(new Runnable() {
@@ -35,8 +39,8 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                     }
                 });
                 try {
-                    String errorMessage = model.validateRegistration(username, password_1, password_2, email);
-                    if (errorMessage.equals(CustomerModel.VALID)) {
+                    CustomerModel.VALIDITY validity = model.validateRegistration(username, password_1, password_2, email, FILE_INPUT_STREAM);
+                    if (validity.equals(CustomerModel.VALIDITY.VALID)) {
                         model = new CustomerModel(username, CustomerModel.FINAL_PASSWORD, fullname, CustomerModel.CUSTOMER_STATUS_PENDING, email, FILE_INPUT_STREAM);
                         service.insertCustomerToDB(model);
                         weakReference.get().runOnUiThread(new Runnable() {
@@ -46,11 +50,27 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                                 view.hideLoadingCircler();
                             }
                         });
-                    } else {
+                    } else if (validity.equals(CustomerModel.VALIDITY.EMPTY_FIELD)) {
                         weakReference.get().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                view.onError(errorMessage);
+                                view.onError(ENTER_ALL_FIELDS);
+                                view.hideLoadingCircler();
+                            }
+                        });
+                    } else if (validity.equals(CustomerModel.VALIDITY.PASSWORD_NOT_EQUAL)) {
+                        weakReference.get().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                view.onError(PASSWORD_NOT_EQUAL);
+                                view.hideLoadingCircler();
+                            }
+                        });
+                    } else if (validity.equals(CustomerModel.VALIDITY.EMPTY_IMAGE)) {
+                        weakReference.get().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                view.onError(EMPTY_IMAGE);
                                 view.hideLoadingCircler();
                             }
                         });

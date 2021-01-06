@@ -36,7 +36,8 @@ public class LoginPresenter implements ILogin.ILoginPresenter {
                             view.displayProgressLoader();
                         }
                     });
-                    if (model.validateLogin(username, password)) {
+                    CustomerModel.VALIDITY validity = model.validateLogin(username, password);
+                    if (validity.equals(CustomerModel.VALIDITY.VALID)) {
                         if (service.fetchCustomerLoginCredentials(username, password)) {
                             weakReference_Context.get().runOnUiThread(new Runnable() {
                                 @Override
@@ -53,7 +54,7 @@ public class LoginPresenter implements ILogin.ILoginPresenter {
                                 }
                             });
                         }
-                    } else {
+                    } else if(validity.equals(CustomerModel.VALIDITY.EMPTY_FIELD)){
                         weakReference_Context.get().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

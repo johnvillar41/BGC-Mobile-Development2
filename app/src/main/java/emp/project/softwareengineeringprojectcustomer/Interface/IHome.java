@@ -1,0 +1,21 @@
+package emp.project.softwareengineeringprojectcustomer.Interface;
+
+import java.util.List;
+
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
+
+public interface IHome {
+    interface IHomeView {
+        void displayProgressBar();
+
+        void hideProgressBar();
+    }
+
+    interface IHomePresenter {
+        void onCategoryButtonClicked(String category);
+    }
+
+    interface IHomeService {
+        List<ProductModel> getProducts(String category);
+    }
+}

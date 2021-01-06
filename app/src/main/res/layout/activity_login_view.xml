@@ -26,10 +26,10 @@
     <com.airbnb.lottie.LottieAnimationView
         android:layout_marginTop="?actionBarSize"
         android:id="@+id/progressBar_loader"
-        android:layout_width="200sp"
+        android:layout_width="match_parent"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:layout_height="200sp"
+        android:layout_height="400sp"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
         android:visibility="gone"

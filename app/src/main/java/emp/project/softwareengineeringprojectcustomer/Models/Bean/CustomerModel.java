@@ -56,28 +56,34 @@ public class CustomerModel {
         return user_status;
     }
 
-    public boolean validateLogin(String username, String password) {
+    public VALIDITY validateLogin(String username, String password) {
         if (username.isEmpty() || password.isEmpty()) {
-            return false;
+            return VALIDITY.EMPTY_FIELD;
         } else {
-            return true;
+            return VALIDITY.VALID;
         }
     }
 
-    public static final String EMPTY_FIELD = "One or more fields are empty!";
-    public static final String PASSWORD_NOT_EQUAL = "Password fields not equal!";
-    public static final String VALID = "Successfull!";
     public static String FINAL_PASSWORD = null;
     public static final String CUSTOMER_STATUS_PENDING = "Pending";
 
-    public String validateRegistration(String username, String password_1, String password_2, String user_email) {
+    public enum VALIDITY {
+        EMPTY_FIELD,
+        EMPTY_IMAGE,
+        PASSWORD_NOT_EQUAL,
+        VALID;
+    }
+
+    public VALIDITY validateRegistration(String username, String password_1, String password_2, String user_email, InputStream FILE_INPUT_STREAM) {
         if (username.isEmpty() || password_1.isEmpty() || password_2.isEmpty() || user_email.isEmpty()) {
-            return EMPTY_FIELD;
+            return VALIDITY.EMPTY_FIELD;
         } else if (!password_1.equals(password_2)) {
-            return PASSWORD_NOT_EQUAL;
+            return VALIDITY.PASSWORD_NOT_EQUAL;
+        } else if (FILE_INPUT_STREAM == null) {
+            return VALIDITY.EMPTY_IMAGE;
         } else {
             FINAL_PASSWORD = password_1;
-            return VALID;
+            return VALIDITY.VALID;
         }
     }
 }
