@@ -12,13 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".Views.MainActivityView"
+            android:name=".Views.Activities.MainActivityView"
             android:label="@string/title_activity_main_view"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
-        <activity android:name=".Views.RegisterActivityView" />
-        <activity android:name=".Views.LoginActivityView" />
-        <activity android:name=".IntroActivityView" />
+        <activity android:name=".Views.Activities.RegisterActivityView" />
+        <activity android:name=".Views.Activities.LoginActivityView" />
+        <activity android:name=".IntroActivityView"
+            />
         <activity android:name=".LoadingScreenView" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

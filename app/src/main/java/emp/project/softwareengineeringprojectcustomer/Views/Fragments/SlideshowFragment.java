@@ -1,4 +1,4 @@
-package emp.project.softwareengineeringprojectcustomer.Views.ui.slideshow;
+package emp.project.softwareengineeringprojectcustomer.Views.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

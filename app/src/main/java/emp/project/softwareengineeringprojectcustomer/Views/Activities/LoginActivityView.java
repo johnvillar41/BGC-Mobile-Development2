@@ -1,11 +1,10 @@
-package emp.project.softwareengineeringprojectcustomer.Views;
+package emp.project.softwareengineeringprojectcustomer.Views.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -66,6 +65,7 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
 
     @Override
     public void onSuccess() {
+        this.finish();
         Toast.makeText(this, "Login Successfull!", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(LoginActivityView.this, MainActivityView.class);
         startActivity(intent);

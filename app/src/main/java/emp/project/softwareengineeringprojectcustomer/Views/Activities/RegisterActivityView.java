@@ -1,4 +1,4 @@
-package emp.project.softwareengineeringprojectcustomer.Views;
+package emp.project.softwareengineeringprojectcustomer.Views.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

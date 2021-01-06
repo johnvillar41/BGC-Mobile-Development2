@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import emp.project.softwareengineeringprojectcustomer.Interface.IRegister;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Service.RegisterService;
-import emp.project.softwareengineeringprojectcustomer.Views.RegisterActivityView;
+import emp.project.softwareengineeringprojectcustomer.Views.Activities.RegisterActivityView;
 
 public class RegisterPresenter implements IRegister.IRegisterPresenter {
 

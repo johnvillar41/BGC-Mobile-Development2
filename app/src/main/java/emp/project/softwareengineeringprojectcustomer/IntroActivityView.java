@@ -9,8 +9,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import emp.project.softwareengineeringprojectcustomer.Views.LoginActivityView;
-import emp.project.softwareengineeringprojectcustomer.Views.RegisterActivityView;
+import emp.project.softwareengineeringprojectcustomer.Views.Activities.LoginActivityView;
+import emp.project.softwareengineeringprojectcustomer.Views.Activities.RegisterActivityView;
 
 public class IntroActivityView extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,6 +25,12 @@ public class IntroActivityView extends AppCompatActivity implements View.OnClick
         Button btn_register = findViewById(R.id.btn_register);
         btn_login.setOnClickListener(this);
         btn_register.setOnClickListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+        super.onBackPressed();
     }
 
     @Override
