@@ -1,4 +1,4 @@
-package emp.project.softwareengineeringprojectcustomer.Models.Service;
+package emp.project.softwareengineeringprojectcustomer.Models.Database.Service;
 
 import android.os.StrictMode;
 

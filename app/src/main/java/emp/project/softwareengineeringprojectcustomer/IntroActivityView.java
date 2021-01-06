@@ -23,6 +23,7 @@ public class IntroActivityView extends AppCompatActivity implements View.OnClick
 
         Button btn_login = findViewById(R.id.btn_login);
         Button btn_register = findViewById(R.id.btn_register);
+
         btn_login.setOnClickListener(this);
         btn_register.setOnClickListener(this);
     }
@@ -32,6 +33,7 @@ public class IntroActivityView extends AppCompatActivity implements View.OnClick
         moveTaskToBack(true);
         super.onBackPressed();
     }
+
 
     @Override
     public void onClick(View v) {

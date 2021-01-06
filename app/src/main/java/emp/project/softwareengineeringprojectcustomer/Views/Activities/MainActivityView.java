@@ -83,6 +83,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
     private static final String GALLERY = "Gallery";
     private static final String SLIDE_SHOW = "Slide Show";
 
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

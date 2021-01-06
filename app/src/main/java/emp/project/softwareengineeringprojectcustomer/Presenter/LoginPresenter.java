@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.ILogin;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
-import emp.project.softwareengineeringprojectcustomer.Models.Service.LoginService;
+import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.LoginService;
 import emp.project.softwareengineeringprojectcustomer.Views.Activities.LoginActivityView;
 
 public class LoginPresenter implements ILogin.ILoginPresenter {
