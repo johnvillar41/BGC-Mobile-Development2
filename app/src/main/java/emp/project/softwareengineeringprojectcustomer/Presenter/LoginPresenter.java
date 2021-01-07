@@ -38,7 +38,7 @@ public class LoginPresenter implements ILogin.ILoginPresenter {
                     });
                     CustomerModel.VALIDITY validity = model.validateLogin(username, password);
                     if (validity.equals(CustomerModel.VALIDITY.VALID)) {
-                        if (service.fetchCustomerLoginCredentials(username, password)) {
+                        if (service.fetchCustomerLoginCredentials(username, password) ) {
                             weakReference_Context.get().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {

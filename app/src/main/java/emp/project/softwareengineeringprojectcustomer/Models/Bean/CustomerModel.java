@@ -65,7 +65,6 @@ public class CustomerModel {
     }
 
     public static String FINAL_PASSWORD = null;
-    public static final String CUSTOMER_STATUS_PENDING = "Pending";
 
     public enum VALIDITY {
         EMPTY_FIELD,

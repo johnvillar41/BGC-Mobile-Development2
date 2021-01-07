@@ -9,6 +9,10 @@ public interface IHome {
         void displayProgressBar();
 
         void hideProgressBar();
+
+        void displayRecyclerViewCategory();
+
+        void displayRecyclerViewHome();
     }
 
     interface IHomePresenter {

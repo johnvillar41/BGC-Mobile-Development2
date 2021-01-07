@@ -42,4 +42,14 @@ public class HomeFragment extends Fragment implements IHome.IHomeView {
     public void hideProgressBar() {
         lottieAnimationView_loading.setVisibility(View.GONE);
     }
+
+    @Override
+    public void displayRecyclerViewCategory() {
+        
+    }
+
+    @Override
+    public void displayRecyclerViewHome() {
+
+    }
 }

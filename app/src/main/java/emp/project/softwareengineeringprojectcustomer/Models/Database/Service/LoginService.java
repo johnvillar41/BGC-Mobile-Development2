@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import emp.project.softwareengineeringprojectcustomer.Interface.DatabaseCredentials;
 import emp.project.softwareengineeringprojectcustomer.Interface.ILogin;
 
 public class LoginService implements ILogin.ILoginService {
@@ -37,7 +36,7 @@ public class LoginService implements ILogin.ILoginService {
     @Override
     public boolean fetchCustomerLoginCredentials(String username, String password) throws SQLException, ClassNotFoundException {
         strictMode();
-        Connection connection = DriverManager.getConnection(DatabaseCredentials.DB_NAME, DatabaseCredentials.USER, DatabaseCredentials.PASS);
+        Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
         String sqlGetCustomer = "SELECT * FROM customer_table WHERE user_username=? AND user_password=?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlGetCustomer);
         preparedStatement.setString(1, username);
