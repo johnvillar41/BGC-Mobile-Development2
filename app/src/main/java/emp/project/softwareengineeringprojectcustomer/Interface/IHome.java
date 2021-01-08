@@ -21,5 +21,7 @@ public interface IHome {
 
     interface IHomeService {
         List<ProductModel> getProducts(String category);
+
+        List<String> getCategories();
     }
 }

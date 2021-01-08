@@ -18,6 +18,7 @@ public interface ILogin {
     }
 
     interface ILoginService extends IStrictMode {
+
         boolean fetchCustomerLoginCredentials(String username, String password) throws SQLException, ClassNotFoundException;
     }
 }

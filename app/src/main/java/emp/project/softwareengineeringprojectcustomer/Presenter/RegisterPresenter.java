@@ -1,5 +1,8 @@
 package emp.project.softwareengineeringprojectcustomer.Presenter;
 
+import android.app.Activity;
+import android.content.Context;
+
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.sql.SQLException;
@@ -14,26 +17,26 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
     private IRegister.IRegisterView view;
     private IRegister.IRegisterService service;
     private CustomerModel model;
-    private WeakReference<RegisterActivityView> weakReference;
+    private WeakReference<Context> weakReference;
 
-    public RegisterPresenter(IRegister.IRegisterView view, CustomerModel model, RegisterActivityView weakReference) {
+    public RegisterPresenter(IRegister.IRegisterView view, CustomerModel model, Context weakReference) {
         this.view = view;
         this.model = model;
         this.weakReference = new WeakReference<>(weakReference);
         this.service = RegisterService.getInstance();
     }
 
-    private static final String ENTER_ALL_FIELDS = "Please enter all fields!";
-    private static final String PASSWORD_NOT_EQUAL = "Password fields are not equal!";
-    private static final String EMPTY_IMAGE = "Please Enter Image!";
-    private static final String CUSTOMER_STATUS_PENDING = "Pending";
+    public static final String ENTER_ALL_FIELDS = "Please enter all fields!";
+    public static final String PASSWORD_NOT_EQUAL = "Password fields are not equal!";
+    public static final String EMPTY_IMAGE = "Please Enter Image!";
+    public static final String CUSTOMER_STATUS_PENDING = "Pending";
 
     @Override
     public void onRegisterButtonClicked(String username, String password_1, String password_2, String fullname, String email, InputStream FILE_INPUT_STREAM) {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                weakReference.get().runOnUiThread(new Runnable() {
+                ((Activity)weakReference.get()).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         view.displayLoadingCircle();
@@ -45,7 +48,7 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                         case VALID:
                             model = new CustomerModel(username, CustomerModel.FINAL_PASSWORD, fullname, CUSTOMER_STATUS_PENDING, email, FILE_INPUT_STREAM);
                             service.insertCustomerToDB(model);
-                            weakReference.get().runOnUiThread(new Runnable() {
+                            ((Activity)weakReference.get()).runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     view.onSuccess();
@@ -54,7 +57,7 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                             });
                             break;
                         case EMPTY_FIELD:
-                            weakReference.get().runOnUiThread(new Runnable() {
+                            ((Activity)weakReference.get()).runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     view.onError(ENTER_ALL_FIELDS);
@@ -63,7 +66,7 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                             });
                             break;
                         case PASSWORD_NOT_EQUAL:
-                            weakReference.get().runOnUiThread(new Runnable() {
+                            ((Activity)weakReference.get()).runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     view.onError(PASSWORD_NOT_EQUAL);
@@ -72,7 +75,7 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                             });
                             break;
                         case EMPTY_IMAGE:
-                            weakReference.get().runOnUiThread(new Runnable() {
+                            ((Activity)weakReference.get()).runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     view.onError(EMPTY_IMAGE);
@@ -82,7 +85,7 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                             break;
                     }
                 } catch (SQLException | ClassNotFoundException e) {
-                    weakReference.get().runOnUiThread(new Runnable() {
+                    ((Activity)weakReference.get()).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             view.onError(e.getMessage());

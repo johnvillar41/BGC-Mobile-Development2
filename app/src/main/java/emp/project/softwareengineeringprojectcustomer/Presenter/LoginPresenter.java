@@ -1,5 +1,8 @@
 package emp.project.softwareengineeringprojectcustomer.Presenter;
 
+import android.app.Activity;
+import android.content.Context;
+
 import java.lang.ref.WeakReference;
 import java.sql.SQLException;
 
@@ -12,9 +15,9 @@ public class LoginPresenter implements ILogin.ILoginPresenter {
     private ILogin.ILoginView view;
     private ILogin.ILoginService service;
     private CustomerModel model;
-    private WeakReference<LoginActivityView> weakReference_Context;
+    private WeakReference<Context> weakReference_Context;
 
-    public LoginPresenter(ILogin.ILoginView view, CustomerModel model, LoginActivityView weakReference_Context) {
+    public LoginPresenter(ILogin.ILoginView view, CustomerModel model, Context weakReference_Context) {
         this.view = view;
         this.model = model;
         this.service = LoginService.getInstance();
@@ -30,7 +33,7 @@ public class LoginPresenter implements ILogin.ILoginPresenter {
             @Override
             public void run() {
                 try {
-                    weakReference_Context.get().runOnUiThread(new Runnable() {
+                    ((Activity)weakReference_Context.get()).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             view.displayProgressLoader();
@@ -39,14 +42,14 @@ public class LoginPresenter implements ILogin.ILoginPresenter {
                     CustomerModel.VALIDITY validity = model.validateLogin(username, password);
                     if (validity.equals(CustomerModel.VALIDITY.VALID)) {
                         if (service.fetchCustomerLoginCredentials(username, password) ) {
-                            weakReference_Context.get().runOnUiThread(new Runnable() {
+                            ((Activity)weakReference_Context.get()).runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     view.onSuccess();
                                 }
                             });
                         } else {
-                            weakReference_Context.get().runOnUiThread(new Runnable() {
+                            ((Activity)weakReference_Context.get()).runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     view.onError(USER_NOT_FOUND);
@@ -55,7 +58,7 @@ public class LoginPresenter implements ILogin.ILoginPresenter {
                             });
                         }
                     } else if(validity.equals(CustomerModel.VALIDITY.EMPTY_FIELD)){
-                        weakReference_Context.get().runOnUiThread(new Runnable() {
+                        ((Activity)weakReference_Context.get()).runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 view.onError(EMPTY_FIELD);

@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class HomeCategoryRecyclerView extends RecyclerView.Adapter<HomeCategoryRecyclerView.MyViewHolder> {
@@ -19,7 +21,8 @@ public class HomeCategoryRecyclerView extends RecyclerView.Adapter<HomeCategoryR
         this.context = context;
     }
 
-    @NonNull
+
+    @NotNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return null;
