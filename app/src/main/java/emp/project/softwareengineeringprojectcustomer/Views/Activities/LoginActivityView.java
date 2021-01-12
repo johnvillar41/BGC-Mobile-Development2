@@ -19,6 +19,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.ILogin;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
+import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.LoginService;
 import emp.project.softwareengineeringprojectcustomer.Presenter.LoginPresenter;
 import emp.project.softwareengineeringprojectcustomer.R;
 
@@ -33,7 +34,7 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login_view);
 
-        presenter = new LoginPresenter(this, new CustomerModel(), this);
+        presenter = new LoginPresenter(this, new CustomerModel(),LoginService.getInstance());
         Toolbar toolbar = findViewById(R.id.loginToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -66,24 +67,47 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
     @Override
     public void onSuccess() {
         this.finish();
-        Toast.makeText(this, "Login Successfull!", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(LoginActivityView.this, MainActivityView.class);
-        startActivity(intent);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(LoginActivityView.this, "Login Successfull!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivityView.this, MainActivityView.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
     public void onError(String errorMessage) {
-        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(LoginActivityView.this, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
     public void displayProgressLoader() {
-        lottieAnimationView_Loader.setVisibility(View.VISIBLE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                lottieAnimationView_Loader.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     @Override
     public void hideProgressLoader() {
-        lottieAnimationView_Loader.setVisibility(View.GONE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                lottieAnimationView_Loader.setVisibility(View.GONE);
+            }
+        });
     }
 
 }

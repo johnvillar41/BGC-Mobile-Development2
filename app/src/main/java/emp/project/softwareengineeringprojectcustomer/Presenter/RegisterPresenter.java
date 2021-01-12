@@ -17,13 +17,11 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
     private IRegister.IRegisterView view;
     private IRegister.IRegisterService service;
     private CustomerModel model;
-    private WeakReference<Context> weakReference;
 
-    public RegisterPresenter(IRegister.IRegisterView view, CustomerModel model, Context weakReference) {
+    public RegisterPresenter(IRegister.IRegisterView view, CustomerModel model, IRegister.IRegisterService service) {
         this.view = view;
         this.model = model;
-        this.weakReference = new WeakReference<>(weakReference);
-        this.service = RegisterService.getInstance();
+        this.service = service;
     }
 
     public static final String ENTER_ALL_FIELDS = "Please enter all fields!";
@@ -36,62 +34,32 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                ((Activity)weakReference.get()).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        view.displayLoadingCircle();
-                    }
-                });
+                view.displayLoadingCircle();
                 try {
                     CustomerModel.VALIDITY validity = model.validateRegistration(username, password_1, password_2, email, FILE_INPUT_STREAM);
                     switch (validity) {
                         case VALID:
                             model = new CustomerModel(username, CustomerModel.FINAL_PASSWORD, fullname, CUSTOMER_STATUS_PENDING, email, FILE_INPUT_STREAM);
                             service.insertCustomerToDB(model);
-                            ((Activity)weakReference.get()).runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    view.onSuccess();
-                                    view.hideLoadingCircler();
-                                }
-                            });
+                            view.onSuccess();
+                            view.hideLoadingCircler();
                             break;
                         case EMPTY_FIELD:
-                            ((Activity)weakReference.get()).runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    view.onError(ENTER_ALL_FIELDS);
-                                    view.hideLoadingCircler();
-                                }
-                            });
+                            view.onError(ENTER_ALL_FIELDS);
+                            view.hideLoadingCircler();
                             break;
                         case PASSWORD_NOT_EQUAL:
-                            ((Activity)weakReference.get()).runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    view.onError(PASSWORD_NOT_EQUAL);
-                                    view.hideLoadingCircler();
-                                }
-                            });
+                            view.onError(PASSWORD_NOT_EQUAL);
+                            view.hideLoadingCircler();
                             break;
                         case EMPTY_IMAGE:
-                            ((Activity)weakReference.get()).runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    view.onError(EMPTY_IMAGE);
-                                    view.hideLoadingCircler();
-                                }
-                            });
+                            view.onError(EMPTY_IMAGE);
+                            view.hideLoadingCircler();
                             break;
                     }
                 } catch (SQLException | ClassNotFoundException e) {
-                    ((Activity)weakReference.get()).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            view.onError(e.getMessage());
-                            view.hideLoadingCircler();
-                        }
-                    });
+                    view.onError(e.getMessage());
+                    view.hideLoadingCircler();
                 }
             }
         });

@@ -26,14 +26,6 @@ public class RegisterService implements IRegister.IRegisterService {
     }
 
     @Override
-    public void strictMode() throws ClassNotFoundException {
-        StrictMode.ThreadPolicy policy;
-        policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        Class.forName("com.mysql.jdbc.Driver");
-    }
-
-    @Override
     public void insertCustomerToDB(CustomerModel model) throws ClassNotFoundException, SQLException {
         strictMode();
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);

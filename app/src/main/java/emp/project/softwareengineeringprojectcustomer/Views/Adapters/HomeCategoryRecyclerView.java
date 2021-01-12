@@ -1,15 +1,21 @@
 package emp.project.softwareengineeringprojectcustomer.Views.Adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+
+import emp.project.softwareengineeringprojectcustomer.R;
 
 public class HomeCategoryRecyclerView extends RecyclerView.Adapter<HomeCategoryRecyclerView.MyViewHolder> {
 
@@ -25,12 +31,25 @@ public class HomeCategoryRecyclerView extends RecyclerView.Adapter<HomeCategoryR
     @NotNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.custom_adapter_recycler_category, parent, false);
+        return new HomeCategoryRecyclerView.MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        String category = getCategory(position);
+        holder.txt_category.setText(category);
+        holder.fab_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //call presenter here to load recyclerView Items
+            }
+        });
+    }
 
+    private String getCategory(int position) {
+        return categoryList.get(position);
     }
 
     @Override
@@ -38,9 +57,14 @@ public class HomeCategoryRecyclerView extends RecyclerView.Adapter<HomeCategoryR
         return categoryList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView txt_category;
+        FloatingActionButton fab_check;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            txt_category = itemView.findViewById(R.id.txt_category);
+            fab_check = itemView.findViewById(R.id.fab_check);
         }
     }
 }

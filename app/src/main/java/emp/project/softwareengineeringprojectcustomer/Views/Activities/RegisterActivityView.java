@@ -33,6 +33,7 @@ import java.io.InputStream;
 import de.hdodenhof.circleimageview.CircleImageView;
 import emp.project.softwareengineeringprojectcustomer.Interface.IRegister;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
+import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.RegisterService;
 import emp.project.softwareengineeringprojectcustomer.Presenter.RegisterPresenter;
 import emp.project.softwareengineeringprojectcustomer.R;
 
@@ -52,7 +53,7 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_register_view);
 
-        presenter = new RegisterPresenter(this, new CustomerModel(), this);
+        presenter = new RegisterPresenter(this, new CustomerModel(), RegisterService.getInstance());
 
         Toolbar toolbar = findViewById(R.id.loginToolbar);
         setSupportActionBar(toolbar);
@@ -91,23 +92,38 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
 
     @Override
     public void onSuccess() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.custom_popup_successfull_registration, null);
-        dialogBuilder.setView(dialogView);
-        AlertDialog dialog = dialogBuilder.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.show();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(RegisterActivityView.this);
+                LayoutInflater inflater = getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.custom_popup_successfull_registration, null);
+                dialogBuilder.setView(dialogView);
+                AlertDialog dialog = dialogBuilder.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
     }
 
     @Override
     public void onError(String errorMessage) {
-        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(RegisterActivityView.this, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     public void displayLoadingCircle() {
-        progressIndicator.setVisibility(View.VISIBLE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressIndicator.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -121,9 +137,14 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
 
     @Override
     public void loadImageFromGallery() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        startActivityForResult(intent, IMAGE_PICK_CODE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, IMAGE_PICK_CODE);
+            }
+        });
     }
 
     @Override

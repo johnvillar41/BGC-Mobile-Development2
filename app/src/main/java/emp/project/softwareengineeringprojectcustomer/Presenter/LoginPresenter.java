@@ -15,17 +15,16 @@ public class LoginPresenter implements ILogin.ILoginPresenter {
     private ILogin.ILoginView view;
     private ILogin.ILoginService service;
     private CustomerModel model;
-    private WeakReference<Context> weakReference_Context;
 
-    public LoginPresenter(ILogin.ILoginView view, CustomerModel model, Context weakReference_Context) {
+
+    public LoginPresenter(ILogin.ILoginView view, CustomerModel model, ILogin.ILoginService service) {
         this.view = view;
         this.model = model;
-        this.service = LoginService.getInstance();
-        this.weakReference_Context = new WeakReference<>(weakReference_Context);
+        this.service = service;
     }
 
-    private final static String USER_NOT_FOUND = "User not found!";
-    private final static String EMPTY_FIELD = "One or more fields are empty!";
+    public final static String USER_NOT_FOUND = "User not found!";
+    public final static String EMPTY_FIELD = "One or more fields are empty!";
 
     @Override
     public void onLoginButtonClicked(String username, String password) {
@@ -33,38 +32,19 @@ public class LoginPresenter implements ILogin.ILoginPresenter {
             @Override
             public void run() {
                 try {
-                    ((Activity)weakReference_Context.get()).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            view.displayProgressLoader();
-                        }
-                    });
+                    view.displayProgressLoader();
                     CustomerModel.VALIDITY validity = model.validateLogin(username, password);
                     if (validity.equals(CustomerModel.VALIDITY.VALID)) {
-                        if (service.fetchCustomerLoginCredentials(username, password) ) {
-                            ((Activity)weakReference_Context.get()).runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    view.onSuccess();
-                                }
-                            });
+                        if (service.fetchCustomerLoginCredentials(username, password)) {
+                            view.onSuccess();
                         } else {
-                            ((Activity)weakReference_Context.get()).runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    view.onError(USER_NOT_FOUND);
-                                    view.hideProgressLoader();
-                                }
-                            });
+                            view.onError(USER_NOT_FOUND);
+                            view.hideProgressLoader();
                         }
-                    } else if(validity.equals(CustomerModel.VALIDITY.EMPTY_FIELD)){
-                        ((Activity)weakReference_Context.get()).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                view.onError(EMPTY_FIELD);
-                                view.hideProgressLoader();
-                            }
-                        });
+
+                    } else if (validity.equals(CustomerModel.VALIDITY.EMPTY_FIELD)) {
+                        view.onError(EMPTY_FIELD);
+                        view.hideProgressLoader();
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();

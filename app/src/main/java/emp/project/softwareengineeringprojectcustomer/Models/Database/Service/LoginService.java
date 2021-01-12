@@ -26,14 +26,6 @@ public class LoginService implements ILogin.ILoginService {
     }
 
     @Override
-    public void strictMode() throws ClassNotFoundException {
-        StrictMode.ThreadPolicy policy;
-        policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        Class.forName("com.mysql.jdbc.Driver");
-    }
-
-    @Override
     public boolean fetchCustomerLoginCredentials(String username, String password) throws SQLException, ClassNotFoundException {
         strictMode();
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);

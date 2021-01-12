@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:id="@+id/fab_check"
-            android:backgroundTint="#f9b207"
+            app:backgroundTint="#f9b207"
             android:src="@drawable/ic_check"
             android:layout_margin="20dp"
             android:layout_alignParentEnd="true"
