@@ -32,13 +32,15 @@ public class HomeService implements IHome.IHomeService {
     @Override
     public List<ProductModel> getProducts(String category) throws ClassNotFoundException, SQLException {
         strictMode();
+        ProductModel model;
         List<ProductModel> productList = new ArrayList<>();
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
-        String sqlGetProducts = "SELECT * FROM products_table";
+        String sqlGetProducts = "SELECT * FROM products_table WHERE product_category=?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlGetProducts);
+        preparedStatement.setString(1,category);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
-            ProductModel model = new ProductModel(
+            model = new ProductModel(
                     resultSet.getString("product_id"),
                     resultSet.getString("product_name"),
                     resultSet.getString("product_description"),

@@ -20,15 +20,17 @@ import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.Ho
 import emp.project.softwareengineeringprojectcustomer.Presenter.HomePresenter;
 import emp.project.softwareengineeringprojectcustomer.R;
 import emp.project.softwareengineeringprojectcustomer.Views.Adapters.HomeCategoryRecyclerView;
+import emp.project.softwareengineeringprojectcustomer.Views.Adapters.HomeProductRecyclerView;
 
 public class HomeFragment extends Fragment implements IHome.IHomeView {
     private RecyclerView recyclerView_Category, recyclerView_Home;
     private LottieAnimationView lottieAnimationView_loading;
     private IHome.IHomePresenter presenter;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        presenter=new HomePresenter(this, HomeService.getINSTANCE());
+        presenter = new HomePresenter(this, HomeService.getINSTANCE());
 
         recyclerView_Category = rootView.findViewById(R.id.recyclerView_Category);
         recyclerView_Home = rootView.findViewById(R.id.recyclerView_Home);
@@ -65,10 +67,8 @@ public class HomeFragment extends Fragment implements IHome.IHomeView {
             public void run() {
                 LinearLayoutManager layoutManager
                         = new LinearLayoutManager(HomeFragment.this.getActivity(), LinearLayoutManager.HORIZONTAL, false);
-                layoutManager.setReverseLayout(true);
-                layoutManager.setStackFromEnd(true);
                 HomeCategoryRecyclerView adapter = new HomeCategoryRecyclerView(
-                        categories,HomeFragment.this.getActivity());
+                        categories, HomeFragment.this.getActivity(), presenter);
                 recyclerView_Category.setLayoutManager(layoutManager);
                 recyclerView_Category.setAdapter(adapter);
                 recyclerView_Category.scheduleLayoutAnimation();
@@ -78,7 +78,18 @@ public class HomeFragment extends Fragment implements IHome.IHomeView {
 
     @Override
     public void displayRecyclerViewHomeProducts(List<ProductModel> productModelLists) {
-
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                LinearLayoutManager layoutManager
+                        = new LinearLayoutManager(HomeFragment.this.getActivity(), LinearLayoutManager.VERTICAL, false);
+                HomeProductRecyclerView adapter = new HomeProductRecyclerView(
+                        HomeFragment.this.getActivity(), productModelLists);
+                recyclerView_Home.setLayoutManager(layoutManager);
+                recyclerView_Home.setAdapter(adapter);
+                recyclerView_Home.scheduleLayoutAnimation();
+            }
+        });
 
     }
 

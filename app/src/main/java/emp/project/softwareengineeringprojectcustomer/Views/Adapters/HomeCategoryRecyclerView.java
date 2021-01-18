@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -15,16 +16,18 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import emp.project.softwareengineeringprojectcustomer.Interface.IHome;
 import emp.project.softwareengineeringprojectcustomer.R;
 
 public class HomeCategoryRecyclerView extends RecyclerView.Adapter<HomeCategoryRecyclerView.MyViewHolder> {
 
     List<String> categoryList;
     Context context;
-
-    public HomeCategoryRecyclerView(List<String> categoryList, Context context) {
+    IHome.IHomePresenter presenter;
+    public HomeCategoryRecyclerView(List<String> categoryList, Context context, IHome.IHomePresenter presenter) {
         this.categoryList = categoryList;
         this.context = context;
+        this.presenter = presenter;
     }
 
 
@@ -40,10 +43,10 @@ public class HomeCategoryRecyclerView extends RecyclerView.Adapter<HomeCategoryR
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         String category = getCategory(position);
         holder.txt_category.setText(category);
-        holder.fab_check.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //call presenter here to load recyclerView Items
+                presenter.onCategoryButtonClicked(category);
             }
         });
     }
@@ -59,12 +62,12 @@ public class HomeCategoryRecyclerView extends RecyclerView.Adapter<HomeCategoryR
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView txt_category;
-        FloatingActionButton fab_check;
+        CardView cardView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             txt_category = itemView.findViewById(R.id.txt_category);
-            fab_check = itemView.findViewById(R.id.fab_check);
+            cardView = itemView.findViewById(R.id.cardView_category);
         }
     }
 }

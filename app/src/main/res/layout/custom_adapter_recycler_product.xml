@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="5dp"
+    app:cardCornerRadius="5dp"
+    android:background="?attr/selectableItemBackground"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="5dp"
+            android:id="@+id/image_product"/>
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product name here"
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:layout_toRightOf="@+id/image_product"
+            android:id="@+id/txt_product_name"/>
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price here"
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:layout_below="@+id/txt_product_name"
+            android:layout_toRightOf="@+id/image_product"
+            android:id="@+id/txt_product_price"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buy now"
+            android:layout_marginTop="100dp"
+            android:id="@+id/btn_buy_now"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+
+
+</androidx.cardview.widget.CardView>

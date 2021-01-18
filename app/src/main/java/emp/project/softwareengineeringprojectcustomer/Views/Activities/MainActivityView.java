@@ -52,8 +52,8 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
-            toolbar.setTitle(HOME);
         }
+        toolbar.setTitle(HOME);
     }
 
     @Override
