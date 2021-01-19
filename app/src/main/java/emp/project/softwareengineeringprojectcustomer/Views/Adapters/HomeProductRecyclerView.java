@@ -1,15 +1,22 @@
 package emp.project.softwareengineeringprojectcustomer.Views.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +27,7 @@ import com.mysql.jdbc.Blob;
 import java.sql.SQLException;
 import java.util.List;
 
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
 import emp.project.softwareengineeringprojectcustomer.R;
 
@@ -43,7 +51,6 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        //display picture using
         ProductModel model = getPosition(position);
         Blob b = (Blob) model.getProduct_picture();
         int[] blobLength = new int[1];
@@ -60,10 +67,63 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
         }
         holder.txt_product_price.setText(model.getProduct_price());
         holder.txt_product_name.setText(model.getProduct_name());
+        holder.txt_product_stocks.setText(model.getProduct_stocks());
+        holder.txt_product_description.setText(model.getProduct_description());
         holder.btn_buy_now.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Button Clicked", Toast.LENGTH_SHORT).show();
+                //TODO: Add Number Of Orders here
+                displayAlertDialog(model);
+
+            }
+        });
+    }
+
+    private void displayAlertDialog(ProductModel model) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_popup_order_number, null);
+
+        ImageView imageView_product = dialogView.findViewById(R.id.image_product);
+        Button btn_confirm = dialogView.findViewById(R.id.btn_confirm);
+        CardView cardView_exit = dialogView.findViewById(R.id.exit);
+        EditText editText_number_total = dialogView.findViewById(R.id.txt_total_orders);
+
+        Blob b = (Blob) model.getProduct_picture();
+        int[] blobLength = new int[1];
+        try {
+            blobLength[0] = (int) b.length();
+            byte[] blobAsBytes = b.getBytes(1, blobLength[0]);
+            Glide.with(context)
+                    .load(blobAsBytes)
+                    .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
+                    .skipMemoryCache(true)
+                    .into(imageView_product);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(editText_number_total.getText().toString().isEmpty()){
+                    Toast.makeText(context, "Empty!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Confirmed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+        dialogBuilder.setView(dialogView);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+        cardView_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
             }
         });
     }
@@ -79,7 +139,7 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView product_image;
-        TextView txt_product_name, txt_product_price;
+        TextView txt_product_name, txt_product_price, txt_product_stocks, txt_product_description;
         Button btn_buy_now;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -88,6 +148,8 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
             txt_product_name = itemView.findViewById(R.id.txt_product_name);
             txt_product_price = itemView.findViewById(R.id.txt_product_price);
             btn_buy_now = itemView.findViewById(R.id.btn_buy_now);
+            txt_product_stocks = itemView.findViewById(R.id.txt_product_stocks);
+            txt_product_description = itemView.findViewById(R.id.txt_product_description);
         }
     }
 }

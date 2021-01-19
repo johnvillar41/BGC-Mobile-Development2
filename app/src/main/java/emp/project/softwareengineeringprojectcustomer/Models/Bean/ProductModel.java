@@ -44,4 +44,17 @@ public class ProductModel {
     public Blob getProduct_picture() {
         return product_picture;
     }
+
+    @Override
+    public String toString() {
+        return "ProductModel{" +
+                "product_id='" + product_id + '\'' +
+                ", product_name='" + product_name + '\'' +
+                ", product_price='" + product_price + '\'' +
+                ", product_stocks='" + product_stocks + '\'' +
+                ", product_category='" + product_category + '\'' +
+                ", product_description='" + product_description + '\'' +
+                ", product_picture=" + product_picture +
+                '}';
+    }
 }

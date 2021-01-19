@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,7 +10,10 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:elevation="10dp"
+        android:layout_alignParentTop="true"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        tools:ignore="UnusedAttribute">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -21,6 +24,18 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:id="@+id/fab_cart"
+        android:src="@drawable/ic_baseline_shopping_cart_24"
+        app:backgroundTint="#f9b207"
+        android:layout_alignParentEnd="true" />
+
     <include layout="@layout/content_main"/>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</RelativeLayout>

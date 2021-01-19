@@ -15,6 +15,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import java.util.List;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.IHome;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.HomeService;
 import emp.project.softwareengineeringprojectcustomer.Presenter.HomePresenter;
@@ -92,6 +93,4 @@ public class HomeFragment extends Fragment implements IHome.IHomeView {
         });
 
     }
-
-
 }

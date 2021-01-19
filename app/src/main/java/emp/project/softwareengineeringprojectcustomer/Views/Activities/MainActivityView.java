@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -23,7 +24,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import emp.project.softwareengineeringprojectcustomer.IntroActivityView;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.R;
+import emp.project.softwareengineeringprojectcustomer.Views.Fragments.CheckoutFragment;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.GalleryFragment;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.HomeFragment;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.SlideshowFragment;
@@ -32,6 +35,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
 
     private DrawerLayout drawer;
     private Toolbar toolbar;
+    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,16 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        floatingActionButton = findViewById(R.id.fab_cart);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
+                        new CheckoutFragment()).commit();
+                toolbar.setTitle(CHECK_OUT);
+            }
+        });
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new HomeFragment()).commit();
@@ -75,6 +89,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
     private static final String HOME = "Home";
     private static final String GALLERY = "Gallery";
     private static final String SLIDE_SHOW = "Slide Show";
+    private static final String CHECK_OUT = "Checkout";
 
 
     @SuppressLint("NonConstantResourceId")
