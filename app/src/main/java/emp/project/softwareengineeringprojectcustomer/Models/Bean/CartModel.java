@@ -23,12 +23,8 @@ public class CartModel {
         cartList.add(productModel);
     }
 
-    public void deleteProductFromCart(String product_id) {
-        for (ProductModel productModel : cartList) {
-            if (productModel.getProduct_id().equals(product_id)) {
-                cartList.remove(productModel);
-            }
-        }
+    public List<ProductModel> getCartValues(){
+        return cartList;
     }
 
     public void deleteAllProductFromCart() {
@@ -36,7 +32,7 @@ public class CartModel {
     }
 
     public String displayAllProducts() {
-        String val = null;
+        String val = "";
         for (ProductModel productModel : cartList) {
             val += productModel.toString();
         }

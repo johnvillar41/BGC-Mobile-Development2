@@ -2,7 +2,6 @@ package emp.project.softwareengineeringprojectcustomer.Views.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,7 +70,6 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
         holder.btn_buy_now.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Add Number Of Orders here
                 displayAlertDialog(model);
 
             }
@@ -99,17 +96,28 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
                     .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
                     .skipMemoryCache(true)
                     .into(imageView_product);
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(editText_number_total.getText().toString().isEmpty()){
+                if (editText_number_total.getText().toString().isEmpty()) {
                     Toast.makeText(context, "Empty!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context, "Confirmed", Toast.LENGTH_SHORT).show();
+                    model.setTotal_number_products_orders(editText_number_total.getText().toString());
+                    ProductModel productModel = new ProductModel(
+                            model.getProduct_id(),
+                            model.getProduct_name(),
+                            model.getProduct_price(),
+                            model.getProduct_stocks(),
+                            model.getProduct_category(),
+                            model.getProduct_description(),
+                            model.getProduct_picture(),
+                            model.getTotal_number_products_orders());
+                    CartModel.getInstance().addToCart(productModel);
                 }
             }
         });
