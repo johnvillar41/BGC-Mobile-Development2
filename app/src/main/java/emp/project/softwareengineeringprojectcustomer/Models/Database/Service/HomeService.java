@@ -1,18 +1,25 @@
 package emp.project.softwareengineeringprojectcustomer.Models.Database.Service;
 
+import android.os.Build;
 import android.os.StrictMode;
+
+import androidx.annotation.RequiresApi;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.IHome;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
+import emp.project.softwareengineeringprojectcustomer.UserCredentials;
 
 public class HomeService implements IHome.IHomeService {
 
@@ -37,7 +44,7 @@ public class HomeService implements IHome.IHomeService {
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
         String sqlGetProducts = "SELECT * FROM products_table WHERE product_category=?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlGetProducts);
-        preparedStatement.setString(1,category);
+        preparedStatement.setString(1, category);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             model = new ProductModel(
@@ -68,6 +75,7 @@ public class HomeService implements IHome.IHomeService {
         List<String> categoryList = new ArrayList<>(categorySet);
         return categoryList;
     }
+
 
 
 }

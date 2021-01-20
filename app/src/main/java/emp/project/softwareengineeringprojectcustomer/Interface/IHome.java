@@ -7,9 +7,13 @@ import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
 
 public interface IHome {
     interface IHomeView {
-        void displayProgressBar();
+        void displayProgressBarProducts();
 
-        void hideProgressBar();
+        void hideProgressBarProducts();
+
+        void displayProgressBarCategories();
+
+        void hideProgressBarCategories();
 
         void displayRecyclerViewCategory(List<String>categories);
 
@@ -20,6 +24,8 @@ public interface IHome {
         void loadCategories();
 
         void onCategoryButtonClicked(String category);
+
+        void loadProducts();
     }
 
     interface IHomeService extends IStrictMode{

@@ -22,10 +22,13 @@ import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.LoginService;
 import emp.project.softwareengineeringprojectcustomer.Presenter.LoginPresenter;
 import emp.project.softwareengineeringprojectcustomer.R;
+import emp.project.softwareengineeringprojectcustomer.UserCredentials;
 
 public class LoginActivityView extends AppCompatActivity implements ILogin.ILoginView {
     private ILogin.ILoginPresenter presenter;
     private LottieAnimationView lottieAnimationView_Loader;
+    private static String USERNAME = "";
+    private TextInputLayout txt_username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +37,14 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login_view);
 
-        presenter = new LoginPresenter(this, new CustomerModel(),LoginService.getInstance());
+        presenter = new LoginPresenter(this, new CustomerModel(), LoginService.getInstance());
         Toolbar toolbar = findViewById(R.id.loginToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
-        TextInputLayout txt_username = findViewById(R.id.txt_username);
+
+        txt_username = findViewById(R.id.txt_username);
         TextInputLayout txt_password = findViewById(R.id.txt_password);
 
         lottieAnimationView_Loader = findViewById(R.id.progressBar_loader);
@@ -75,7 +79,7 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
                 startActivity(intent);
             }
         });
-
+        UserCredentials.getInstance().setUsername(txt_username.getEditText().getText().toString());
     }
 
     @Override

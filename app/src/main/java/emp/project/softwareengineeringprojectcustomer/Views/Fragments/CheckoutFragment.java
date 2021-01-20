@@ -16,6 +16,7 @@ import com.airbnb.lottie.LottieAnimationView;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.ICheckout;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.CheckoutService;
 import emp.project.softwareengineeringprojectcustomer.Presenter.CheckoutPresenter;
 import emp.project.softwareengineeringprojectcustomer.R;
@@ -36,44 +37,59 @@ public class CheckoutFragment extends Fragment implements ICheckout.ICheckoutVie
         txtCartTotal = root.findViewById(R.id.txt_total_value);
         btnCheckout = root.findViewById(R.id.btn_checkout);
         lottieAnimationViewLoader = root.findViewById(R.id.progressBar);
+        btnCheckout = root.findViewById(R.id.btn_checkout);
 
         presenter = new CheckoutPresenter(this, CheckoutService.getInstance());
         presenter.loadOrders();
+
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onCheckoutButtonClicked();
+            }
+        });
+
         return root;
     }
 
     @Override
     public void displayCartOrders() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                LinearLayoutManager layoutManager
-                        = new LinearLayoutManager(CheckoutFragment.this.getActivity(), LinearLayoutManager.VERTICAL, false);
-                CheckoutRecyclerView adapter = new CheckoutRecyclerView(CheckoutFragment.this.getActivity(), CartModel.getInstance().getCartValues());
-                recyclerViewOrders.setLayoutManager(layoutManager);
-                recyclerViewOrders.setAdapter(adapter);
-                recyclerViewOrders.scheduleLayoutAnimation();
-            }
-        });
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    LinearLayoutManager layoutManager
+                            = new LinearLayoutManager(CheckoutFragment.this.getActivity(), LinearLayoutManager.VERTICAL, false);
+                    CheckoutRecyclerView adapter = new CheckoutRecyclerView(CheckoutFragment.this.getActivity(), CartModel.getInstance().getCartValues());
+                    recyclerViewOrders.setLayoutManager(layoutManager);
+                    recyclerViewOrders.setAdapter(adapter);
+                    recyclerViewOrders.scheduleLayoutAnimation();
+                }
+            });
+        }
     }
 
     @Override
     public void displayProgressLoader() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                lottieAnimationViewLoader.setVisibility(View.VISIBLE);
-            }
-        });
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    lottieAnimationViewLoader.setVisibility(View.VISIBLE);
+                }
+            });
+        }
     }
 
     @Override
     public void hideProgressLoader() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                lottieAnimationViewLoader.setVisibility(View.INVISIBLE);
-            }
-        });
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    lottieAnimationViewLoader.setVisibility(View.INVISIBLE);
+                }
+            });
+        }
     }
 }

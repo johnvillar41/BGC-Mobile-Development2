@@ -1,5 +1,7 @@
 package emp.project.softwareengineeringprojectcustomer.Interface;
 
+import java.sql.SQLException;
+
 public interface ICheckout {
     interface ICheckoutView {
         void displayCartOrders();
@@ -16,6 +18,8 @@ public interface ICheckout {
     }
 
     interface ICheckoutService {
-        void insertOrdersToDB();
+        void insertOrdersToDB() throws SQLException, ClassNotFoundException;
+
+        void insertToSpecificOrdersDB(String productName,String totalNumberOfOrders) throws ClassNotFoundException, SQLException;
     }
 }

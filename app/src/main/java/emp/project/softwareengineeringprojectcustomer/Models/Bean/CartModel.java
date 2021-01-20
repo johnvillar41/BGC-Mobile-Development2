@@ -23,20 +23,24 @@ public class CartModel {
         cartList.add(productModel);
     }
 
-    public List<ProductModel> getCartValues(){
+    public List<ProductModel> getCartValues() {
         return cartList;
+    }
+
+    public String getTotalNumberOfOrders() {
+        return String.valueOf(cartList.size());
     }
 
     public void deleteAllProductFromCart() {
         cartList.clear();
     }
 
-    public String displayAllProducts() {
-        String val = "";
-        for (ProductModel productModel : cartList) {
-            val += productModel.toString();
+    public Integer calculateTotalOrderValues() {
+        int totalVal = 0;
+        for (ProductModel model : cartList) {
+            totalVal += Integer.parseInt(model.getProduct_price());
         }
-        return val;
+        return totalVal;
     }
 
 }

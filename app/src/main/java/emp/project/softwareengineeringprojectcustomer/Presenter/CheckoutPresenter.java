@@ -1,6 +1,10 @@
 package emp.project.softwareengineeringprojectcustomer.Presenter;
 
+import java.sql.SQLException;
+
 import emp.project.softwareengineeringprojectcustomer.Interface.ICheckout;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
 
 public class CheckoutPresenter implements ICheckout.ICheckoutPresenter {
     private ICheckout.ICheckoutView view;
@@ -20,11 +24,29 @@ public class CheckoutPresenter implements ICheckout.ICheckoutPresenter {
                 view.displayCartOrders();
                 view.hideProgressLoader();
             }
-        });thread.start();
+        });
+        thread.start();
     }
 
     @Override
     public void onCheckoutButtonClicked() {
-
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                view.displayProgressLoader();
+                try {
+                    service.insertOrdersToDB();
+                    for (ProductModel model : CartModel.getInstance().getCartValues()) {
+                        service.insertToSpecificOrdersDB(model.getProduct_name(), model.getTotal_number_products_orders());
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                view.hideProgressLoader();
+            }
+        });
+        thread.start();
     }
 }

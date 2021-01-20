@@ -21,10 +21,10 @@ public class HomePresenter implements IHome.IHomePresenter {
             @Override
             public void run() {
                 try {
-                    view.displayProgressBar();
+                    view.displayProgressBarCategories();
                     List<String> categories = service.getCategories();
                     view.displayRecyclerViewCategory(categories);
-                    view.hideProgressBar();
+                    view.hideProgressBarCategories();
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 } catch (SQLException throwables) {
@@ -37,10 +37,10 @@ public class HomePresenter implements IHome.IHomePresenter {
 
     @Override
     public void onCategoryButtonClicked(String category) {
-        Thread thread=new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                view.displayProgressBar();
+                view.displayProgressBarProducts();
                 try {
                     List<ProductModel> productModelList = service.getProducts(category);
                     view.displayRecyclerViewHomeProducts(productModelList);
@@ -49,9 +49,30 @@ public class HomePresenter implements IHome.IHomePresenter {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-                view.hideProgressBar();
+                view.hideProgressBarProducts();
             }
-        });thread.start();
+        });
+        thread.start();
 
+    }
+
+    @Override
+    public void loadProducts() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                view.displayProgressBarProducts();
+                try {
+                    List<ProductModel> productModelList = service.getProducts(service.getCategories().get(0));
+                    view.displayRecyclerViewHomeProducts(productModelList);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                view.hideProgressBarProducts();
+            }
+        });
+        thread.start();
     }
 }
