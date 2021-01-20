@@ -36,6 +36,8 @@ public class CheckoutService implements ICheckout.ICheckoutService, IStrictMode 
 
     /**
      * This function will insert orders in customer_orders_table
+     *TODO: FIX this----------------------------------------------------------------------------------------------------
+     * Alternative Solution:
      *
      * @throws SQLException
      * @throws ClassNotFoundException
@@ -105,4 +107,7 @@ public class CheckoutService implements ICheckout.ICheckoutService, IStrictMode 
         }
         return highestNUm;
     }
+    /**
+     * -----------------------------------------------------------------------------------------------------------------------
+     */
 }
