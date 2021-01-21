@@ -9,10 +9,22 @@ public interface ICheckout {
         void displayProgressLoader();
 
         void hideProgressLoader();
+
+        void displaySuccessfullPrompt();
+
+        void displayCartValues();
+
+        void displayErrorMessage(String errorMessage);
+
+        void displayEmptyCart();
+
+        void hideEmptyCart();
     }
 
     interface ICheckoutPresenter {
         void loadOrders();
+
+        void loadCartTotals();
 
         void onCheckoutButtonClicked();
     }

@@ -9,6 +9,7 @@
     android:foreground="?android:attr/selectableItemBackground"
     android:layout_marginRight="5dp"
     android:id="@+id/cardView_category"
+    app:cardBackgroundColor="?attr/colorPrimary"
     android:layout_height="wrap_content"
     android:focusable="true">
     <RelativeLayout

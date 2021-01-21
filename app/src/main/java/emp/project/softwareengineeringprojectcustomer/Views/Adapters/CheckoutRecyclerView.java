@@ -19,6 +19,7 @@ import com.mysql.jdbc.Blob;
 import java.sql.SQLException;
 import java.util.List;
 
+import emp.project.softwareengineeringprojectcustomer.Interface.ICheckout;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
 import emp.project.softwareengineeringprojectcustomer.R;
@@ -27,10 +28,11 @@ public class CheckoutRecyclerView extends RecyclerView.Adapter<CheckoutRecyclerV
 
     Context context;
     List<ProductModel> list;
-
-    public CheckoutRecyclerView(Context context, List<ProductModel> list) {
+    ICheckout.ICheckoutPresenter presenter;
+    public CheckoutRecyclerView(Context context, List<ProductModel> list, ICheckout.ICheckoutPresenter presenter) {
         this.context = context;
         this.list = list;
+        this.presenter = presenter;
     }
 
     @NonNull
@@ -65,6 +67,10 @@ public class CheckoutRecyclerView extends RecyclerView.Adapter<CheckoutRecyclerV
                 list.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, list.size());
+                presenter.loadCartTotals();
+                if (Integer.parseInt(CartModel.getInstance().getTotalNumberOfOrders()) <= 0) {
+                    presenter.loadOrders();
+                }
             }
         });
     }

@@ -17,6 +17,11 @@ public class CheckoutPresenter implements ICheckout.ICheckoutPresenter {
 
     @Override
     public void loadOrders() {
+        if (Integer.parseInt(CartModel.getInstance().getTotalNumberOfOrders()) <= 0) {
+            view.displayEmptyCart();
+        } else {
+            view.hideEmptyCart();
+        }
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -29,25 +34,38 @@ public class CheckoutPresenter implements ICheckout.ICheckoutPresenter {
     }
 
     @Override
+    public void loadCartTotals() {
+        view.displayCartValues();
+    }
+
+    private static final String NO_ORDERS = "No Orders Found!";
+
+    @Override
     public void onCheckoutButtonClicked() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                view.displayProgressLoader();
-                try {
-                    service.insertOrdersToDB();
-                    for (ProductModel model : CartModel.getInstance().getCartValues()) {
-                        service.insertToSpecificOrdersDB(model.getProduct_name(), model.getTotal_number_products_orders());
+        if (Integer.parseInt(CartModel.getInstance().getTotalNumberOfOrders()) <= 0) {
+            view.displayErrorMessage(NO_ORDERS);
+        } else {
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    view.displayProgressLoader();
+                    try {
+                        service.insertOrdersToDB();
+                        for (ProductModel model : CartModel.getInstance().getCartValues()) {
+                            service.insertToSpecificOrdersDB(model.getProduct_name(), model.getTotal_number_products_orders());
+                        }
+                        CartModel.getInstance().removeAllValuesOnCart();
+                        view.displaySuccessfullPrompt();
+                        view.displayCartOrders();
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
                     }
-                    CartModel.getInstance().removeAllValuesOnCart();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                    view.hideProgressLoader();
                 }
-                view.hideProgressLoader();
-            }
-        });
-        thread.start();
+            });
+            thread.start();
+        }
     }
 }

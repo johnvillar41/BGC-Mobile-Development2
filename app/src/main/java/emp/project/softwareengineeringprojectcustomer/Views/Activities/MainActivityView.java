@@ -6,27 +6,21 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-import android.widget.Toast;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import emp.project.softwareengineeringprojectcustomer.IntroActivityView;
-import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.R;
-import emp.project.softwareengineeringprojectcustomer.Views.Fragments.CheckoutFragment;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.GalleryFragment;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.HomeFragment;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.SlideshowFragment;
@@ -40,6 +34,8 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main_view);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -57,9 +53,8 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
-                        new CheckoutFragment()).commit();
-                toolbar.setTitle(CHECK_OUT);
+                Intent intent = new Intent(MainActivityView.this,CheckoutActivityView.class);
+                startActivity(intent);
             }
         });
 

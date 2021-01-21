@@ -38,7 +38,7 @@ public class CartModel {
     public Integer calculateTotalOrderValues() {
         int totalVal = 0;
         for (ProductModel model : cartList) {
-            totalVal += Integer.parseInt(model.getProduct_price());
+            totalVal += Integer.parseInt(model.getProduct_price()) * Integer.parseInt(model.getTotal_number_products_orders());
         }
         return totalVal;
     }

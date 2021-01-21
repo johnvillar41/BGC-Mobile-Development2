@@ -30,10 +30,6 @@ public class CheckoutService implements ICheckout.ICheckoutService, IStrictMode 
         }
         return instance;
     }
-
-    private static final String INITIAL_ORDER_STATUS = "Processing";
-
-
     /**
      * This function will insert orders in customer_orders_table
      * TODO: FIX this----------------------------------------------------------------------------------------------------
@@ -42,6 +38,8 @@ public class CheckoutService implements ICheckout.ICheckoutService, IStrictMode 
      * @throws SQLException
      * @throws ClassNotFoundException
      */
+    private static final String INITIAL_ORDER_STATUS = "Processing";
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void insertOrdersToDB() throws SQLException, ClassNotFoundException {

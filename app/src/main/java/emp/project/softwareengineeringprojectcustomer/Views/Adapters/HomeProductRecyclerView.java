@@ -102,23 +102,23 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
             e.printStackTrace();
         }
 
-        btn_confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (editText_number_total.getText().toString().isEmpty()) {
-                    Toast.makeText(context, "Empty!", Toast.LENGTH_SHORT).show();
-                } else {
-                    model.setTotal_number_products_orders(editText_number_total.getText().toString());
-                    presenter.onConfirmButtonClicked(editText_number_total.getText().toString(),model);
-                }
-            }
-        });
-
-
         dialogBuilder.setView(dialogView);
         AlertDialog dialog = dialogBuilder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
+
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (editText_number_total.getText().toString().isEmpty() || Integer.parseInt(editText_number_total.getText().toString()) <= 0 ) {
+                    Toast.makeText(context, "Empty!", Toast.LENGTH_SHORT).show();
+                } else {
+                    model.setTotal_number_products_orders(editText_number_total.getText().toString());
+                    presenter.onConfirmButtonClicked(editText_number_total.getText().toString(), model);
+                    dialog.cancel();
+                }
+            }
+        });
 
         cardView_exit.setOnClickListener(new View.OnClickListener() {
             @Override
