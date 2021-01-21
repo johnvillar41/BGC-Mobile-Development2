@@ -43,5 +43,4 @@ public class RegisterService implements IRegister.IRegisterService {
         connection.close();
     }
 
-
 }

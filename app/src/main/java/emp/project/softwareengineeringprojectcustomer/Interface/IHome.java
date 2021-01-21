@@ -18,6 +18,8 @@ public interface IHome {
         void displayRecyclerViewCategory(List<String>categories);
 
         void displayRecyclerViewHomeProducts(List<ProductModel>productModelLists);
+
+        void displayMessage(String message);
     }
 
     interface IHomePresenter {
@@ -26,11 +28,15 @@ public interface IHome {
         void onCategoryButtonClicked(String category);
 
         void loadProducts();
+
+        void onConfirmButtonClicked(String totalNumberOrders,ProductModel model);
     }
 
     interface IHomeService extends IStrictMode{
         List<ProductModel> getProducts(String category) throws ClassNotFoundException, SQLException;
 
         List<String> getCategories() throws ClassNotFoundException, SQLException;
+
+        Integer checkIfProductIsEnough(String product_id) throws ClassNotFoundException, SQLException;
     }
 }

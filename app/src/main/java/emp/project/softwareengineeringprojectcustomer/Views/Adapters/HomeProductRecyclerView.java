@@ -25,6 +25,7 @@ import com.mysql.jdbc.Blob;
 import java.sql.SQLException;
 import java.util.List;
 
+import emp.project.softwareengineeringprojectcustomer.Interface.IHome;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
 import emp.project.softwareengineeringprojectcustomer.R;
@@ -32,11 +33,13 @@ import emp.project.softwareengineeringprojectcustomer.R;
 public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRecyclerView.MyViewHolder> {
 
     Context context;
+    IHome.IHomePresenter presenter;
     List<ProductModel> productList;
 
-    public HomeProductRecyclerView(Context context, List<ProductModel> productList) {
+    public HomeProductRecyclerView(Context context, List<ProductModel> productList, IHome.IHomePresenter presenter) {
         this.context = context;
         this.productList = productList;
+        this.presenter = presenter;
     }
 
     @NonNull
@@ -71,7 +74,6 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
             @Override
             public void onClick(View v) {
                 displayAlertDialog(model);
-
             }
         });
     }
@@ -106,18 +108,8 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
                 if (editText_number_total.getText().toString().isEmpty()) {
                     Toast.makeText(context, "Empty!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, "Confirmed", Toast.LENGTH_SHORT).show();
                     model.setTotal_number_products_orders(editText_number_total.getText().toString());
-                    ProductModel productModel = new ProductModel(
-                            model.getProduct_id(),
-                            model.getProduct_name(),
-                            model.getProduct_price(),
-                            model.getProduct_stocks(),
-                            model.getProduct_category(),
-                            model.getProduct_description(),
-                            model.getProduct_picture(),
-                            model.getTotal_number_products_orders());
-                    CartModel.getInstance().addToCart(productModel);
+                    presenter.onConfirmButtonClicked(editText_number_total.getText().toString(),model);
                 }
             }
         });

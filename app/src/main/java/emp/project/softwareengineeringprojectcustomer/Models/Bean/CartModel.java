@@ -31,7 +31,7 @@ public class CartModel {
         return String.valueOf(cartList.size());
     }
 
-    public void deleteAllProductFromCart() {
+    public void removeAllValuesOnCart() {
         cartList.clear();
     }
 

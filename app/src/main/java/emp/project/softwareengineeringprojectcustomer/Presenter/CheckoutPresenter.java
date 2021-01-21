@@ -39,6 +39,7 @@ public class CheckoutPresenter implements ICheckout.ICheckoutPresenter {
                     for (ProductModel model : CartModel.getInstance().getCartValues()) {
                         service.insertToSpecificOrdersDB(model.getProduct_name(), model.getTotal_number_products_orders());
                     }
+                    CartModel.getInstance().removeAllValuesOnCart();
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 } catch (ClassNotFoundException e) {

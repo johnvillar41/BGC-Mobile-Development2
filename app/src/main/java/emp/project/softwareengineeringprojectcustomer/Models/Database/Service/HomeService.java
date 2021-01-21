@@ -1,25 +1,16 @@
 package emp.project.softwareengineeringprojectcustomer.Models.Database.Service;
 
-import android.os.Build;
-import android.os.StrictMode;
-
-import androidx.annotation.RequiresApi;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.IHome;
-import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
-import emp.project.softwareengineeringprojectcustomer.UserCredentials;
 
 public class HomeService implements IHome.IHomeService {
 
@@ -58,6 +49,9 @@ public class HomeService implements IHome.IHomeService {
             );
             productList.add(model);
         }
+        preparedStatement.close();
+        connection.close();
+        resultSet.close();
         return productList;
     }
 
@@ -73,9 +67,33 @@ public class HomeService implements IHome.IHomeService {
             categorySet.add(resultSet.getString("product_category"));
         }
         List<String> categoryList = new ArrayList<>(categorySet);
+        connection.close();
+        resultSet.close();
+        preparedStatement.close();
         return categoryList;
     }
 
+    @Override
+    public Integer checkIfProductIsEnough(String product_id) throws ClassNotFoundException, SQLException {
+        strictMode();
+        Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
+        String sqlCheck = "SELECT product_stocks FROM products_table WHERE product_id=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlCheck);
+        preparedStatement.setString(1,product_id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if(resultSet.next()){
+            int productTotal = resultSet.getInt("product_stocks");
+            connection.close();
+            preparedStatement.close();
+            resultSet.close();
+            return productTotal;
+        } else {
+            connection.close();
+            preparedStatement.close();
+            resultSet.close();
+            return null;
+        }
+    }
 
 
 }

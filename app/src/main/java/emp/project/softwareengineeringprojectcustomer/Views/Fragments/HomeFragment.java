@@ -118,12 +118,17 @@ public class HomeFragment extends Fragment implements IHome.IHomeView {
                     LinearLayoutManager layoutManager
                             = new LinearLayoutManager(HomeFragment.this.getActivity(), LinearLayoutManager.VERTICAL, false);
                     HomeProductRecyclerView adapter = new HomeProductRecyclerView(
-                            HomeFragment.this.getActivity(), productModelLists);
+                            HomeFragment.this.getActivity(), productModelLists, presenter);
                     recyclerView_Home.setLayoutManager(layoutManager);
                     recyclerView_Home.setAdapter(adapter);
                     recyclerView_Home.scheduleLayoutAnimation();
                 }
             });
         }
+    }
+
+    @Override
+    public void displayMessage(String message) {
+        Toast.makeText(HomeFragment.this.getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 }

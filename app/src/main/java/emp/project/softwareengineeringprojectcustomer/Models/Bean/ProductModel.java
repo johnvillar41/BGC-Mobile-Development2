@@ -74,6 +74,8 @@ public class ProductModel {
         return product_picture;
     }
 
+
+
     @NotNull
     @Override
     public String toString() {
