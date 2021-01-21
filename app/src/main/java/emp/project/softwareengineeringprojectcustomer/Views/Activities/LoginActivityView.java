@@ -4,8 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -27,7 +31,6 @@ import emp.project.softwareengineeringprojectcustomer.UserCredentials;
 public class LoginActivityView extends AppCompatActivity implements ILogin.ILoginView {
     private ILogin.ILoginPresenter presenter;
     private LottieAnimationView lottieAnimationView_Loader;
-    private static String USERNAME = "";
     private TextInputLayout txt_username;
 
     @Override
@@ -67,7 +70,8 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
         }
         return super.onOptionsItemSelected(item);
     }
-
+    public static final String KEY = "111";
+    @SuppressLint("CommitPrefEdits")
     @Override
     public void onSuccess() {
         this.finish();
@@ -80,6 +84,7 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
             }
         });
         UserCredentials.getInstance().setUsername(txt_username.getEditText().getText().toString());
+        UserCredentials.isLoggedIn = true;
     }
 
     @Override

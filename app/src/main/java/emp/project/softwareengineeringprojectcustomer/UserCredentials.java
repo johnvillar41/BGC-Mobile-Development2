@@ -1,5 +1,8 @@
 package emp.project.softwareengineeringprojectcustomer;
 
+import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,18 +14,21 @@ import emp.project.softwareengineeringprojectcustomer.Interface.IStrictMode;
 public class UserCredentials implements IStrictMode {
     private String username;
     private static UserCredentials instance;
-
+    //TODO:
+    //Session must be changed into a session variable or a shared preference but this will be used for the meantime
+    public static boolean isLoggedIn;
     private UserCredentials() {
 
     }
 
     public static UserCredentials getInstance() {
-        if(instance == null){
+        if (instance == null) {
             instance = new UserCredentials();
         }
         return instance;
     }
 
+    @SuppressLint("CommitPrefEdits")
     public void setUsername(String username) {
         this.username = username;
     }

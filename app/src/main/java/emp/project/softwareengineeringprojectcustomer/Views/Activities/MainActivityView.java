@@ -1,26 +1,31 @@
 package emp.project.softwareengineeringprojectcustomer.Views.Activities;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import emp.project.softwareengineeringprojectcustomer.IntroActivityView;
 import emp.project.softwareengineeringprojectcustomer.R;
+import emp.project.softwareengineeringprojectcustomer.UserCredentials;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.GalleryFragment;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.HomeFragment;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.SlideshowFragment;
@@ -30,7 +35,6 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private FloatingActionButton floatingActionButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +43,10 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
         setContentView(R.layout.activity_main_view);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if(!UserCredentials.isLoggedIn){
+            this.finish();
+        }
 
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -53,7 +61,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivityView.this,CheckoutActivityView.class);
+                Intent intent = new Intent(MainActivityView.this, CheckoutActivityView.class);
                 startActivity(intent);
             }
         });
@@ -66,12 +74,30 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
     }
 
     @Override
+    protected void onResume() {
+        if(!UserCredentials.isLoggedIn){
+            this.finish();
+        }
+        super.onResume();
+    }
+
+    @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            moveTaskToBack(true);
-            super.onBackPressed();
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setTitle("Logout")
+                    .setMessage("Are you sure you want to logout?")
+                    .setIcon(R.drawable.ic_baseline_exit_to_app_24)
+                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            UserCredentials.isLoggedIn = false;
+                            moveTaskToBack(true);
+                        }
+                    }).setNegativeButton("Cancel",null);
+            alertDialog.show();
         }
     }
 
@@ -87,7 +113,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
     private static final String CHECK_OUT = "Checkout";
 
 
-    @SuppressLint("NonConstantResourceId")
+    @SuppressLint({"NonConstantResourceId"})
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -110,6 +136,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
                 Intent intent = new Intent(this, IntroActivityView.class);
                 startActivity(intent);
                 MainActivityView.this.finish();
+                UserCredentials.isLoggedIn = false;
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
