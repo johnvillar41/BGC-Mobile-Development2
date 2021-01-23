@@ -41,7 +41,7 @@ public class RegisterPresenterTest {
                     }
                 });
         Thread.sleep(1000);
-        Assert.assertTrue(MockRegisterView.pass_success);
+        Assert.assertTrue(((MockRegisterView)view).pass_success);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class RegisterPresenterTest {
                     }
                 });
         Thread.sleep(1000);
-        Assert.assertTrue(MockRegisterView.pass_enter_all_fields);
+        Assert.assertTrue(((MockRegisterView)view).pass_enter_all_fields);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class RegisterPresenterTest {
                     }
                 });
         Thread.sleep(1000);
-        Assert.assertTrue(MockRegisterView.pass_password_not_equal);
+        Assert.assertTrue(((MockRegisterView)view).pass_password_not_equal);
     }
 
     @Test
@@ -87,22 +87,22 @@ public class RegisterPresenterTest {
                 "asd",
                 null);
         Thread.sleep(1000);
-        Assert.assertTrue(MockRegisterView.pass_empty_image);
+        Assert.assertTrue(((MockRegisterView)view).pass_empty_image);
     }
 
     @Test
     public void testDisplayPhoneGallery() throws InterruptedException {
         presenter.onImageButtonClicked();
         Thread.sleep(1000);
-        Assert.assertTrue(MockRegisterView.isGalleryDisplaying);
+        Assert.assertTrue(((MockRegisterView)view).isGalleryDisplaying);
     }
 
     static class MockRegisterView implements IRegister.IRegisterView {
-        static boolean pass_success;
-        static boolean pass_enter_all_fields;
-        static boolean pass_password_not_equal;
-        static boolean pass_empty_image;
-        static boolean isGalleryDisplaying;
+        boolean pass_success;
+        boolean pass_enter_all_fields;
+        boolean pass_password_not_equal;
+        boolean pass_empty_image;
+        boolean isGalleryDisplaying;
 
         @Override
         public void onSuccess() {

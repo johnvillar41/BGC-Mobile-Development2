@@ -38,6 +38,9 @@ public class ProductModel {
         this.total_number_products_orders = total_number_products;
     }
 
+    public ProductModel() {
+    }
+
     public String getTotal_number_products_orders() {
         return total_number_products_orders;
     }

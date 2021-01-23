@@ -26,17 +26,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="20dp"
-        android:id="@+id/fab_cart"
-        android:src="@drawable/ic_baseline_shopping_cart_24"
-        app:backgroundTint="#f9b207"
-        android:layout_alignParentEnd="true" />
-
     <include layout="@layout/content_main"/>
 
 

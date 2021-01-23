@@ -34,7 +34,7 @@ public class HomeCategoryRecyclerView extends RecyclerView.Adapter<HomeCategoryR
     @NotNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.custom_adapter_recycler_category, parent, false);
         return new HomeCategoryRecyclerView.MyViewHolder(view);
     }
@@ -60,7 +60,7 @@ public class HomeCategoryRecyclerView extends RecyclerView.Adapter<HomeCategoryR
         return categoryList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView txt_category;
         CardView cardView;
 

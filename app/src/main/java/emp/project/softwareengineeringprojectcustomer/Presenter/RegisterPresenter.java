@@ -1,16 +1,12 @@
 package emp.project.softwareengineeringprojectcustomer.Presenter;
 
-import android.app.Activity;
-import android.content.Context;
-
 import java.io.InputStream;
-import java.lang.ref.WeakReference;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.List;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.IRegister;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
-import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.RegisterService;
-import emp.project.softwareengineeringprojectcustomer.Views.Activities.RegisterActivityView;
 
 public class RegisterPresenter implements IRegister.IRegisterPresenter {
 
@@ -36,26 +32,90 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
             public void run() {
                 view.displayLoadingCircle();
                 try {
-                    CustomerModel.VALIDITY validity = model.validateRegistration(username, password_1, password_2, email, FILE_INPUT_STREAM);
-                    switch (validity) {
-                        case VALID:
-                            model = new CustomerModel(username, CustomerModel.FINAL_PASSWORD, fullname, CUSTOMER_STATUS_PENDING, email, FILE_INPUT_STREAM);
-                            service.insertCustomerToDB(model);
-                            view.onSuccess();
-                            view.hideLoadingCircler();
-                            break;
-                        case EMPTY_FIELD:
-                            view.onError(ENTER_ALL_FIELDS);
-                            view.hideLoadingCircler();
-                            break;
-                        case PASSWORD_NOT_EQUAL:
-                            view.onError(PASSWORD_NOT_EQUAL);
-                            view.hideLoadingCircler();
-                            break;
-                        case EMPTY_IMAGE:
-                            view.onError(EMPTY_IMAGE);
-                            view.hideLoadingCircler();
-                            break;
+                    String[] arrTexts = new String[5];
+                    arrTexts[0] = username;
+                    arrTexts[1] = password_1;
+                    arrTexts[2] = password_2;
+                    arrTexts[3] = email;
+                    arrTexts[4] = fullname;
+                    HashSet<CustomerModel.VALIDITY> validity = model.validateRegistration(arrTexts, FILE_INPUT_STREAM);
+                    for (CustomerModel.VALIDITY valid : validity) {
+                        switch (valid) {
+                            case VALID:
+                                model = new CustomerModel(username, CustomerModel.FINAL_PASSWORD, fullname, CUSTOMER_STATUS_PENDING, email, FILE_INPUT_STREAM);
+                                service.insertCustomerToDB(model);
+                                view.onSuccess();
+                                view.removeErrorUsername();
+                                view.removeErrorPassword_1();
+                                view.removeErrorPassword_2();
+                                view.removeErrorEmail();
+                                view.hideLoadingCircler();
+                                break;
+                            case EMPTY_FIELD_USERNAME:
+                                view.setErrorUsername();
+                                view.hideLoadingCircler();
+                                break;
+                            case EMPTY_FIELD_PASSWORD_1:
+                                view.setErrorPassword_1();
+                                view.hideLoadingCircler();
+                                break;
+                            case EMPTY_FIELD_PASSWORD_2:
+                                view.setErrorPassword_2();
+                                view.hideLoadingCircler();
+                                break;
+                            case EMPTY_EMAIL:
+                                view.setErrorEmail();
+                                view.hideLoadingCircler();
+                                break;
+                            case PASSWORD_NOT_EQUAL:
+                                view.onError(PASSWORD_NOT_EQUAL);
+                                view.setErrorPassword_2();
+                                view.setErrorPassword_1();
+                                view.hideLoadingCircler();
+                                break;
+                            case EMPTY_IMAGE:
+                                view.onError(EMPTY_IMAGE);
+                                view.hideLoadingCircler();
+                                break;
+                            case EMPTY_FULLNAME:
+                                view.setErrorFullname();
+                                view.hideLoadingCircler();
+                                break;
+                            case NOT_EQUAL_PASSWORD:
+                                view.setErrorOnNotEqualPassword();
+                                view.hideLoadingCircler();
+                                break;
+
+                            //CASES FOR VALIDS
+                            case VALID_FIELD_USERNAME:
+                                view.removeErrorUsername();
+                                view.hideLoadingCircler();
+                                break;
+                            case VALID_FIELD_PASSWORD_1:
+                                view.removeErrorPassword_1();
+                                view.hideLoadingCircler();
+                                break;
+                            case VALID_FIELD_PASSWORD_2:
+                                view.removeErrorPassword_2();
+                                view.hideLoadingCircler();
+                                break;
+                            case VALID_EMAIL:
+                                view.removeErrorEmail();
+                                view.hideLoadingCircler();
+                                break;
+                            case VALID_IMAGE:
+                                view.hideLoadingCircler();
+                                view.onError(EMPTY_IMAGE);
+                                break;
+                            case VALID_FULLNAME:
+                                view.hideLoadingCircler();
+                                view.removeErrorFullname();
+                                break;
+                            case EQUAL_PASSWORD:
+                                view.removeErrorEqualPassword();
+                                view.hideLoadingCircler();
+                                break;
+                        }
                     }
                 } catch (SQLException | ClassNotFoundException e) {
                     view.onError(e.getMessage());

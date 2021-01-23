@@ -77,8 +77,8 @@ public class HomePresenter implements IHome.IHomePresenter {
         thread.start();
     }
 
-    private static final String PRODUCT_NOT_ENOUGH = "Product is not enough!";
-    private static final String SUCCESS_ADD_TO_CART = "Successfully added to cart!";
+    public static final String PRODUCT_NOT_ENOUGH = "Product is not enough!";
+    public static final String SUCCESS_ADD_TO_CART = "Successfully added to cart!";
 
     @Override
     public void onConfirmButtonClicked(String totalNumberOrders, ProductModel model) {

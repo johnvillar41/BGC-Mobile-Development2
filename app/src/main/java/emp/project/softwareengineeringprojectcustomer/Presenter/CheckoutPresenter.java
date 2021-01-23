@@ -17,14 +17,14 @@ public class CheckoutPresenter implements ICheckout.ICheckoutPresenter {
 
     @Override
     public void loadOrders() {
-        if (Integer.parseInt(CartModel.getInstance().getTotalNumberOfOrders()) <= 0) {
-            view.displayEmptyCart();
-        } else {
-            view.hideEmptyCart();
-        }
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
+                if (Integer.parseInt(CartModel.getInstance().getTotalNumberOfOrders()) <= 0) {
+                    view.displayEmptyCart();
+                } else {
+                    view.hideEmptyCart();
+                }
                 view.displayProgressLoader();
                 view.displayCartOrders();
                 view.hideProgressLoader();

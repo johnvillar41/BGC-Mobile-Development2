@@ -3,9 +3,7 @@ package emp.project.softwareengineeringprojectcustomer.Views.Activities;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,15 +24,14 @@ import com.google.android.material.navigation.NavigationView;
 import emp.project.softwareengineeringprojectcustomer.IntroActivityView;
 import emp.project.softwareengineeringprojectcustomer.R;
 import emp.project.softwareengineeringprojectcustomer.UserCredentials;
-import emp.project.softwareengineeringprojectcustomer.Views.Fragments.GalleryFragment;
+import emp.project.softwareengineeringprojectcustomer.Views.Fragments.ProfileFragment;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.HomeFragment;
-import emp.project.softwareengineeringprojectcustomer.Views.Fragments.SlideshowFragment;
+import emp.project.softwareengineeringprojectcustomer.Views.Fragments.NewsFragment;
 
 public class MainActivityView extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
     private Toolbar toolbar;
-    private FloatingActionButton floatingActionButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,15 +53,6 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-        floatingActionButton = findViewById(R.id.fab_cart);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivityView.this, CheckoutActivityView.class);
-                startActivity(intent);
-            }
-        });
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new HomeFragment()).commit();
@@ -124,12 +112,12 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.nav_gallery:
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
-                        new GalleryFragment()).commit();
+                        new ProfileFragment()).commit();
                 toolbar.setTitle(GALLERY);
                 break;
             case R.id.nav_slideshow:
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
-                        new SlideshowFragment()).commit();
+                        new NewsFragment()).commit();
                 toolbar.setTitle(SLIDE_SHOW);
                 break;
             case R.id.nav_logout:
@@ -141,5 +129,14 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.cart){
+            Intent intent = new Intent(MainActivityView.this, CheckoutActivityView.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -88,7 +89,6 @@ public class CheckoutActivityView extends AppCompatActivity implements ICheckout
         });
     }
 
-
     @Override
     public void displayProgressLoader() {
         runOnUiThread(new Runnable() {
@@ -127,6 +127,7 @@ public class CheckoutActivityView extends AppCompatActivity implements ICheckout
     @Override
     public void displayCartValues() {
         runOnUiThread(new Runnable() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void run() {
                 txtCartTotal.setText("₱" + CartModel.getInstance().calculateTotalOrderValues());
@@ -136,17 +137,32 @@ public class CheckoutActivityView extends AppCompatActivity implements ICheckout
 
     @Override
     public void displayErrorMessage(String errorMessage) {
-        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(CheckoutActivityView.this, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     public void displayEmptyCart() {
-        lottieAnimationView_emptyCart.setVisibility(View.VISIBLE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                lottieAnimationView_emptyCart.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
     public void hideEmptyCart() {
-        lottieAnimationView_emptyCart.setVisibility(View.INVISIBLE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                lottieAnimationView_emptyCart.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     @Override

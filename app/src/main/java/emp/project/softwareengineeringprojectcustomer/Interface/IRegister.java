@@ -2,6 +2,7 @@ package emp.project.softwareengineeringprojectcustomer.Interface;
 
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.List;
 
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 
@@ -16,6 +17,30 @@ public interface IRegister {
         void hideLoadingCircler();
 
         void loadImageFromGallery();
+
+        void setErrorUsername();
+
+        void setErrorPassword_1();
+
+        void setErrorPassword_2();
+
+        void setErrorEmail();
+
+        void setErrorFullname();
+
+        void removeErrorUsername();
+
+        void removeErrorPassword_1();
+
+        void removeErrorPassword_2();
+
+        void removeErrorEmail();
+
+        void removeErrorFullname();
+
+        void setErrorOnNotEqualPassword();
+
+        void removeErrorEqualPassword();
     }
 
     interface IRegisterPresenter {

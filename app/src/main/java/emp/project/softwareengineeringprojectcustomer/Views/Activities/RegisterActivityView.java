@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -29,6 +31,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import emp.project.softwareengineeringprojectcustomer.Interface.IRegister;
@@ -40,6 +44,7 @@ import emp.project.softwareengineeringprojectcustomer.R;
 public class RegisterActivityView extends AppCompatActivity implements IRegister.IRegisterView {
     private IRegister.IRegisterPresenter presenter;
     private LottieAnimationView progressIndicator;
+    private static ImageView PROFILE_PICTURE;
     private TextInputLayout txt_username;
     private TextInputLayout txt_password;
     private TextInputLayout txt_password2;
@@ -128,12 +133,16 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
 
     @Override
     public void hideLoadingCircler() {
-        progressIndicator.setVisibility(View.GONE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressIndicator.setVisibility(View.GONE);
+            }
+        });
     }
 
     private static final int IMAGE_PICK_CODE = 123;
     private static InputStream FILE_INPUT_STREAM;
-    private static CircleImageView PROFILE_PICTURE;
 
     @Override
     public void loadImageFromGallery() {
@@ -143,6 +152,148 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
                 startActivityForResult(intent, IMAGE_PICK_CODE);
+            }
+        });
+    }
+
+    private enum ERROR_MESSAGE {
+        USERNAME("Empty username!"),
+        PASSWORD_1("Empty password field!"),
+        PASSWORD_2("Empty password field!"),
+        EMAIL("Empty email!"),
+        PASSWORD_NOT_EQUAL("Password field do not match!"),
+        FULLNAME("Empty name!");
+
+        private String val;
+
+        ERROR_MESSAGE(String val) {
+            this.val = val;
+        }
+
+        public String getVal() {
+            return val;
+        }
+    }
+
+
+    @Override
+    public void setErrorUsername() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_username.setError(ERROR_MESSAGE.USERNAME.getVal());
+            }
+        });
+    }
+
+    @Override
+    public void setErrorPassword_1() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_password.setError(ERROR_MESSAGE.PASSWORD_1.getVal());
+            }
+        });
+    }
+
+    @Override
+    public void setErrorPassword_2() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_password2.setError(ERROR_MESSAGE.PASSWORD_2.getVal());
+            }
+        });
+    }
+
+    @Override
+    public void setErrorEmail() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_email.setError(ERROR_MESSAGE.EMAIL.getVal());
+            }
+        });
+    }
+
+    @Override
+    public void setErrorFullname() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_fullname.setError(ERROR_MESSAGE.FULLNAME.getVal());
+            }
+        });
+    }
+
+    @Override
+    public void removeErrorUsername() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_username.setError(null);
+            }
+        });
+    }
+
+    @Override
+    public void removeErrorPassword_1() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_password.setError(null);
+            }
+        });
+    }
+
+    @Override
+    public void removeErrorPassword_2() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_password2.setError(null);
+            }
+        });
+    }
+
+    @Override
+    public void removeErrorEmail() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_email.setError(null);
+            }
+        });
+    }
+
+    @Override
+    public void removeErrorFullname() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_fullname.setError(null);
+            }
+        });
+    }
+
+    @Override
+    public void setErrorOnNotEqualPassword() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_password.setError(ERROR_MESSAGE.PASSWORD_NOT_EQUAL.getVal());
+                txt_password2.setError(ERROR_MESSAGE.PASSWORD_NOT_EQUAL.getVal());
+            }
+        });
+    }
+
+    @Override
+    public void removeErrorEqualPassword() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_password.setError(null);
+                txt_password2.setError(null);
             }
         });
     }
@@ -214,6 +365,12 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
         });
         thread.start();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        PROFILE_PICTURE = null;
+        super.onDestroy();
     }
 
     @Override

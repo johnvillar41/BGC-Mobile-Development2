@@ -38,7 +38,7 @@ public class CheckoutRecyclerView extends RecyclerView.Adapter<CheckoutRecyclerV
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.custom_adapter_recycler_checkout, parent, false);
         return new CheckoutRecyclerView.MyViewHolder(view);
     }
@@ -84,7 +84,7 @@ public class CheckoutRecyclerView extends RecyclerView.Adapter<CheckoutRecyclerV
         return list.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView_product;
         TextView txt_product_name, txt_product_totalOrder;
         CardView cardView_exit;
