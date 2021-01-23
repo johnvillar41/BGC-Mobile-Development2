@@ -105,7 +105,6 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                                 break;
                             case VALID_IMAGE:
                                 view.hideLoadingCircler();
-                                view.onError(EMPTY_IMAGE);
                                 break;
                             case VALID_FULLNAME:
                                 view.hideLoadingCircler();

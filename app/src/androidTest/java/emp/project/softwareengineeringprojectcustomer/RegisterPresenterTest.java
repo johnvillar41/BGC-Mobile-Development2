@@ -140,6 +140,66 @@ public class RegisterPresenterTest {
         public void loadImageFromGallery() {
             isGalleryDisplaying = true;
         }
+
+        @Override
+        public void setErrorUsername() {
+
+        }
+
+        @Override
+        public void setErrorPassword_1() {
+
+        }
+
+        @Override
+        public void setErrorPassword_2() {
+
+        }
+
+        @Override
+        public void setErrorEmail() {
+
+        }
+
+        @Override
+        public void setErrorFullname() {
+
+        }
+
+        @Override
+        public void removeErrorUsername() {
+
+        }
+
+        @Override
+        public void removeErrorPassword_1() {
+
+        }
+
+        @Override
+        public void removeErrorPassword_2() {
+
+        }
+
+        @Override
+        public void removeErrorEmail() {
+
+        }
+
+        @Override
+        public void removeErrorFullname() {
+
+        }
+
+        @Override
+        public void setErrorOnNotEqualPassword() {
+
+        }
+
+        @Override
+        public void removeErrorEqualPassword() {
+
+        }
     }
 
     static class MockRegisterService implements IRegister.IRegisterService {
