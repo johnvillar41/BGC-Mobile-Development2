@@ -85,6 +85,8 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
 
         ImageView imageView_product = dialogView.findViewById(R.id.image_product);
         Button btn_confirm = dialogView.findViewById(R.id.btn_confirm);
+        Button btn_up = dialogView.findViewById(R.id.btn_up);
+        Button btn_down = dialogView.findViewById(R.id.btn_down);
         CardView cardView_exit = dialogView.findViewById(R.id.exit);
         EditText editText_number_total = dialogView.findViewById(R.id.txt_total_orders);
 
@@ -110,13 +112,41 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (editText_number_total.getText().toString().isEmpty() || Integer.parseInt(editText_number_total.getText().toString()) <= 0 ) {
+                if (editText_number_total.getText().toString().isEmpty() || Integer.parseInt(editText_number_total.getText().toString()) <= 0) {
                     Toast.makeText(context, "Empty!", Toast.LENGTH_SHORT).show();
                 } else {
                     model.setTotal_number_products_orders(editText_number_total.getText().toString());
                     presenter.onConfirmButtonClicked(editText_number_total.getText().toString(), model);
                     dialog.cancel();
                 }
+            }
+        });
+
+        btn_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int total;
+                if (editText_number_total.getText().toString().isEmpty()) {
+                    total = 0;
+                } else {
+                    total = Integer.parseInt(editText_number_total.getText().toString());
+                }
+                total++;
+                editText_number_total.setText(String.valueOf(total));
+            }
+        });
+
+        btn_down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int total;
+                if (editText_number_total.getText().toString().isEmpty() || Integer.parseInt(editText_number_total.getText().toString()) < 1) {
+                    total = 0;
+                } else {
+                    total = Integer.parseInt(editText_number_total.getText().toString());
+                    total--;
+                }
+                editText_number_total.setText(String.valueOf(total));
             }
         });
 

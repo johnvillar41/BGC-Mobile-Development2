@@ -31,14 +31,33 @@
                 android:layout_height="120sp"
                 android:layout_gravity="center"
                 android:id="@+id/image_product"/>
-            <EditText
+            <LinearLayout
+                android:gravity="center"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Enter total number of orders"
-                android:gravity="center"
-                android:inputType="number"
-                android:id="@+id/txt_total_orders"
-                android:layout_gravity="center"/>
+                android:orientation="horizontal">
+                <Button
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+"
+                    android:id="@+id/btn_up"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Quantity"
+                    android:inputType="number"
+                    android:id="@+id/txt_total_orders"
+                    android:layout_gravity="center"/>
+                <Button
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:id="@+id/btn_down"/>
+            </LinearLayout>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

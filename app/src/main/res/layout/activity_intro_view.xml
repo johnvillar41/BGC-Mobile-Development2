@@ -6,8 +6,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".IntroActivityView">
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:src="@drawable/logo"
+    <ImageView
         android:id="@+id/image_logo"
         android:layout_width="50sp"
         android:layout_height="50sp"

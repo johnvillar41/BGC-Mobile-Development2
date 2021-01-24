@@ -150,10 +150,8 @@ public class CustomerModel {
         return set;
     }
 
-    /**TODO: 1)tatangalin yung gif sa registration form
+    /**TODO:
      *       2)maglagay ng label sa ilalim ng add photo picture("add profile picture")
-     *       3)gawing fit sa loob ng circle yung logo
-     *       4)Product recycler view: rename Name to Product name:     *
      *       5)product popup: baguhin ang edittext into +_-
      *       6)checkout recyclerview: maglagay ng cost
      *       7)Gawing transparent and box sa checkout successful prompt
