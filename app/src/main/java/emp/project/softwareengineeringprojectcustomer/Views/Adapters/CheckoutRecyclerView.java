@@ -16,6 +16,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.mysql.jdbc.Blob;
 
+import org.w3c.dom.Text;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class CheckoutRecyclerView extends RecyclerView.Adapter<CheckoutRecyclerV
     Context context;
     List<ProductModel> list;
     ICheckout.ICheckoutPresenter presenter;
+
     public CheckoutRecyclerView(Context context, List<ProductModel> list, ICheckout.ICheckoutPresenter presenter) {
         this.context = context;
         this.list = list;
@@ -61,6 +64,7 @@ public class CheckoutRecyclerView extends RecyclerView.Adapter<CheckoutRecyclerV
         }
         holder.txt_product_totalOrder.setText(model.getTotal_number_products_orders());
         holder.txt_product_name.setText(model.getProduct_name());
+        holder.txt_productPrice.setText(String.valueOf(CartModel.getInstance().calculatePerProduct(position)));
         holder.cardView_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +91,7 @@ public class CheckoutRecyclerView extends RecyclerView.Adapter<CheckoutRecyclerV
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView_product;
         TextView txt_product_name, txt_product_totalOrder;
+        TextView txt_productPrice;
         CardView cardView_exit;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -95,6 +100,7 @@ public class CheckoutRecyclerView extends RecyclerView.Adapter<CheckoutRecyclerV
             txt_product_name = itemView.findViewById(R.id.txt_product_name);
             txt_product_totalOrder = itemView.findViewById(R.id.txt_total_orders);
             cardView_exit = itemView.findViewById(R.id.remove);
+            txt_productPrice = itemView.findViewById(R.id.txt_product_price);
         }
     }
 }

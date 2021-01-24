@@ -19,6 +19,10 @@ public class CartModel {
 
     }
 
+    public Integer calculatePerProduct(int position) {
+        return Integer.parseInt(cartList.get(position).getTotal_number_products_orders()) * Integer.parseInt(cartList.get(position).getProduct_price());
+    }
+
     public void addToCart(ProductModel productModel) {
         cartList.add(productModel);
     }
