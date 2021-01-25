@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerOrdersModel;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.SpecificOrdersModel;
 
 public interface ITrackOrder {
     interface ITrackOrderView {
@@ -20,5 +21,6 @@ public interface ITrackOrder {
 
     interface ITrackOrderService extends IStrictMode{
         List<CustomerOrdersModel> fetchOrdersFromDB() throws ClassNotFoundException, SQLException;
+
     }
 }

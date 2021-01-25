@@ -1,11 +1,13 @@
 package emp.project.softwareengineeringprojectcustomer.Models.Bean;
 
+import java.util.List;
+
 public class CustomerOrdersModel {
     private String order_id, customer_name, customer_email, order_price, order_status, order_date, total_number_of_orders;
-    private SpecificOrdersModel specificOrdersModel;
+    private List<SpecificOrdersModel> specificOrdersModel;
 
 
-    public CustomerOrdersModel(String order_id, String customer_name, String customer_email, String order_price, String order_status, String order_date, String total_number_of_orders, SpecificOrdersModel specificOrdersModel) {
+    public CustomerOrdersModel(String order_id, String customer_name, String customer_email, String order_price, String order_status, String order_date, String total_number_of_orders, List<SpecificOrdersModel> specificOrdersModel) {
         this.order_id = order_id;
         this.customer_name = customer_name;
         this.customer_email = customer_email;
@@ -16,7 +18,7 @@ public class CustomerOrdersModel {
         this.specificOrdersModel = specificOrdersModel;
     }
 
-    public SpecificOrdersModel getSpecificOrdersModel() {
+    public List<SpecificOrdersModel> getSpecificOrdersModelList() {
         return specificOrdersModel;
     }
 

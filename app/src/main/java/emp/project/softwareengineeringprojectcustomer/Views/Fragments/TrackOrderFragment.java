@@ -69,7 +69,7 @@ public class TrackOrderFragment extends Fragment implements ITrackOrder.ITrackOr
                     LinearLayoutManager layoutManager
                             = new LinearLayoutManager(TrackOrderFragment.this.getActivity(), LinearLayoutManager.VERTICAL, false);
                     TrackOrderRecyclerView adapter = new TrackOrderRecyclerView(
-                            TrackOrderFragment.this.getActivity(), ordersList);
+                            TrackOrderFragment.this.getActivity(), ordersList,TrackOrderService.getInstance());
                     layoutManager.setReverseLayout(true);
                     layoutManager.setStackFromEnd(true);
                     recyclerView_orders.setLayoutManager(layoutManager);

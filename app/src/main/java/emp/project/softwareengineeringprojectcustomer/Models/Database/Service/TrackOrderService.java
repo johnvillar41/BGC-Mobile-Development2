@@ -24,13 +24,14 @@ public class TrackOrderService implements ITrackOrder.ITrackOrderService {
         }
         return instance;
     }
-    private TrackOrderService(){
+
+    private TrackOrderService() {
 
     }
 
     @Override
     public List<CustomerOrdersModel> fetchOrdersFromDB() throws ClassNotFoundException, SQLException {
-        SpecificOrdersModel specificOrdersModel = null;
+        List<SpecificOrdersModel> specificOrdersModelList = new ArrayList<>();
         String order_id;
         strictMode();
         List<CustomerOrdersModel> ordersList = new ArrayList<>();
@@ -55,13 +56,14 @@ public class TrackOrderService implements ITrackOrder.ITrackOrderService {
                 while (resultSet2.next()) {
                     String product_name = resultSet2.getString(1);
                     Blob product_picture = resultSet2.getBlob(2);
-                    specificOrdersModel = new SpecificOrdersModel(
+                    SpecificOrdersModel specificOrdersModel = new SpecificOrdersModel(
                             resultSet1.getString("order_id"),
                             resultSet1.getString("product_id"),
                             resultSet1.getString("total_orders"),
                             product_name,
                             product_picture,
                             resultSet2.getString("product_price"));
+                    specificOrdersModelList.add(specificOrdersModel);
                 }
             }
             CustomerOrdersModel customerOrdersModel = new CustomerOrdersModel(
@@ -72,7 +74,7 @@ public class TrackOrderService implements ITrackOrder.ITrackOrderService {
                     resultSet.getString("order_status"),
                     resultSet.getString("order_date"),
                     resultSet.getString("total_number_of_orders"),
-                    specificOrdersModel
+                    specificOrdersModelList
             );
             ordersList.add(customerOrdersModel);
         }
