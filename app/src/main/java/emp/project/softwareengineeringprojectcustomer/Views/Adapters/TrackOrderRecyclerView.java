@@ -64,7 +64,9 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
         holder.txt_product_name.setText(model.getSpecificOrdersModel().getProduct_name());
         holder.txt_date_ordered.setText(model.getOrder_date());
         holder.txt_total_number_of_orders.setText(model.getSpecificOrdersModel().getTotal_orders());
-        holder.txt_price.setText(model.getOrder_price());
+        holder.txt_price.setText(String.valueOf(Integer.parseInt(model.getSpecificOrdersModel().getTotal_orders()) * Integer.parseInt(model.getSpecificOrdersModel().getProduct_price())));
+        holder.txt_total_order.setText(model.getTotal_number_of_orders());
+        holder.txt_total_price.setText(model.getOrder_price());
     }
 
     private CustomerOrdersModel getItem(int position) {
@@ -77,7 +79,7 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView txt_order_id, txt_status, txt_product_name, txt_date_ordered, txt_total_number_of_orders, txt_price;
+        TextView txt_order_id, txt_status, txt_product_name, txt_date_ordered, txt_total_number_of_orders, txt_price,txt_total_order,txt_total_price;
         ImageView imageView_product;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -89,6 +91,8 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
             txt_total_number_of_orders = itemView.findViewById(R.id.txt_number_of_orders);
             txt_price = itemView.findViewById(R.id.txt_product_price);
             imageView_product = itemView.findViewById(R.id.image_product);
+            txt_total_order = itemView.findViewById(R.id.txt_order_total);
+            txt_total_price = itemView.findViewById(R.id.total_price);
         }
     }
 }

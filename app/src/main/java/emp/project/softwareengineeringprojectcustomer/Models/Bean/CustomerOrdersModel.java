@@ -47,4 +47,5 @@ public class CustomerOrdersModel {
     public String getTotal_number_of_orders() {
         return total_number_of_orders;
     }
+
 }

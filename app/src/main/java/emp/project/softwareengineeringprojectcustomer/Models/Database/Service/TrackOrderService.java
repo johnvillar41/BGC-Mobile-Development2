@@ -48,7 +48,7 @@ public class TrackOrderService implements ITrackOrder.ITrackOrderService {
             ResultSet resultSet1 = preparedStatement1.executeQuery();
             while (resultSet1.next()) {
 
-                String sqlFetchProduct = "SELECT product_name, product_picture FROM products_table WHERE product_id=?";
+                String sqlFetchProduct = "SELECT product_name, product_picture,product_price FROM products_table WHERE product_id=?";
                 PreparedStatement preparedStatement2 = connection.prepareStatement(sqlFetchProduct);
                 preparedStatement2.setString(1, resultSet1.getString("product_id"));
                 ResultSet resultSet2 = preparedStatement2.executeQuery();
@@ -60,7 +60,8 @@ public class TrackOrderService implements ITrackOrder.ITrackOrderService {
                             resultSet1.getString("product_id"),
                             resultSet1.getString("total_orders"),
                             product_name,
-                            product_picture);
+                            product_picture,
+                            resultSet2.getString("product_price"));
                 }
             }
             CustomerOrdersModel customerOrdersModel = new CustomerOrdersModel(

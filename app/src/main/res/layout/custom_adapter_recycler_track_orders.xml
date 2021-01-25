@@ -6,6 +6,7 @@
     app:cardBackgroundColor="?attr/colorPrimary"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5sp"
+    app:cardCornerRadius="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         android:orientation="vertical"
@@ -16,22 +17,48 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <TextView
-                android:textColor="#000000"
+            <LinearLayout
                 android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/txt_id_template"
-                android:text="Order Id: "/>
-            <TextView
-                android:textColor="#000000"
-                android:layout_centerVertical="true"
-                android:id="@+id/txt_order_id"
-                android:layout_toRightOf="@+id/txt_id_template"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Id here"/>
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:textColor="#000000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txt_id_template"
+                        android:text="Order Id: "/>
+                    <TextView
+                        android:textColor="#000000"
+                        android:id="@+id/txt_order_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Id here"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:textColor="#000000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Order Total: "/>
+                    <TextView
+                        android:textColor="#000000"
+                        android:id="@+id/txt_order_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="total here"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
             <androidx.cardview.widget.CardView
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="5dp"
@@ -59,7 +86,7 @@
             android:background="#000000"
             />
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_marginTop="20sp"
@@ -123,6 +150,7 @@
 
             </TableLayout>
             <RelativeLayout
+                android:id="@+id/relative2"
                 android:layout_toRightOf="@+id/image_product"
                 android:layout_below="@+id/table_layout"
                 android:layout_width="wrap_content"
@@ -143,8 +171,17 @@
                     android:textSize="30sp"
                     android:layout_toRightOf="@+id/price"/>
             </RelativeLayout>
+            <Button
+                android:backgroundTint="#000000"
+                android:drawableLeft="@drawable/ic_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="See more"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/relative2"/>
         </RelativeLayout>
         <View
+            android:id="@+id/view2"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_width="match_parent"
@@ -152,6 +189,30 @@
             android:background="#000000"
             android:layout_marginBottom="20dp"
             />
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                android:text="Total Price: "/>
+            <TextView
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="P1000"
+                android:id="@+id/total_price"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:layout_toRightOf="@+id/price"/>
+        </LinearLayout>
+
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
