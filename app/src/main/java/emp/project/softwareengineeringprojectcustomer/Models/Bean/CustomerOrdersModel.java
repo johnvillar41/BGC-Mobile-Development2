@@ -2,8 +2,10 @@ package emp.project.softwareengineeringprojectcustomer.Models.Bean;
 
 public class CustomerOrdersModel {
     private String order_id, customer_name, customer_email, order_price, order_status, order_date, total_number_of_orders;
+    private SpecificOrdersModel specificOrdersModel;
 
-    public CustomerOrdersModel(String order_id, String customer_name, String customer_email, String order_price, String order_status, String order_date, String total_number_of_orders) {
+
+    public CustomerOrdersModel(String order_id, String customer_name, String customer_email, String order_price, String order_status, String order_date, String total_number_of_orders, SpecificOrdersModel specificOrdersModel) {
         this.order_id = order_id;
         this.customer_name = customer_name;
         this.customer_email = customer_email;
@@ -11,6 +13,11 @@ public class CustomerOrdersModel {
         this.order_status = order_status;
         this.order_date = order_date;
         this.total_number_of_orders = total_number_of_orders;
+        this.specificOrdersModel = specificOrdersModel;
+    }
+
+    public SpecificOrdersModel getSpecificOrdersModel() {
+        return specificOrdersModel;
     }
 
     public String getOrder_id() {

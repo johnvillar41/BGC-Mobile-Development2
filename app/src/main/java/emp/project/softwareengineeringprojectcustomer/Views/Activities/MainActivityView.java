@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -18,13 +17,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import emp.project.softwareengineeringprojectcustomer.IntroActivityView;
 import emp.project.softwareengineeringprojectcustomer.R;
 import emp.project.softwareengineeringprojectcustomer.UserCredentials;
-import emp.project.softwareengineeringprojectcustomer.Views.Fragments.ProfileFragment;
+import emp.project.softwareengineeringprojectcustomer.Views.Fragments.TrackOrderFragment;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.HomeFragment;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.NewsFragment;
 
@@ -96,9 +94,8 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
     }
 
     private static final String HOME = "Home";
-    private static final String GALLERY = "Gallery";
+    private static final String TRACK_ORDER = "Track Order";
     private static final String SLIDE_SHOW = "Slide Show";
-    private static final String CHECK_OUT = "Checkout";
 
 
     @SuppressLint({"NonConstantResourceId"})
@@ -110,10 +107,10 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
                         new HomeFragment()).commit();
                 toolbar.setTitle(HOME);
                 break;
-            case R.id.nav_gallery:
+            case R.id.nav_track_order:
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
-                        new ProfileFragment()).commit();
-                toolbar.setTitle(GALLERY);
+                        new TrackOrderFragment()).commit();
+                toolbar.setTitle(TRACK_ORDER);
                 break;
             case R.id.nav_slideshow:
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,

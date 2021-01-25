@@ -152,8 +152,6 @@ public class CustomerModel {
 
     /**TODO:
      *       2)maglagay ng label sa ilalim ng add photo picture("add profile picture")
-     *       5)product popup: baguhin ang edittext into +_-
-     *       6)checkout recyclerview: maglagay ng cost
      *       7)Gawing transparent and box sa checkout successful prompt
      */
 
