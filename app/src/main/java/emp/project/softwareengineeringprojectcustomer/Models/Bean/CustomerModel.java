@@ -49,12 +49,23 @@ public class CustomerModel {
         return user_status;
     }
 
-    public VALIDITY validateLogin(String username, String password) {
-        if (username.isEmpty() || password.isEmpty()) {
-            return VALIDITY.EMPTY_FIELD;
+    public HashSet<VALIDITY> validateLogin(String username, String password) {
+        HashSet<VALIDITY> validityList = new HashSet<>();
+        if (username.isEmpty()) {
+            validityList.add(VALIDITY.EMPTY_FIELD_USERNAME);
         } else {
-            return VALIDITY.VALID;
+            validityList.add(VALIDITY.VALID_FIELD_USERNAME);
         }
+        if (password.isEmpty()) {
+            validityList.add(VALIDITY.EMPTY_PASSWORD);
+        } else {
+            validityList.add(VALIDITY.VALID_PASSWORD);
+        }
+        if (!username.isEmpty() && !password.isEmpty()) {
+            validityList.add(VALIDITY.VALID);
+        }
+        return validityList;
+
     }
 
     public enum VALIDITY {
@@ -65,6 +76,7 @@ public class CustomerModel {
         EMPTY_EMAIL,
         EMPTY_FULLNAME,
         EMPTY_IMAGE,
+        EMPTY_PASSWORD,//for login
 
         EQUAL_PASSWORD,
         NOT_EQUAL_PASSWORD,
@@ -75,6 +87,7 @@ public class CustomerModel {
         VALID_EMAIL,
         VALID_FULLNAME,
         VALID_IMAGE,
+        VALID_PASSWORD,//for login
 
         PASSWORD_NOT_EQUAL,
         VALID;
@@ -83,7 +96,7 @@ public class CustomerModel {
     public HashSet<VALIDITY> validateRegistration(String[] arrTexts, InputStream FILE_INPUT_STREAM) {
         HashSet<VALIDITY> set = new HashSet<>();
         for (int i = 0; i < arrTexts.length; i++) {
-            if(arrTexts[i].isEmpty()) {
+            if (arrTexts[i].isEmpty()) {
                 switch (i) {
                     case 0:
                         set.add(VALIDITY.EMPTY_FIELD_USERNAME);
@@ -102,7 +115,7 @@ public class CustomerModel {
                         break;
                 }
             } else {
-                switch (i){
+                switch (i) {
                     case 0:
                         set.add(VALIDITY.VALID_FIELD_USERNAME);
                         break;
@@ -128,19 +141,19 @@ public class CustomerModel {
             set.add(VALIDITY.VALID_IMAGE);
         }
 
-        if(arrTexts[1].equals(arrTexts[2]) && !arrTexts[1].isEmpty()){
+        if (arrTexts[1].equals(arrTexts[2]) && !arrTexts[1].isEmpty()) {
             set.add(VALIDITY.EQUAL_PASSWORD);
         } else {
             set.add(VALIDITY.NOT_EQUAL_PASSWORD);
         }
 
-        if(set.contains(VALIDITY.VALID_EMAIL) &&
+        if (set.contains(VALIDITY.VALID_EMAIL) &&
                 set.contains(VALIDITY.VALID_FIELD_PASSWORD_1) &&
                 set.contains(VALIDITY.VALID_FIELD_PASSWORD_2) &&
                 set.contains(VALIDITY.VALID_FIELD_USERNAME) &&
                 set.contains(VALIDITY.VALID_IMAGE) &&
                 set.contains(VALIDITY.VALID_FULLNAME) &&
-                set.contains(VALIDITY.EQUAL_PASSWORD)){
+                set.contains(VALIDITY.EQUAL_PASSWORD)) {
             set.clear();
             set.add(VALIDITY.VALID);
         }

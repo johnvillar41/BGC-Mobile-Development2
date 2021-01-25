@@ -32,6 +32,7 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
     private ILogin.ILoginPresenter presenter;
     private LottieAnimationView lottieAnimationView_Loader;
     private TextInputLayout txt_username;
+    private TextInputLayout txt_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,8 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
 
         txt_username = findViewById(R.id.txt_username);
-        TextInputLayout txt_password = findViewById(R.id.txt_password);
+
+        txt_password = findViewById(R.id.txt_password);
 
         lottieAnimationView_Loader = findViewById(R.id.progressBar_loader);
         Button btn_login = findViewById(R.id.btn_login);
@@ -117,6 +119,47 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
                 lottieAnimationView_Loader.setVisibility(View.GONE);
             }
         });
+    }
+
+    @Override
+    public void setErrorUsername() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_username.setError("Empty Username");
+            }
+        });
+    }
+
+    @Override
+    public void setErrorPassword() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_password.setError("Empty Password");
+            }
+        });
+    }
+
+    @Override
+    public void removeErrorUsername() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_username.setError(null);
+            }
+        });
+    }
+
+    @Override
+    public void removeErrorPassword() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_password.setError(null);
+            }
+        });
+
     }
 
 }

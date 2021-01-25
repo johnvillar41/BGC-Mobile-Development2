@@ -12,17 +12,79 @@
         android:layout_height="?actionBarSize"
         app:title="Login Form"
         android:id="@+id/loginToolbar"/>
-    <com.airbnb.lottie.LottieAnimationView
+    <androidx.cardview.widget.CardView
         android:layout_marginTop="?actionBarSize"
-        android:id="@+id/progressBar"
-        android:layout_below="@+id/agt_description"
+        android:layout_marginLeft="20dp"
+        app:cardCornerRadius="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/loginToolbar"
         android:layout_width="match_parent"
-        android:layout_height="280sp"
-        android:layout_gravity="center"
-        android:scaleType="centerCrop"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/login" />
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:background="?attr/colorPrimary"
+            android:layout_below="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="280sp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/login" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_username"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                app:hintTextColor="#000000"
+                app:startIconDrawable="@drawable/ic_user"
+                style="@style/LoginTextInputLayoutStyle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_password"
+                android:layout_marginLeft="20dp"
+                app:startIconDrawable="@drawable/ic_password"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                app:hintTextColor="#000000"
+                style="@style/LoginTextInputLayoutStyle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:backgroundTint="#000000"
+                android:layout_marginBottom="20dp"
+                android:id="@+id/btn_login"
+                android:drawableLeft="@drawable/ic_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:text="Login"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
     <com.airbnb.lottie.LottieAnimationView
         android:layout_marginTop="?actionBarSize"
         android:id="@+id/progressBar_loader"
@@ -37,55 +99,7 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/loading_circle" />
-    <LinearLayout
-        android:layout_below="@+id/progressBar"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txt_username"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Username"
-            app:startIconDrawable="@drawable/ic_user"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txt_password"
-            android:layout_marginLeft="20dp"
-            app:startIconDrawable="@drawable/ic_password"
-            android:layout_marginRight="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/btn_login"
-            android:drawableLeft="@drawable/ic_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:text="Login"/>
-    </LinearLayout>
 
 
 </RelativeLayout>
