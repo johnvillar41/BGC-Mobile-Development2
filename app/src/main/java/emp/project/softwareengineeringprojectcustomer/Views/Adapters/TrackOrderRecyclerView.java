@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
 
     Context context;
     List<CustomerOrdersModel> list;
+    public static String order_id_product;
 
     public TrackOrderRecyclerView(Context context, List<CustomerOrdersModel> list) {
         this.context = context;
@@ -67,6 +69,14 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
         holder.txt_price.setText(String.valueOf(Integer.parseInt(model.getSpecificOrdersModel().getTotal_orders()) * Integer.parseInt(model.getSpecificOrdersModel().getProduct_price())));
         holder.txt_total_order.setText(model.getTotal_number_of_orders());
         holder.txt_total_price.setText(model.getOrder_price());
+
+        holder.btn_see_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                order_id_product = model.getOrder_id();
+                //TODO:DISPLAY POPUP SHOWING SPECIFIC ORDERS HERE
+            }
+        });
     }
 
     private CustomerOrdersModel getItem(int position) {
@@ -79,8 +89,9 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView txt_order_id, txt_status, txt_product_name, txt_date_ordered, txt_total_number_of_orders, txt_price,txt_total_order,txt_total_price;
+        TextView txt_order_id, txt_status, txt_product_name, txt_date_ordered, txt_total_number_of_orders, txt_price, txt_total_order, txt_total_price;
         ImageView imageView_product;
+        Button btn_see_more;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -93,6 +104,7 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
             imageView_product = itemView.findViewById(R.id.image_product);
             txt_total_order = itemView.findViewById(R.id.txt_order_total);
             txt_total_price = itemView.findViewById(R.id.total_price);
+            btn_see_more = itemView.findViewById(R.id.btn_see_more);
         }
     }
 }

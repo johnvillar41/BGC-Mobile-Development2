@@ -42,7 +42,7 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                     for (CustomerModel.VALIDITY valid : validity) {
                         switch (valid) {
                             case VALID:
-                                model = new CustomerModel(username, CustomerModel.FINAL_PASSWORD, fullname, CUSTOMER_STATUS_PENDING, email, FILE_INPUT_STREAM);
+                                model = new CustomerModel(username, arrTexts[1], fullname, CUSTOMER_STATUS_PENDING, email, FILE_INPUT_STREAM);
                                 service.insertCustomerToDB(model);
                                 view.onSuccess();
                                 view.removeErrorUsername();

@@ -172,6 +172,7 @@
                     android:layout_toRightOf="@+id/price"/>
             </RelativeLayout>
             <Button
+                android:id="@+id/btn_see_more"
                 android:backgroundTint="#000000"
                 android:drawableLeft="@drawable/ic_search"
                 android:layout_width="wrap_content"

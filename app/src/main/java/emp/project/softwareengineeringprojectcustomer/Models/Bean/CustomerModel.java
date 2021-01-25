@@ -57,8 +57,6 @@ public class CustomerModel {
         }
     }
 
-    public static String FINAL_PASSWORD = null;
-
     public enum VALIDITY {
         EMPTY_FIELD,
         EMPTY_FIELD_USERNAME,
