@@ -6,17 +6,21 @@
     android:layout_marginTop="5dp"
     android:layout_marginRight="5dp"
     app:cardCornerRadius="5dp"
+    app:cardBackgroundColor="?attr/colorPrimary"
     android:background="?attr/selectableItemBackground"
     android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="150dp"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#000000"
             android:layout_height="150dp"
             android:layout_margin="5dp"
             android:id="@+id/image_product"/>
         <TableLayout
+            android:layout_margin="15dp"
             android:layout_toRightOf="@+id/image_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -93,6 +97,7 @@
         </TableLayout>
 
         <Button
+            android:backgroundTint="#000000"
             android:drawableLeft="@drawable/ic_add_cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -25,6 +25,7 @@ import com.mysql.jdbc.Blob;
 import java.sql.SQLException;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import emp.project.softwareengineeringprojectcustomer.Interface.IHome;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
@@ -168,7 +169,7 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView product_image;
+        CircleImageView product_image;
         TextView txt_product_name, txt_product_price, txt_product_stocks, txt_product_description;
         Button btn_buy_now;
 
