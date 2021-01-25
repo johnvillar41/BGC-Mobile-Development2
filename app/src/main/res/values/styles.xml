@@ -5,11 +5,16 @@
         <item name="colorPrimary">#f9b207</item>
         <item name="colorPrimaryDark">#f9b207</item>
         <item name="colorAccent">#f9b207</item>
+        <item name="drawerArrowStyle">@style/DrawerIcon</item>
     </style>
 
     <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxStrokeColor">#000000</item>
         <item name="boxStrokeWidth">2dp</item>
+    </style>
+
+    <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">#000000</item>
     </style>
 
 

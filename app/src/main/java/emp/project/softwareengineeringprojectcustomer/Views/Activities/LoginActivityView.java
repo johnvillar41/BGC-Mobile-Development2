@@ -44,6 +44,7 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
         presenter = new LoginPresenter(this, new CustomerModel(), LoginService.getInstance());
         Toolbar toolbar = findViewById(R.id.loginToolbar);
         setSupportActionBar(toolbar);
+        toolbar.setBackground(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);

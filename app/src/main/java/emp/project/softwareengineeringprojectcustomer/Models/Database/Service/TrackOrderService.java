@@ -65,6 +65,8 @@ public class TrackOrderService implements ITrackOrder.ITrackOrderService {
                             resultSet2.getString("product_price"));
                     specificOrdersModelList.add(specificOrdersModel);
                 }
+                resultSet2.close();
+                preparedStatement2.close();
             }
             CustomerOrdersModel customerOrdersModel = new CustomerOrdersModel(
                     resultSet.getString("order_id"),
@@ -77,7 +79,133 @@ public class TrackOrderService implements ITrackOrder.ITrackOrderService {
                     specificOrdersModelList
             );
             ordersList.add(customerOrdersModel);
+            resultSet1.close();
+            preparedStatement1.close();
         }
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        return ordersList;
+    }
+
+    @Override
+    public List<CustomerOrdersModel> fetchSortedOrdersFromDB(String sort_type) throws ClassNotFoundException, SQLException {
+
+        List<SpecificOrdersModel> specificOrdersModelList = new ArrayList<>();
+        String order_id;
+        strictMode();
+        List<CustomerOrdersModel> ordersList = new ArrayList<>();
+        Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
+        String sqlfetch = "SELECT * FROM customer_orders_table WHERE customer_name=? AND order_status=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlfetch);
+        preparedStatement.setString(1, UserCredentials.getInstance().getUsername());
+        preparedStatement.setString(2,sort_type);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            order_id = resultSet.getString("order_id");
+
+            String sqlfetchSpecificOrders = "SELECT * FROM specific_orders_table WHERE order_id=?";
+            PreparedStatement preparedStatement1 = connection.prepareStatement(sqlfetchSpecificOrders);
+            preparedStatement1.setString(1, order_id);
+            ResultSet resultSet1 = preparedStatement1.executeQuery();
+            while (resultSet1.next()) {
+
+                String sqlFetchProduct = "SELECT product_name, product_picture,product_price FROM products_table WHERE product_id=?";
+                PreparedStatement preparedStatement2 = connection.prepareStatement(sqlFetchProduct);
+                preparedStatement2.setString(1, resultSet1.getString("product_id"));
+                ResultSet resultSet2 = preparedStatement2.executeQuery();
+                while (resultSet2.next()) {
+                    String product_name = resultSet2.getString(1);
+                    Blob product_picture = resultSet2.getBlob(2);
+                    SpecificOrdersModel specificOrdersModel = new SpecificOrdersModel(
+                            resultSet1.getString("order_id"),
+                            resultSet1.getString("product_id"),
+                            resultSet1.getString("total_orders"),
+                            product_name,
+                            product_picture,
+                            resultSet2.getString("product_price"));
+                    specificOrdersModelList.add(specificOrdersModel);
+                }
+                resultSet2.close();
+                preparedStatement2.close();
+            }
+            CustomerOrdersModel customerOrdersModel = new CustomerOrdersModel(
+                    resultSet.getString("order_id"),
+                    resultSet.getString("customer_name"),
+                    resultSet.getString("customer_email"),
+                    resultSet.getString("order_total_price"),
+                    resultSet.getString("order_status"),
+                    resultSet.getString("order_date"),
+                    resultSet.getString("total_number_of_orders"),
+                    specificOrdersModelList
+            );
+            ordersList.add(customerOrdersModel);
+            resultSet1.close();
+            preparedStatement1.close();
+        }
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        return ordersList;
+    }
+
+    @Override
+    public List<CustomerOrdersModel> fetchOrderByDate(String dateString) throws ClassNotFoundException, SQLException {
+        List<SpecificOrdersModel> specificOrdersModelList = new ArrayList<>();
+        String order_id;
+        strictMode();
+        List<CustomerOrdersModel> ordersList = new ArrayList<>();
+        Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
+        String sqlfetch = "SELECT * FROM customer_orders_table WHERE customer_name=? AND order_date=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlfetch);
+        preparedStatement.setString(1, UserCredentials.getInstance().getUsername());
+        preparedStatement.setString(2,dateString);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            order_id = resultSet.getString("order_id");
+
+            String sqlfetchSpecificOrders = "SELECT * FROM specific_orders_table WHERE order_id=?";
+            PreparedStatement preparedStatement1 = connection.prepareStatement(sqlfetchSpecificOrders);
+            preparedStatement1.setString(1, order_id);
+            ResultSet resultSet1 = preparedStatement1.executeQuery();
+            while (resultSet1.next()) {
+
+                String sqlFetchProduct = "SELECT product_name, product_picture,product_price FROM products_table WHERE product_id=?";
+                PreparedStatement preparedStatement2 = connection.prepareStatement(sqlFetchProduct);
+                preparedStatement2.setString(1, resultSet1.getString("product_id"));
+                ResultSet resultSet2 = preparedStatement2.executeQuery();
+                while (resultSet2.next()) {
+                    String product_name = resultSet2.getString(1);
+                    Blob product_picture = resultSet2.getBlob(2);
+                    SpecificOrdersModel specificOrdersModel = new SpecificOrdersModel(
+                            resultSet1.getString("order_id"),
+                            resultSet1.getString("product_id"),
+                            resultSet1.getString("total_orders"),
+                            product_name,
+                            product_picture,
+                            resultSet2.getString("product_price"));
+                    specificOrdersModelList.add(specificOrdersModel);
+                }
+                resultSet2.close();
+                preparedStatement2.close();
+            }
+            CustomerOrdersModel customerOrdersModel = new CustomerOrdersModel(
+                    resultSet.getString("order_id"),
+                    resultSet.getString("customer_name"),
+                    resultSet.getString("customer_email"),
+                    resultSet.getString("order_total_price"),
+                    resultSet.getString("order_status"),
+                    resultSet.getString("order_date"),
+                    resultSet.getString("total_number_of_orders"),
+                    specificOrdersModelList
+            );
+            ordersList.add(customerOrdersModel);
+            resultSet1.close();
+            preparedStatement1.close();
+        }
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
         return ordersList;
     }
 }

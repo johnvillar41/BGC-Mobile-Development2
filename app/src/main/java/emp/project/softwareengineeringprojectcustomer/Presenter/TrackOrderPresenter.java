@@ -22,17 +22,78 @@ public class TrackOrderPresenter implements ITrackOrder.ITrackOrderPresenter {
             @Override
             public void run() {
                 try {
-                    List<CustomerOrdersModel> orderList=service.fetchOrdersFromDB();
                     view.displayLoader();
+                    List<CustomerOrdersModel> orderList = service.fetchOrdersFromDB();
                     view.displayOrders(orderList);
                     view.hideLoader();
+                    if (orderList.isEmpty()) {
+                        view.displayEmptyResult();
+                    } else {
+                        view.hideEmptyResult();
+                    }
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
             }
-        });thread.start();
+        });
+        thread.start();
 
+    }
+
+    @Override
+    public void onSortFloatinActionButtonClicked() {
+        view.displayPopupSortBy();
+    }
+
+    @Override
+    public void onButtonConfirmSortClicked(String sort_type) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    view.displayLoader();
+                    List<CustomerOrdersModel> orderList = service.fetchSortedOrdersFromDB(sort_type);
+                    view.displayOrders(orderList);
+                    view.hideLoader();
+                    if (orderList.isEmpty()) {
+                        view.displayEmptyResult();
+                    } else {
+                        view.hideEmptyResult();
+                    }
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+    }
+
+    @Override
+    public void onDateSortConfirmClicked(String dateString) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    view.displayLoader();
+                    List<CustomerOrdersModel> orderList = service.fetchOrderByDate(dateString);
+                    view.displayOrders(orderList);
+                    view.hideLoader();
+                    if (orderList.isEmpty()) {
+                        view.displayEmptyResult();
+                    } else {
+                        view.hideEmptyResult();
+                    }
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+        thread.start();
     }
 }

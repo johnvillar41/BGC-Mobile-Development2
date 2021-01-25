@@ -16,10 +16,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:elevation="10dp"
+        android:elevation="15dp"
         android:scaleType="centerCrop"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/loading_circle" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_alignParentTop="true"
+        android:id="@+id/no_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:elevation="10dp"
+        android:scaleType="centerCrop"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/emptyandlost" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        app:backgroundTint="#f9b207"
+        android:src="@drawable/ic_sort"
+        tools:ignore="RelativeOverlap" />
 
 </RelativeLayout>
