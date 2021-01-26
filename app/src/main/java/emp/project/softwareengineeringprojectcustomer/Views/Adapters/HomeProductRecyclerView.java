@@ -117,7 +117,17 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
                     Toast.makeText(context, "Empty!", Toast.LENGTH_SHORT).show();
                 } else {
                     model.setTotal_number_products_orders(editText_number_total.getText().toString());
-                    presenter.onConfirmButtonClicked(editText_number_total.getText().toString(), model);
+                    ProductModel newModel = new ProductModel(
+                            model.getProduct_id(),
+                            model.getProduct_name(),
+                            model.getProduct_price(),
+                            model.getProduct_stocks(),
+                            model.getProduct_category(),
+                            model.getProduct_description(),
+                            model.getProduct_picture(),
+                            model.getTotal_number_products_orders()
+                    );
+                    presenter.onConfirmButtonClicked(editText_number_total.getText().toString(), newModel);
                     dialog.cancel();
                 }
             }

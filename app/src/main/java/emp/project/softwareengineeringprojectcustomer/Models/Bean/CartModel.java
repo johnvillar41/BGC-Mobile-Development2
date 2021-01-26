@@ -1,5 +1,7 @@
 package emp.project.softwareengineeringprojectcustomer.Models.Bean;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,11 +29,6 @@ public class CartModel {
         cartList.add(productModel);
     }
 
-    public void updateToCart(Integer total_orders, int position) {
-        if (total_orders <= Integer.parseInt(cartList.get(position).getProduct_stocks())) {
-            cartList.get(position).setProduct_stocks(String.valueOf(total_orders));
-        }
-    }
 
     public List<ProductModel> getCartValues() {
         return cartList;
@@ -52,5 +49,6 @@ public class CartModel {
         }
         return totalVal;
     }
+
 
 }

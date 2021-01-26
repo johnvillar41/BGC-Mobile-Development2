@@ -87,6 +87,19 @@ public class ProductModel {
         this.product_stocks = product_stocks;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductModel that = (ProductModel) o;
+        return Objects.equals(product_id, that.product_id) &&
+                Objects.equals(product_name, that.product_name) &&
+                Objects.equals(product_category, that.product_category) &&
+                Objects.equals(product_description, that.product_description) &&
+                Objects.equals(product_picture, that.product_picture);
+    }
+
     @NotNull
     @Override
     public String toString() {
