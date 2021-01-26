@@ -51,15 +51,7 @@ public class UserCredentials implements IStrictMode {
     }
     /*TODO:
     Customer App Notes:
-    {
-    Test account
-    Username: elpmas
-    Password: elpmas
-    Fullname: Oliver Diaz
-    Email: elpmas@gmail.com
-    }
     * Add (on employee app): View all registered end-users/customers
-    * When ordering products, each time a product is confirmed, it is considered a separate order
     * (For clarification/reminder) "Slide Show" is for showing the tutorials of each product. Only accessible for ordered products, after the order is "finished". -> May encourage buying of products.
     * Displaying full name, email, and profile picture
     * Notification for adding products to the cart (red circle with a number -> number represents the current number of items in the cart)

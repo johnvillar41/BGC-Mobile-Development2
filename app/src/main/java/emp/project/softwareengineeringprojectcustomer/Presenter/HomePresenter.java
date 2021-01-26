@@ -91,14 +91,16 @@ public class HomePresenter implements IHome.IHomePresenter {
             @Override
             public void run() {
                 view.displayProgressBarProducts();
+
+                //TODO:FIX ASAP CART PROBLEM
                 try {
-                    if (CartModel.getInstance().getTotalNumberOfOrders().equals("0")) {
-                        CartModel.getInstance().addToCart(model);
-                        view.hideProgressBarProducts();
-                        view.displayMessage(SUCCESS_ADD_TO_CART);
-                    } else {
-                        for (int i = 0; i < Integer.parseInt(CartModel.getInstance().getTotalNumberOfOrders()); i++) {
-                            if (Integer.parseInt(totalNumberOrders) < service.checkIfProductIsEnough(model.getProduct_id())) {
+                    if (Integer.parseInt(totalNumberOrders) < service.checkIfProductIsEnough(model.getProduct_id())) {
+                        if (CartModel.getInstance().getTotalNumberOfOrders().equals("0")) {
+                            CartModel.getInstance().addToCart(model);
+                            view.hideProgressBarProducts();
+                            view.displayMessage(SUCCESS_ADD_TO_CART);
+                        } else {
+                            for (int i = 0; i < Integer.parseInt(CartModel.getInstance().getTotalNumberOfOrders()); i++) {
                                 if (model.getProduct_id().equals(CartModel.getInstance().getCartValues().get(i).getProduct_id())) {
                                     CartModel.getInstance().updateToCart(model, i);
                                     view.displayMessage(SUCCESS_UPDATE_TO_CART);
@@ -107,12 +109,11 @@ public class HomePresenter implements IHome.IHomePresenter {
                                     view.displayMessage(SUCCESS_ADD_TO_CART);
                                 }
                                 view.hideProgressBarProducts();
-                                break;
-                            } else {
-                                view.displayMessage(PRODUCT_NOT_ENOUGH);
-                                view.hideProgressBarProducts();
                             }
                         }
+                    } else {
+                        view.displayMessage(PRODUCT_NOT_ENOUGH);
+                        view.hideProgressBarProducts();
                     }
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
@@ -120,6 +121,7 @@ public class HomePresenter implements IHome.IHomePresenter {
                     throwables.printStackTrace();
                 }
             }
-        });thread.start();
+        });
+        thread.start();
     }
 }
