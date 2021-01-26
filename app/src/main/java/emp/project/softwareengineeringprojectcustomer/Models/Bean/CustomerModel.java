@@ -1,6 +1,7 @@
 package emp.project.softwareengineeringprojectcustomer.Models.Bean;
 
 import java.io.InputStream;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 public class CustomerModel {
     private String user_id, user_username, user_password, user_fullname, user_status, user_email;
     private InputStream inputStream;
+    private Blob picture;
 
     public CustomerModel(String user_username, String user_password, String user_fullname, String user_status, String user_email, InputStream inputStream) {
         this.user_username = user_username;
@@ -18,7 +20,19 @@ public class CustomerModel {
         this.inputStream = inputStream;
     }
 
+    //This contructor is for the display of user credentials
+    public CustomerModel(String user_username, String user_fullname, String user_email, Blob picture) {
+        this.user_username = user_username;
+        this.user_fullname = user_fullname;
+        this.user_email = user_email;
+        this.picture = picture;
+    }
+
     public CustomerModel() {
+    }
+
+    public Blob getPicture() {
+        return picture;
     }
 
     public InputStream getInputStream() {
