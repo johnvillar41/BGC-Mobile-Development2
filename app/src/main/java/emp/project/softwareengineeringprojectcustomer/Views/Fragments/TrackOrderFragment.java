@@ -93,7 +93,7 @@ public class TrackOrderFragment extends Fragment implements ITrackOrder.ITrackOr
                     LinearLayoutManager layoutManager
                             = new LinearLayoutManager(TrackOrderFragment.this.getActivity(), LinearLayoutManager.VERTICAL, false);
                     TrackOrderRecyclerView adapter = new TrackOrderRecyclerView(
-                            TrackOrderFragment.this.getActivity(), ordersList, TrackOrderService.getInstance());
+                            TrackOrderFragment.this.getActivity(), ordersList);
                     layoutManager.setReverseLayout(true);
                     layoutManager.setStackFromEnd(true);
                     recyclerView_orders.setLayoutManager(layoutManager);
@@ -206,7 +206,6 @@ public class TrackOrderFragment extends Fragment implements ITrackOrder.ITrackOr
     }
 
     public enum SORT_TYPE {
-        SORT_DATE(""),
         SORT_FINSIHED("Finished"),
         SORT_CANCELLED("Cancelled"),
         SORT_PROCESSING("Processing");

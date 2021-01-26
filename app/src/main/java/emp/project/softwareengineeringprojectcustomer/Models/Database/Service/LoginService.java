@@ -29,7 +29,7 @@ public class LoginService implements ILogin.ILoginService {
     public boolean fetchCustomerLoginCredentials(String username, String password) throws SQLException, ClassNotFoundException {
         strictMode();
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
-        String sqlGetCustomer = "SELECT * FROM customer_table WHERE user_username=? AND user_password=?";
+        String sqlGetCustomer = "SELECT * FROM customer_table WHERE user_username LIKE BINARY ? AND user_password LIKE BINARY ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlGetCustomer);
         preparedStatement.setString(1, username);
         preparedStatement.setString(2, password);

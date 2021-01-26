@@ -129,6 +129,13 @@ public class HomeFragment extends Fragment implements IHome.IHomeView {
 
     @Override
     public void displayMessage(String message) {
-        Toast.makeText(HomeFragment.this.getActivity(), message, Toast.LENGTH_SHORT).show();
+        if(getActivity()!=null){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(HomeFragment.this.getActivity(), message, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }

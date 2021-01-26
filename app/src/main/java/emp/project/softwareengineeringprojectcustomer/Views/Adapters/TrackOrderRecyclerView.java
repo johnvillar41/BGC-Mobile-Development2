@@ -35,12 +35,10 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
 
     Context context;
     List<CustomerOrdersModel> list;
-    ITrackOrder.ITrackOrderService service;
 
-    public TrackOrderRecyclerView(Context context, List<CustomerOrdersModel> list, ITrackOrder.ITrackOrderService service) {
+    public TrackOrderRecyclerView(Context context, List<CustomerOrdersModel> list) {
         this.context = context;
         this.list = list;
-        this.service = service;
     }
 
     @NonNull

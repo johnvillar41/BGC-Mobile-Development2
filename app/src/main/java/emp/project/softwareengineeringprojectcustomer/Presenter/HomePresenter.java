@@ -1,5 +1,9 @@
 package emp.project.softwareengineeringprojectcustomer.Presenter;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -79,29 +83,43 @@ public class HomePresenter implements IHome.IHomePresenter {
 
     public static final String PRODUCT_NOT_ENOUGH = "Product is not enough!";
     public static final String SUCCESS_ADD_TO_CART = "Successfully added to cart!";
+    public static final String SUCCESS_UPDATE_TO_CART = "Successfully updated to cart!";
 
     @Override
     public void onConfirmButtonClicked(String totalNumberOrders, ProductModel model) {
-        try {
-            if (Integer.parseInt(totalNumberOrders) < service.checkIfProductIsEnough(model.getProduct_id())) {
-                ProductModel productModel = new ProductModel(
-                        model.getProduct_id(),
-                        model.getProduct_name(),
-                        model.getProduct_price(),
-                        model.getProduct_stocks(),
-                        model.getProduct_category(),
-                        model.getProduct_description(),
-                        model.getProduct_picture(),
-                        model.getTotal_number_products_orders());
-                CartModel.getInstance().addToCart(productModel);
-                view.displayMessage(SUCCESS_ADD_TO_CART);
-            } else {
-                view.displayMessage(PRODUCT_NOT_ENOUGH);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                view.displayProgressBarProducts();
+                try {
+                    if (CartModel.getInstance().getTotalNumberOfOrders().equals("0")) {
+                        CartModel.getInstance().addToCart(model);
+                        view.hideProgressBarProducts();
+                        view.displayMessage(SUCCESS_ADD_TO_CART);
+                    } else {
+                        for (int i = 0; i < Integer.parseInt(CartModel.getInstance().getTotalNumberOfOrders()); i++) {
+                            if (Integer.parseInt(totalNumberOrders) < service.checkIfProductIsEnough(model.getProduct_id())) {
+                                if (model.getProduct_id().equals(CartModel.getInstance().getCartValues().get(i).getProduct_id())) {
+                                    CartModel.getInstance().updateToCart(model, i);
+                                    view.displayMessage(SUCCESS_UPDATE_TO_CART);
+                                } else {
+                                    CartModel.getInstance().addToCart(model);
+                                    view.displayMessage(SUCCESS_ADD_TO_CART);
+                                }
+                                view.hideProgressBarProducts();
+                                break;
+                            } else {
+                                view.displayMessage(PRODUCT_NOT_ENOUGH);
+                                view.hideProgressBarProducts();
+                            }
+                        }
+                    }
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        });thread.start();
     }
 }

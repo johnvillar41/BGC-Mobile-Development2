@@ -27,6 +27,11 @@ public class CartModel {
         cartList.add(productModel);
     }
 
+    public void updateToCart(ProductModel model, int position) {
+        int totalStocks = Integer.parseInt(cartList.get(position).getTotal_number_products_orders()) + Integer.parseInt(model.getTotal_number_products_orders());
+        cartList.get(position).setProduct_stocks(String.valueOf(totalStocks));
+    }
+
     public List<ProductModel> getCartValues() {
         return cartList;
     }

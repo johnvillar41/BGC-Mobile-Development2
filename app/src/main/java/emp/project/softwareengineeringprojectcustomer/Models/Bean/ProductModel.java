@@ -1,8 +1,13 @@
 package emp.project.softwareengineeringprojectcustomer.Models.Bean;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.Blob;
+import java.util.Objects;
 
 public class ProductModel {
     private String product_id, product_name, product_price, product_stocks, product_category, product_description;
@@ -77,7 +82,9 @@ public class ProductModel {
         return product_picture;
     }
 
-
+    public void setProduct_stocks(String product_stocks) {
+        this.product_stocks = product_stocks;
+    }
 
     @NotNull
     @Override

@@ -61,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Password"
                 app:hintTextColor="#000000"
+                app:passwordToggleEnabled="true"
                 style="@style/LoginTextInputLayoutStyle">
 
                 <com.google.android.material.textfield.TextInputEditText
