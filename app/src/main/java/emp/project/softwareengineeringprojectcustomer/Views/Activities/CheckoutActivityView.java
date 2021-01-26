@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +13,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.ICheckout;
 import emp.project.softwareengineeringprojectcustomer.IntroActivityView;
@@ -39,6 +42,7 @@ public class CheckoutActivityView extends AppCompatActivity implements ICheckout
     private LottieAnimationView lottieAnimationViewLoader,lottieAnimationView_emptyCart;
     private ICheckout.ICheckoutPresenter presenter;
 
+    private View instance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +72,7 @@ public class CheckoutActivityView extends AppCompatActivity implements ICheckout
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                instance = v;
                 presenter.onCheckoutButtonClicked();
             }
         });
@@ -140,7 +145,13 @@ public class CheckoutActivityView extends AppCompatActivity implements ICheckout
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(CheckoutActivityView.this, errorMessage, Toast.LENGTH_SHORT).show();
+                Snackbar snack = Snackbar.make(instance, errorMessage, Snackbar.LENGTH_LONG);
+                View view = snack.getView();
+                TextView tv = view.findViewById(com.google.android.material.R.id.snackbar_text);
+                tv.setTextColor(ContextCompat.getColor(CheckoutActivityView.this, android.R.color.holo_orange_dark));
+                tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_error_24, 0, 0, 0);
+                tv.setGravity(Gravity.CENTER);
+                snack.show();
             }
         });
     }
@@ -163,6 +174,11 @@ public class CheckoutActivityView extends AppCompatActivity implements ICheckout
                 lottieAnimationView_emptyCart.setVisibility(View.INVISIBLE);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override

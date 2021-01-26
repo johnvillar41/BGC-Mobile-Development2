@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,7 +39,8 @@ import emp.project.softwareengineeringprojectcustomer.Views.Adapters.TrackOrderR
 public class TrackOrderFragment extends Fragment implements ITrackOrder.ITrackOrderView {
     private ITrackOrder.ITrackOrderPresenter presenter;
     private RecyclerView recyclerView_orders;
-    private LottieAnimationView lottieAnimationView_loader,lottieAnimationView_no_result;
+    private LottieAnimationView lottieAnimationView_loader, lottieAnimationView_no_result;
+    private TextView txtNoResult;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class TrackOrderFragment extends Fragment implements ITrackOrder.ITrackOr
         recyclerView_orders = root.findViewById(R.id.recyclerView_orders);
         lottieAnimationView_loader = root.findViewById(R.id.loader_orders);
         lottieAnimationView_no_result = root.findViewById(R.id.no_result);
+        txtNoResult = root.findViewById(R.id.txt_noREsult);
         presenter = new TrackOrderPresenter(this, TrackOrderService.getInstance());
         presenter.loadOrders();
 
@@ -183,11 +186,12 @@ public class TrackOrderFragment extends Fragment implements ITrackOrder.ITrackOr
 
     @Override
     public void displayEmptyResult() {
-        if(getActivity()!=null){
+        if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     lottieAnimationView_no_result.setVisibility(View.VISIBLE);
+                    txtNoResult.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -195,11 +199,12 @@ public class TrackOrderFragment extends Fragment implements ITrackOrder.ITrackOr
 
     @Override
     public void hideEmptyResult() {
-        if(getActivity()!=null){
+        if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     lottieAnimationView_no_result.setVisibility(View.INVISIBLE);
+                    txtNoResult.setVisibility(View.INVISIBLE);
                 }
             });
         }

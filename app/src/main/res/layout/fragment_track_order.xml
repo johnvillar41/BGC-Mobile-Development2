@@ -21,6 +21,18 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/loading_circle" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:visibility="invisible"
+        android:elevation="20dp"
+        android:id="@+id/txt_noREsult"
+        android:textStyle="bold"
+        android:text="No Results Found!"/>
     <com.airbnb.lottie.LottieAnimationView
         android:layout_alignParentTop="true"
         android:id="@+id/no_result"

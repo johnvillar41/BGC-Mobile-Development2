@@ -3,6 +3,7 @@ package emp.project.softwareengineeringprojectcustomer.Views.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,15 +11,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.ILogin;
@@ -33,7 +37,7 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
     private LottieAnimationView lottieAnimationView_Loader;
     private TextInputLayout txt_username;
     private TextInputLayout txt_password;
-
+    private View view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +62,7 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                view = v;
                 presenter.onLoginButtonClicked(
                         txt_username.getEditText().getText().toString(),
                         txt_password.getEditText().getText().toString());
@@ -73,7 +78,7 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
         }
         return super.onOptionsItemSelected(item);
     }
-    public static final String KEY = "111";
+    
     @SuppressLint("CommitPrefEdits")
     @Override
     public void onSuccess() {
@@ -95,7 +100,13 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(LoginActivityView.this, errorMessage, Toast.LENGTH_SHORT).show();
+                Snackbar snack = Snackbar.make(view, errorMessage, Snackbar.LENGTH_LONG);
+                View view = snack.getView();
+                TextView tv = view.findViewById(com.google.android.material.R.id.snackbar_text);
+                tv.setTextColor(ContextCompat.getColor(LoginActivityView.this, android.R.color.holo_orange_dark));
+                tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_error_24, 0, 0, 0);
+                tv.setGravity(Gravity.CENTER);
+                snack.show();
             }
         });
 

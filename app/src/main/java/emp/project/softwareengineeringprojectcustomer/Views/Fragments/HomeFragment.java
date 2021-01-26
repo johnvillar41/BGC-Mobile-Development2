@@ -1,17 +1,21 @@
 package emp.project.softwareengineeringprojectcustomer.Views.Fragments;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -20,6 +24,7 @@ import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.HomeService;
 import emp.project.softwareengineeringprojectcustomer.Presenter.HomePresenter;
 import emp.project.softwareengineeringprojectcustomer.R;
+import emp.project.softwareengineeringprojectcustomer.Views.Activities.LoginActivityView;
 import emp.project.softwareengineeringprojectcustomer.Views.Adapters.HomeCategoryRecyclerView;
 import emp.project.softwareengineeringprojectcustomer.Views.Adapters.HomeProductRecyclerView;
 
@@ -27,10 +32,11 @@ public class HomeFragment extends Fragment implements IHome.IHomeView {
     private RecyclerView recyclerView_Category, recyclerView_Home;
     private LottieAnimationView lottieAnimationView_loading_products, lottieAnimationView_loading_categories;
     private IHome.IHomePresenter presenter;
-
+    private View view;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        view = rootView;
         presenter = new HomePresenter(this, HomeService.getINSTANCE());
 
         recyclerView_Category = rootView.findViewById(R.id.recyclerView_Category);
@@ -133,7 +139,13 @@ public class HomeFragment extends Fragment implements IHome.IHomeView {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(HomeFragment.this.getActivity(), message, Toast.LENGTH_SHORT).show();
+                    Snackbar snack = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+                    View view = snack.getView();
+                    TextView tv = view.findViewById(com.google.android.material.R.id.snackbar_text);
+                    tv.setTextColor(ContextCompat.getColor(HomeFragment.this.getActivity(), android.R.color.holo_orange_dark));
+                    tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_error_24, 0, 0, 0);
+                    tv.setGravity(Gravity.CENTER);
+                    snack.show();
                 }
             });
         }

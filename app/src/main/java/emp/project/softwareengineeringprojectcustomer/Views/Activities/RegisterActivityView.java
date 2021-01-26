@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,9 +25,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.ByteArrayInputStream;
@@ -51,7 +55,7 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
     private TextInputLayout txt_password2;
     private TextInputLayout txt_fullname;
     private TextInputLayout txt_email;
-
+    private View view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +89,7 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                view = v;
                 presenter.onRegisterButtonClicked(
                         txt_username.getEditText().getText().toString(),
                         txt_password.getEditText().getText().toString(),
@@ -117,7 +122,13 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(RegisterActivityView.this, errorMessage, Toast.LENGTH_SHORT).show();
+                Snackbar snack = Snackbar.make(view, errorMessage, Snackbar.LENGTH_LONG);
+                View view = snack.getView();
+                TextView tv = view.findViewById(com.google.android.material.R.id.snackbar_text);
+                tv.setTextColor(ContextCompat.getColor(RegisterActivityView.this, android.R.color.holo_orange_dark));
+                tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_error_24, 0, 0, 0);
+                tv.setGravity(Gravity.CENTER);
+                snack.show();
             }
         });
     }
