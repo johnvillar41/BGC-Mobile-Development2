@@ -32,7 +32,8 @@ public class ProductModel {
     /**
      * This constructor is for the cartModel
      */
-    public ProductModel(String product_id, String product_name, String product_price, String product_stocks, String product_category, String product_description, Blob product_picture, String total_number_products) {
+    public ProductModel(String product_id, String product_name, String product_price, String product_stocks, String product_category,
+                        String product_description, Blob product_picture, String total_number_products) {
         this.product_id = product_id;
         this.product_name = product_name;
         this.product_price = product_price;

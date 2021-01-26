@@ -102,7 +102,7 @@ public class HomePresenter implements IHome.IHomePresenter {
                         } else {
                             for (int i = 0; i < Integer.parseInt(CartModel.getInstance().getTotalNumberOfOrders()); i++) {
                                 if (model.getProduct_id().equals(CartModel.getInstance().getCartValues().get(i).getProduct_id())) {
-                                    CartModel.getInstance().updateToCart(model, i);
+                                    CartModel.getInstance().updateToCart(Integer.parseInt(model.getTotal_number_products_orders()), i);
                                     view.displayMessage(SUCCESS_UPDATE_TO_CART);
                                 } else {
                                     CartModel.getInstance().addToCart(model);
