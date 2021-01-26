@@ -43,7 +43,6 @@ public class SpecificOrdersRecyclerView extends RecyclerView.Adapter<SpecificOrd
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         SpecificOrdersModel model = getItem(position);
-
         Blob b = (Blob) model.getProduct_image();
         int[] blobLength = new int[1];
         try {
@@ -60,7 +59,7 @@ public class SpecificOrdersRecyclerView extends RecyclerView.Adapter<SpecificOrd
 
         holder.txt_product_name.setText(model.getProduct_name());
         holder.txt_number_of_orders.setText(model.getTotal_orders());
-        holder.txt_product_price.setText(model.getProduct_price());
+        holder.txt_product_price.setText(String.valueOf(Integer.parseInt(model.getProduct_price()) * Integer.parseInt(model.getTotal_orders())));
     }
 
     private SpecificOrdersModel getItem(int position) {

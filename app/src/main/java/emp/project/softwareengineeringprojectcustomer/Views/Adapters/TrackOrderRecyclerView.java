@@ -2,6 +2,7 @@ package emp.project.softwareengineeringprojectcustomer.Views.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,25 +10,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-import com.mysql.jdbc.Blob;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import emp.project.softwareengineeringprojectcustomer.Interface.ITrackOrder;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerOrdersModel;
-import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.SpecificOrdersModel;
 import emp.project.softwareengineeringprojectcustomer.R;
 
@@ -52,30 +45,13 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         CustomerOrdersModel model = getItem(position);
-
-        Blob b = (Blob) model.getSpecificOrdersModelList().get(0).getProduct_image();
-        int[] blobLength = new int[1];
-        try {
-            blobLength[0] = (int) b.length();
-            byte[] blobAsBytes = b.getBytes(1, blobLength[0]);
-            Glide.with(context)
-                    .load(blobAsBytes)
-                    .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
-                    .skipMemoryCache(true)
-                    .into(holder.imageView_product);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
         holder.txt_order_id.setText(model.getOrder_id());
         holder.txt_status.setText(model.getOrder_status());
         holder.txt_product_name.setText(model.getSpecificOrdersModelList().get(0).getProduct_name());
         holder.txt_date_ordered.setText(model.getOrder_date());
-        holder.txt_total_number_of_orders.setText(model.getSpecificOrdersModelList().get(0).getTotal_orders());
-        holder.txt_price.setText(String.valueOf(Integer.parseInt(model.getSpecificOrdersModelList().get(0).getTotal_orders()) * Integer.parseInt(model.getSpecificOrdersModelList().get(0).getProduct_price())));
         holder.txt_total_order.setText(model.getTotal_number_of_orders());
         holder.txt_total_price.setText(model.getOrder_price());
-
+        holder.cardView_Status.setCardBackgroundColor(Color.parseColor(setStatusColor(model.getOrder_status())));
         holder.btn_see_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,8 +62,8 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
 
                 List<SpecificOrdersModel> finalList = new ArrayList<>();
 
-                for(SpecificOrdersModel specificOrdersModel:model.getSpecificOrdersModelList()){
-                    if(specificOrdersModel.getOrder_id().equals(model.getOrder_id())){
+                for (SpecificOrdersModel specificOrdersModel : model.getSpecificOrdersModelList()) {
+                    if (specificOrdersModel.getOrder_id().equals(model.getOrder_id())) {
                         finalList.add(specificOrdersModel);
                     }
                 }
@@ -111,6 +87,23 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
         });
     }
 
+    private static final String PROCESSING = "Processing";
+    private static final String FINISHED = "Finished";
+    private static final String CANCELLED = "Cancelled";
+
+    private String setStatusColor(String orderStatus) {
+        switch (orderStatus) {
+            case PROCESSING:
+                return "#000080";
+            case FINISHED:
+                return "#008000";
+            case CANCELLED:
+                return "#FF0000";
+            default:
+                return null;
+        }
+    }
+
     private CustomerOrdersModel getItem(int position) {
         return list.get(position);
     }
@@ -124,6 +117,7 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
         TextView txt_order_id, txt_status, txt_product_name, txt_date_ordered, txt_total_number_of_orders, txt_price, txt_total_order, txt_total_price;
         ImageView imageView_product;
         Button btn_see_more;
+        CardView cardView_Status;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -138,6 +132,7 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
             txt_total_order = itemView.findViewById(R.id.txt_order_total);
             txt_total_price = itemView.findViewById(R.id.total_price);
             btn_see_more = itemView.findViewById(R.id.btn_see_more);
+            cardView_Status = itemView.findViewById(R.id.cardView_Status);
         }
     }
 }
