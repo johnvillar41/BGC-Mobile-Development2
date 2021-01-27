@@ -40,6 +40,7 @@ import emp.project.softwareengineeringprojectcustomer.UserCredentials;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.TrackOrderFragment;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.HomeFragment;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.NewsFragment;
+import emp.project.softwareengineeringprojectcustomer.Views.Fragments.UserProfileFragment;
 
 public class MainActivityView extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, IMain.IMainView {
 
@@ -126,6 +127,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
     private static final String HOME = "Home";
     private static final String TRACK_ORDER = "Track Order";
     private static final String SLIDE_SHOW = "Slide Show";
+    private static final String USER_PROFILE = "User Profile";
 
 
     @SuppressLint({"NonConstantResourceId"})
@@ -146,6 +148,11 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
                         new NewsFragment()).commit();
                 toolbar.setTitle(SLIDE_SHOW);
+                break;
+            case R.id.nav_profile:
+                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
+                        new UserProfileFragment()).commit();
+                toolbar.setTitle(USER_PROFILE);
                 break;
             case R.id.nav_logout:
                 Intent intent = new Intent(this, IntroActivityView.class);

@@ -23,6 +23,13 @@
             android:contentDescription="@string/nav_header_desc"
             android:id="@+id/profile_picture" />
 
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#000000"/>
+
         <TextView
             android:textSize="20sp"
             android:textStyle="bold"

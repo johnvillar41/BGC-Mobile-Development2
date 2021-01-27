@@ -1,69 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     app:cardBackgroundColor="#CF9B1E"
-    app:cardCornerRadius="5dp"
-    android:layout_height="wrap_content">
+    app:cardCornerRadius="5dp">
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <androidx.cardview.widget.CardView
+            android:id="@+id/exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_margin="5dp"
             android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:id="@+id/exit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:clickable="true">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_close"/>
+                android:src="@drawable/ic_close" />
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <ImageView
+                android:id="@+id/image_product"
                 android:layout_width="120sp"
                 android:layout_height="120sp"
-                android:layout_gravity="center"
-                android:id="@+id/image_product"/>
+                android:layout_gravity="center" />
+            <View
+                android:layout_margin="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#000000"/>
+
             <LinearLayout
-                android:gravity="center"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:orientation="horizontal">
+
                 <Button
-                    android:textSize="20sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="+"
-                    android:id="@+id/btn_up"/>
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Quantity"
-                    android:inputType="number"
-                    android:id="@+id/txt_total_orders"
-                    android:layout_gravity="center"/>
-                <Button
-                    android:textSize="20sp"
+                    android:backgroundTint="#000000"
+                    android:id="@+id/btn_down"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    android:id="@+id/btn_down"/>
+                    android:textSize="20sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txt_total_orders"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_margin="5dp"
+                    android:hint="Quantity"
+                    app:hintTextColor="#000000"
+                    app:startIconDrawable="@drawable/ic_baseline_production_quantity_limits_24"
+                    style="@style/LoginTextInputLayoutStyle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:ems="7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:backgroundTint="#000000"
+                    android:id="@+id/btn_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+"
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <Button
+                android:id="@+id/btn_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Confirm"
                 android:layout_gravity="center"
-                android:id="@+id/btn_confirm"/>
+                android:text="Confirm" />
         </LinearLayout>
     </RelativeLayout>
 

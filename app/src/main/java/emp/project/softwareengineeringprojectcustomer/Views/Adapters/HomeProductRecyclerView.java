@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.textfield.TextInputLayout;
 import com.mysql.jdbc.Blob;
 
 import java.sql.SQLException;
@@ -89,7 +90,7 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
         Button btn_up = dialogView.findViewById(R.id.btn_up);
         Button btn_down = dialogView.findViewById(R.id.btn_down);
         CardView cardView_exit = dialogView.findViewById(R.id.exit);
-        EditText editText_number_total = dialogView.findViewById(R.id.txt_total_orders);
+        TextInputLayout editText_number_total = dialogView.findViewById(R.id.txt_total_orders);
 
         Blob b = (Blob) model.getProduct_picture();
         int[] blobLength = new int[1];
@@ -113,22 +114,24 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (editText_number_total.getText().toString().isEmpty() || Integer.parseInt(editText_number_total.getText().toString()) <= 0) {
-                    Toast.makeText(context, "Empty!", Toast.LENGTH_SHORT).show();
-                } else {
-                    model.setTotal_number_products_orders(editText_number_total.getText().toString());
-                    ProductModel newModel = new ProductModel(
-                            model.getProduct_id(),
-                            model.getProduct_name(),
-                            model.getProduct_price(),
-                            model.getProduct_stocks(),
-                            model.getProduct_category(),
-                            model.getProduct_description(),
-                            model.getProduct_picture(),
-                            model.getTotal_number_products_orders()
-                    );
-                    presenter.onConfirmButtonClicked(editText_number_total.getText().toString(), newModel);
-                    dialog.cancel();
+                if (editText_number_total.getEditText() != null) {
+                    if (editText_number_total.getEditText().getText().toString().isEmpty() || Integer.parseInt(editText_number_total.getEditText().getText().toString()) <= 0) {
+                        Toast.makeText(context, "Empty!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        model.setTotal_number_products_orders(editText_number_total.getEditText().getText().toString());
+                        ProductModel newModel = new ProductModel(
+                                model.getProduct_id(),
+                                model.getProduct_name(),
+                                model.getProduct_price(),
+                                model.getProduct_stocks(),
+                                model.getProduct_category(),
+                                model.getProduct_description(),
+                                model.getProduct_picture(),
+                                model.getTotal_number_products_orders()
+                        );
+                        presenter.onConfirmButtonClicked(editText_number_total.getEditText().getText().toString(), newModel);
+                        dialog.cancel();
+                    }
                 }
             }
         });
@@ -136,28 +139,32 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
         btn_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int total;
-                if (editText_number_total.getText().toString().isEmpty()) {
-                    total = 0;
-                } else {
-                    total = Integer.parseInt(editText_number_total.getText().toString());
+                if (editText_number_total.getEditText() != null) {
+                    int total;
+                    if (editText_number_total.getEditText().getText().toString().isEmpty()) {
+                        total = 0;
+                    } else {
+                        total = Integer.parseInt(editText_number_total.getEditText().getText().toString());
+                    }
+                    total++;
+                    editText_number_total.getEditText().setText(String.valueOf(total));
                 }
-                total++;
-                editText_number_total.setText(String.valueOf(total));
             }
         });
 
         btn_down.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int total;
-                if (editText_number_total.getText().toString().isEmpty() || Integer.parseInt(editText_number_total.getText().toString()) < 1) {
-                    total = 0;
-                } else {
-                    total = Integer.parseInt(editText_number_total.getText().toString());
-                    total--;
+                if (editText_number_total.getEditText() != null) {
+                    int total;
+                    if (editText_number_total.getEditText().getText().toString().isEmpty() || Integer.parseInt(editText_number_total.getEditText().getText().toString()) < 1) {
+                        total = 0;
+                    } else {
+                        total = Integer.parseInt(editText_number_total.getEditText().getText().toString());
+                        total--;
+                    }
+                    editText_number_total.getEditText().setText(String.valueOf(total));
                 }
-                editText_number_total.setText(String.valueOf(total));
             }
         });
 
