@@ -42,6 +42,8 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
         return new TrackOrderRecyclerView.MyViewHolder(view);
     }
 
+    private static final String PRODUCT_NAMES = "Product names: ";
+
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         CustomerOrdersModel model = getItem(position);
@@ -55,6 +57,11 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
                 finalList.add(specificOrdersModel);
             }
         }
+
+        if (finalList.size() > 1) {
+            holder.product_name_label.setText(PRODUCT_NAMES);
+        }
+
         String productName = "";
         String comma = ",";
         for (int i = 0; i < finalList.size(); i++) {
@@ -135,6 +142,7 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
         ImageView imageView_product;
         Button btn_see_more;
         CardView cardView_Status;
+        TextView product_name_label;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -150,6 +158,7 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
             txt_total_price = itemView.findViewById(R.id.total_price);
             btn_see_more = itemView.findViewById(R.id.btn_see_more);
             cardView_Status = itemView.findViewById(R.id.cardView_Status);
+            product_name_label = itemView.findViewById(R.id.product_name_label);
         }
     }
 }
