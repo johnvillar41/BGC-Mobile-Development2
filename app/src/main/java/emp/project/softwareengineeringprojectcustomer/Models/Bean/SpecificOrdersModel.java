@@ -15,6 +15,18 @@ public class SpecificOrdersModel {
         this.product_price = product_price;
     }
 
+    @Override
+    public String toString() {
+        return "SpecificOrdersModel{" +
+                "order_id='" + order_id + '\'' +
+                ", product_id='" + product_id + '\'' +
+                ", total_orders='" + total_orders + '\'' +
+                ", product_name='" + product_name + '\'' +
+                ", product_image=" + product_image +
+                ", product_price='" + product_price + '\'' +
+                '}';
+    }
+
     public String getProduct_price() {
         return product_price;
     }

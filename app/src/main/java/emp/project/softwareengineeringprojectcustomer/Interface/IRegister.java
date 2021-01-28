@@ -2,7 +2,6 @@ package emp.project.softwareengineeringprojectcustomer.Interface;
 
 import java.io.InputStream;
 import java.sql.SQLException;
-import java.util.List;
 
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 
@@ -24,7 +23,7 @@ public interface IRegister {
 
         void setErrorPassword_2();
 
-        void setErrorEmail();
+        void setErrorEmail(String errorMessage);
 
         void setErrorFullname();
 

@@ -1,5 +1,8 @@
 package emp.project.softwareengineeringprojectcustomer.Models.Bean;
 
+import android.text.TextUtils;
+import android.util.Patterns;
+
 import java.io.InputStream;
 import java.sql.Blob;
 import java.util.ArrayList;
@@ -91,6 +94,7 @@ public class CustomerModel {
         EMPTY_FULLNAME,
         EMPTY_IMAGE,
         EMPTY_PASSWORD,//for login
+        NOT_VALID_EMAIL_PATTERN,
 
         EQUAL_PASSWORD,
         NOT_EQUAL_PASSWORD,
@@ -102,6 +106,7 @@ public class CustomerModel {
         VALID_FULLNAME,
         VALID_IMAGE,
         VALID_PASSWORD,//for login
+        VALID_EMAIL_PATTERN,
 
         PASSWORD_NOT_EQUAL,
         VALID;
@@ -161,13 +166,20 @@ public class CustomerModel {
             set.add(VALIDITY.NOT_EQUAL_PASSWORD);
         }
 
+        if (!Patterns.EMAIL_ADDRESS.matcher(arrTexts[3]).matches()) {
+            set.add(VALIDITY.NOT_VALID_EMAIL_PATTERN);
+        } else {
+            set.add(VALIDITY.VALID_EMAIL_PATTERN);
+        }
+
         if (set.contains(VALIDITY.VALID_EMAIL) &&
                 set.contains(VALIDITY.VALID_FIELD_PASSWORD_1) &&
                 set.contains(VALIDITY.VALID_FIELD_PASSWORD_2) &&
                 set.contains(VALIDITY.VALID_FIELD_USERNAME) &&
                 set.contains(VALIDITY.VALID_IMAGE) &&
                 set.contains(VALIDITY.VALID_FULLNAME) &&
-                set.contains(VALIDITY.EQUAL_PASSWORD)) {
+                set.contains(VALIDITY.EQUAL_PASSWORD) &&
+                set.contains(VALIDITY.VALID_EMAIL_PATTERN)) {
             set.clear();
             set.add(VALIDITY.VALID);
         }

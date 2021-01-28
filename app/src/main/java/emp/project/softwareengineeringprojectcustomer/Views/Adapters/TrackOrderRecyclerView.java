@@ -47,7 +47,24 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
         CustomerOrdersModel model = getItem(position);
         holder.txt_order_id.setText(model.getOrder_id());
         holder.txt_status.setText(model.getOrder_status());
-        holder.txt_product_name.setText(model.getSpecificOrdersModelList().get(0).getProduct_name());
+
+        List<SpecificOrdersModel> finalList = new ArrayList<>();
+
+        for (SpecificOrdersModel specificOrdersModel : model.getSpecificOrdersModelList()) {
+            if (specificOrdersModel.getOrder_id().equals(model.getOrder_id())) {
+                finalList.add(specificOrdersModel);
+            }
+        }
+        String productName = "";
+        String comma = ",";
+        for (int i = 0; i < finalList.size(); i++) {
+            productName += finalList.get(i).getProduct_name();
+            productName = productName + "(" + finalList.get(i).getTotal_orders() + "x)";
+            if (i < finalList.size() - 1) {
+                productName += comma + "\n";
+            }
+        }
+        holder.txt_product_name.setText(productName);
         holder.txt_date_ordered.setText(model.getOrder_date());
         holder.txt_total_order.setText(model.getTotal_number_of_orders());
         holder.txt_total_price.setText(model.getOrder_price());

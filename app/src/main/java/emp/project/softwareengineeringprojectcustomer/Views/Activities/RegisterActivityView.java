@@ -12,10 +12,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -24,9 +22,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -36,10 +32,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import emp.project.softwareengineeringprojectcustomer.Interface.IRegister;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.RegisterService;
@@ -168,11 +161,12 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
         });
     }
 
-    private enum ERROR_MESSAGE {
+    public enum ERROR_MESSAGE {
         USERNAME("Empty username!"),
         PASSWORD_1("Empty password field!"),
         PASSWORD_2("Empty password field!"),
         EMAIL("Empty email!"),
+        EMAIL_NOT_VALID("Email pattern not valid!"),
         PASSWORD_NOT_EQUAL("Password field do not match!"),
         FULLNAME("Empty name!");
 
@@ -219,11 +213,11 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
     }
 
     @Override
-    public void setErrorEmail() {
+    public void setErrorEmail(String errorMessage) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                txt_email.setError(ERROR_MESSAGE.EMAIL.getVal());
+                txt_email.setError(errorMessage);
             }
         });
     }

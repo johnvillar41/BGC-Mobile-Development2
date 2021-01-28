@@ -3,10 +3,10 @@ package emp.project.softwareengineeringprojectcustomer.Presenter;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.HashSet;
-import java.util.List;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.IRegister;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
+import emp.project.softwareengineeringprojectcustomer.Views.Activities.RegisterActivityView;
 
 public class RegisterPresenter implements IRegister.IRegisterPresenter {
 
@@ -67,7 +67,7 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                                 view.onError(ENTER_ALL_FIELDS);
                                 break;
                             case EMPTY_EMAIL:
-                                view.setErrorEmail();
+                                view.setErrorEmail(RegisterActivityView.ERROR_MESSAGE.EMAIL.getVal());
                                 view.hideLoadingCircler();
                                 view.onError(ENTER_ALL_FIELDS);
                                 break;
@@ -83,6 +83,10 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                                 break;
                             case EMPTY_FULLNAME:
                                 view.setErrorFullname();
+                                view.hideLoadingCircler();
+                                break;
+                            case NOT_VALID_EMAIL_PATTERN:
+                                view.setErrorEmail(RegisterActivityView.ERROR_MESSAGE.EMAIL_NOT_VALID.getVal());
                                 view.hideLoadingCircler();
                                 break;
                             case NOT_EQUAL_PASSWORD:
@@ -104,8 +108,11 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                                 view.hideLoadingCircler();
                                 break;
                             case VALID_EMAIL:
-                                view.removeErrorEmail();
-                                view.hideLoadingCircler();
+                            case VALID_EMAIL_PATTERN:
+                                if (!validity.contains(CustomerModel.VALIDITY.NOT_VALID_EMAIL_PATTERN) || validity.contains(CustomerModel.VALIDITY.EMPTY_EMAIL)) {
+                                    view.removeErrorEmail();
+                                    view.hideLoadingCircler();
+                                }
                                 break;
                             case VALID_IMAGE:
                                 view.hideLoadingCircler();
