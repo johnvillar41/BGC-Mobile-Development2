@@ -75,6 +75,26 @@ public class LoginPresenterTest {
         public void hideProgressLoader() {
 
         }
+
+        @Override
+        public void setErrorUsername() {
+
+        }
+
+        @Override
+        public void setErrorPassword() {
+
+        }
+
+        @Override
+        public void removeErrorUsername() {
+
+        }
+
+        @Override
+        public void removeErrorPassword() {
+
+        }
     }
 
     static class MockLoginService implements ILogin.ILoginService {

@@ -14,6 +14,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -32,6 +34,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.IRegister;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
@@ -49,6 +53,7 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
     private TextInputLayout txt_fullname;
     private TextInputLayout txt_email;
     private View view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,13 +88,18 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
             @Override
             public void onClick(View v) {
                 view = v;
+                List<String> textInputLayoutList;
+                textInputLayoutList = new ArrayList<>();
+                textInputLayoutList.add(txt_username.getEditText().getText().toString());
+                textInputLayoutList.add(txt_password.getEditText().getText().toString());
+                textInputLayoutList.add(txt_password2.getEditText().getText().toString());
+                textInputLayoutList.add(txt_email.getEditText().getText().toString());
+                textInputLayoutList.add(txt_fullname.getEditText().getText().toString());
+
                 presenter.onRegisterButtonClicked(
-                        txt_username.getEditText().getText().toString(),
-                        txt_password.getEditText().getText().toString(),
-                        txt_password2.getEditText().getText().toString(),
-                        txt_fullname.getEditText().getText().toString(),
-                        txt_email.getEditText().getText().toString(),
-                        FILE_INPUT_STREAM);
+                        textInputLayoutList,
+                        FILE_INPUT_STREAM
+                );
             }
         });
     }
@@ -161,147 +171,54 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
         });
     }
 
-    public enum ERROR_MESSAGE {
-        USERNAME("Empty username!"),
-        PASSWORD_1("Empty password field!"),
-        PASSWORD_2("Empty password field!"),
-        EMAIL("Empty email!"),
-        EMAIL_NOT_VALID("Email pattern not valid!"),
-        PASSWORD_NOT_EQUAL("Password field do not match!"),
-        FULLNAME("Empty name!");
+    @Override
+    public Boolean displayErrors() {
+        final int[] errorCtr = {0};
+        TextInputLayout[] textInputLayoutsArray = new TextInputLayout[5];
+        textInputLayoutsArray[0] = txt_username;
+        textInputLayoutsArray[1] = txt_password;
+        textInputLayoutsArray[2] = txt_password2;
+        textInputLayoutsArray[3] = txt_email;
+        textInputLayoutsArray[4] = txt_fullname;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                for (TextInputLayout textInputLayout : textInputLayoutsArray) {
+                    if (textInputLayout.getEditText().getText().toString().trim().isEmpty()) {
+                        textInputLayout.setError("Error!");
+                        errorCtr[0]++;
+                    } else {
+                        textInputLayout.setError(null);
+                    }
+                }
+                if (textInputLayoutsArray[1].getEditText().getText().toString().equals(textInputLayoutsArray[2].getEditText().getText().toString()) &&
+                        textInputLayoutsArray[1].getEditText().getText().toString().isEmpty() || textInputLayoutsArray[2].getEditText().getText().toString().isEmpty()) {
+                    textInputLayoutsArray[1].setError("Error!");
+                    textInputLayoutsArray[2].setError("Error!");
+                    errorCtr[0]++;
+                } else {
+                    textInputLayoutsArray[1].setError(null);
+                    textInputLayoutsArray[2].setError(null);
+                }
 
-        private String val;
+                if (FILE_INPUT_STREAM == null) {
+                    onError("Empty Image!");
+                    errorCtr[0]++;
+                }
 
-        ERROR_MESSAGE(String val) {
-            this.val = val;
+                if (!Patterns.EMAIL_ADDRESS.matcher(textInputLayoutsArray[3].getEditText().getText().toString()).matches()) {
+                    textInputLayoutsArray[3].setError("Error Email!");
+                } else {
+                    textInputLayoutsArray[3].setError(null);
+                }
+            }
+        });
+
+        if (errorCtr[0] == 0) {
+            return true;
+        } else {
+            return false;
         }
-
-        public String getVal() {
-            return val;
-        }
-    }
-
-
-    @Override
-    public void setErrorUsername() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt_username.setError(ERROR_MESSAGE.USERNAME.getVal());
-            }
-        });
-    }
-
-    @Override
-    public void setErrorPassword_1() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt_password.setError(ERROR_MESSAGE.PASSWORD_1.getVal());
-            }
-        });
-    }
-
-    @Override
-    public void setErrorPassword_2() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt_password2.setError(ERROR_MESSAGE.PASSWORD_2.getVal());
-            }
-        });
-    }
-
-    @Override
-    public void setErrorEmail(String errorMessage) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt_email.setError(errorMessage);
-            }
-        });
-    }
-
-    @Override
-    public void setErrorFullname() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt_fullname.setError(ERROR_MESSAGE.FULLNAME.getVal());
-            }
-        });
-    }
-
-    @Override
-    public void removeErrorUsername() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt_username.setError(null);
-            }
-        });
-    }
-
-    @Override
-    public void removeErrorPassword_1() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt_password.setError(null);
-            }
-        });
-    }
-
-    @Override
-    public void removeErrorPassword_2() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt_password2.setError(null);
-            }
-        });
-    }
-
-    @Override
-    public void removeErrorEmail() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt_email.setError(null);
-            }
-        });
-    }
-
-    @Override
-    public void removeErrorFullname() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt_fullname.setError(null);
-            }
-        });
-    }
-
-    @Override
-    public void setErrorOnNotEqualPassword() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt_password.setError(ERROR_MESSAGE.PASSWORD_NOT_EQUAL.getVal());
-                txt_password2.setError(ERROR_MESSAGE.PASSWORD_NOT_EQUAL.getVal());
-            }
-        });
-    }
-
-    @Override
-    public void removeErrorEqualPassword() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt_password.setError(null);
-                txt_password2.setError(null);
-            }
-        });
     }
 
     @Override

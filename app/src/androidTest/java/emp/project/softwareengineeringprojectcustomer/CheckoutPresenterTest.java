@@ -4,9 +4,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 import emp.project.softwareengineeringprojectcustomer.Interface.ICheckout;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
@@ -138,7 +135,7 @@ public class CheckoutPresenterTest {
 
         @Override
         public void insertToSpecificOrdersDB(String productName, String totalNumberOfOrders) {
-            if(productName.equals(PRODUCT_NAME.getVal()) && totalNumberOfOrders.equals(PRODUCT_TOTAL_ORDERS.getVal())){
+            if(productName.equals(MockProduct.PRODUCT_NAME.getVal()) && totalNumberOfOrders.equals(MockProduct.PRODUCT_TOTAL_ORDERS.getVal())){
                 pass = true;
             }
         }
