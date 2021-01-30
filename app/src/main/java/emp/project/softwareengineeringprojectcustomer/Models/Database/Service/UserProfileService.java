@@ -54,7 +54,7 @@ public class UserProfileService implements IUser.IUserService {
     public void updateUserCredentials(CustomerModel userModel) throws ClassNotFoundException, SQLException {
         strictMode();
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
-        if (userModel.getPicture() != null) {
+        if (userModel.getPicture() == null) {
             String sqlUpdate = "UPDATE customer_table SET user_username=?,user_password=?,user_fullname=?,customer_email=?,profile_picture=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate);
             preparedStatement.setString(1, userModel.getUser_username());

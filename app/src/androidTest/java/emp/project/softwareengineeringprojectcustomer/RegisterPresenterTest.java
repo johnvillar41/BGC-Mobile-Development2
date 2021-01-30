@@ -44,7 +44,7 @@ public class RegisterPresenterTest {
 
         @Override
         public void onError(String errorMessage) {
-            
+
         }
 
         @Override
