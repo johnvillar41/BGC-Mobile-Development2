@@ -20,7 +20,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -126,7 +125,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
 
     private static final String HOME = "Home";
     private static final String TRACK_ORDER = "Track Order";
-    private static final String SLIDE_SHOW = "Slide Show";
+    private static final String INFORMATION = "Information";
     private static final String USER_PROFILE = "User Profile";
 
 
@@ -147,7 +146,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
             case R.id.nav_slideshow:
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
                         new NewsFragment()).commit();
-                toolbar.setTitle(SLIDE_SHOW);
+                toolbar.setTitle(INFORMATION);
                 break;
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,

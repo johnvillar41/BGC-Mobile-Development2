@@ -9,6 +9,7 @@
     android:background="#f5f5dc">
     <ImageView
         android:id="@+id/image_logo"
+        android:src="@drawable/logo"
         android:layout_width="50sp"
         android:layout_height="50sp"
         android:layout_marginLeft="50dp"
@@ -22,7 +23,7 @@
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AGT blah blah"
+        android:text="AGT Seedling Supply"
         android:layout_marginLeft="50sp"/>
     <TextView
         android:textColor="#000000"
@@ -31,7 +32,7 @@
         android:textSize="25sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Blarg Blarg blarg"
+        android:text="Welcome!"
         android:layout_marginLeft="50sp"/>
     <com.airbnb.lottie.LottieAnimationView
         android:layout_marginLeft="50dp"

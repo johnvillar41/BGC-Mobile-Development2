@@ -26,14 +26,6 @@ public class IntroActivityView extends AppCompatActivity implements View.OnClick
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_intro_view);
 
-        ImageView circleImageView_logo = findViewById(R.id.image_logo);
-        Glide.with(this)
-                .load(R.drawable.logo)
-                .centerInside()
-                .fitCenter()
-                .circleCrop()
-                .into(circleImageView_logo);
-
         Button btn_login = findViewById(R.id.btn_login);
         Button btn_register = findViewById(R.id.btn_register);
 

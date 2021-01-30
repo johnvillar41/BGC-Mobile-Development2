@@ -22,6 +22,15 @@ public class CustomerModel {
         this.user_email = user_email;
         this.inputStream = inputStream;
     }
+    //This constructor is for updating user credentials
+    public CustomerModel(String user_username, String user_password, String user_fullname, String user_email, InputStream inputStream) {
+        this.user_username = user_username;
+        this.user_password = user_password;
+        this.user_fullname = user_fullname;
+        this.user_email = user_email;
+        this.inputStream = inputStream;
+    }
+
     //this constructor is for the userprofile fragment display
     public CustomerModel(String user_id, String user_username, String user_password, String user_fullname, String user_status, String user_email, Blob picture) {
         this.user_id = user_id;
@@ -32,6 +41,8 @@ public class CustomerModel {
         this.user_email = user_email;
         this.picture = picture;
     }
+
+
 
     //This contructor is for the display of user credentials display on the side navigation bar
     public CustomerModel(String user_username, String user_fullname, String user_email, Blob picture) {
