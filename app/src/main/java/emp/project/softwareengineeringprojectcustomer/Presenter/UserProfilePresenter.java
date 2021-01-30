@@ -2,10 +2,10 @@ package emp.project.softwareengineeringprojectcustomer.Presenter;
 
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.HashSet;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.IUser;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
-import emp.project.softwareengineeringprojectcustomer.Views.Fragments.UserProfileFragment;
 
 public class UserProfilePresenter implements IUser.IUserPresenter {
 
@@ -53,22 +53,62 @@ public class UserProfilePresenter implements IUser.IUserPresenter {
             @Override
             public void run() {
                 view.displayProgressBarPopup();
-                CustomerModel userModel = new CustomerModel(
-                        arrTexts[0],
-                        arrTexts[1],
-                        arrTexts[2],
-                        arrTexts[3],
-                        profilePicture
-                );
-                try {
-                    service.updateUserCredentials(userModel);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                CustomerModel validateModel = new CustomerModel();
+                HashSet<CustomerModel.VALIDITY> validities = validateModel.validateRegistration(arrTexts, profilePicture);
+                for (CustomerModel.VALIDITY validity : validities) {
+                    switch (validity) {
+                        case EMPTY_FIELD_USERNAME:
+                            view.setErrorUsername();
+                            break;
+                        case EMPTY_PASSWORD:
+                            view.setErrorPassword();
+                            break;
+                        case EMPTY_FULLNAME:
+                            view.setErrorFullname();
+                            break;
+                        case EMPTY_EMAIL:
+                            view.setErrorEmail("Empty Email");
+                            break;
+                        case NOT_VALID_EMAIL_PATTERN:
+                            view.setErrorEmail("Email pattern not valid!");
+                            break;
+
+                        case VALID_FIELD_USERNAME:
+                            view.removeErrorUsername();
+                            break;
+                        case VALID_PASSWORD:
+                            view.removeErrorPassword();
+                            break;
+                        case VALID_FULLNAME:
+                            view.removeErrorFullname();
+                            break;
+                        case VALID_EMAIL:
+                        case VALID_EMAIL_PATTERN:
+                            view.removeErrorEmail();
+                            break;
+
+                        case VALID:
+                            CustomerModel userModel = new CustomerModel(
+                                    arrTexts[0],
+                                    arrTexts[1],
+                                    arrTexts[2],
+                                    arrTexts[3],
+                                    profilePicture
+                            );
+                            try {
+                                service.updateUserCredentials(userModel);
+                            } catch (ClassNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (SQLException throwables) {
+                                throwables.printStackTrace();
+                            }
+                            view.logout();
+                            break;
+
+                    }
                 }
                 view.hideProgressBarPopup();
-                view.logout();
+
             }
         });
         thread.start();
@@ -90,6 +130,7 @@ public class UserProfilePresenter implements IUser.IUserPresenter {
                 }
                 view.hideProgressBarPopup();
             }
-        });thread.start();
+        });
+        thread.start();
     }
 }

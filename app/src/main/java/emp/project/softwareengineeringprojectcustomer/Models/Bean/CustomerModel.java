@@ -22,6 +22,7 @@ public class CustomerModel {
         this.user_email = user_email;
         this.inputStream = inputStream;
     }
+
     //This constructor is for updating user credentials
     public CustomerModel(String user_username, String user_password, String user_fullname, String user_email, InputStream inputStream) {
         this.user_username = user_username;
@@ -41,7 +42,6 @@ public class CustomerModel {
         this.user_email = user_email;
         this.picture = picture;
     }
-
 
 
     //This contructor is for the display of user credentials display on the side navigation bar
@@ -135,82 +135,127 @@ public class CustomerModel {
 
     public HashSet<VALIDITY> validateRegistration(String[] arrTexts, InputStream FILE_INPUT_STREAM) {
         HashSet<VALIDITY> set = new HashSet<>();
-        for (int i = 0; i < arrTexts.length; i++) {
-            if (arrTexts[i].isEmpty()) {
-                switch (i) {
-                    case 0:
-                        set.add(VALIDITY.EMPTY_FIELD_USERNAME);
-                        break;
-                    case 1:
-                        set.add(VALIDITY.EMPTY_FIELD_PASSWORD_1);
-                        break;
-                    case 2:
-                        set.add(VALIDITY.EMPTY_FIELD_PASSWORD_2);
-                        break;
-                    case 3:
-                        set.add(VALIDITY.EMPTY_EMAIL);
-                        break;
-                    case 4:
-                        set.add(VALIDITY.EMPTY_FULLNAME);
-                        break;
+        //If the length of the array is 5 meaning its coming from the register activity
+        if (arrTexts.length == 5) {
+            for (int i = 0; i < arrTexts.length; i++) {
+                if (arrTexts[i].trim().isEmpty()) {
+                    switch (i) {
+                        case 0:
+                            set.add(VALIDITY.EMPTY_FIELD_USERNAME);
+                            break;
+                        case 1:
+                            set.add(VALIDITY.EMPTY_FIELD_PASSWORD_1);
+                            break;
+                        case 2:
+                            set.add(VALIDITY.EMPTY_FIELD_PASSWORD_2);
+                            break;
+                        case 3:
+                            set.add(VALIDITY.EMPTY_EMAIL);
+                            break;
+                        case 4:
+                            set.add(VALIDITY.EMPTY_FULLNAME);
+                            break;
+                    }
+                } else {
+                    switch (i) {
+                        case 0:
+                            set.add(VALIDITY.VALID_FIELD_USERNAME);
+                            break;
+                        case 1:
+                            set.add(VALIDITY.VALID_FIELD_PASSWORD_1);
+                            break;
+                        case 2:
+                            set.add(VALIDITY.VALID_FIELD_PASSWORD_2);
+                            break;
+                        case 3:
+                            set.add(VALIDITY.VALID_EMAIL);
+                            break;
+                        case 4:
+                            set.add(VALIDITY.VALID_FULLNAME);
+                            break;
+                    }
                 }
-            } else {
-                switch (i) {
-                    case 0:
-                        set.add(VALIDITY.VALID_FIELD_USERNAME);
-                        break;
-                    case 1:
-                        set.add(VALIDITY.VALID_FIELD_PASSWORD_1);
-                        break;
-                    case 2:
-                        set.add(VALIDITY.VALID_FIELD_PASSWORD_2);
-                        break;
-                    case 3:
-                        set.add(VALIDITY.VALID_EMAIL);
-                        break;
-                    case 4:
-                        set.add(VALIDITY.VALID_FULLNAME);
-                        break;
+                if (FILE_INPUT_STREAM == null) {
+                    set.add(VALIDITY.EMPTY_IMAGE);
+                } else {
+                    set.add(VALIDITY.VALID_IMAGE);
+                }
+
+                if (arrTexts[1].equals(arrTexts[2]) && !arrTexts[1].isEmpty()) {
+                    set.add(VALIDITY.EQUAL_PASSWORD);
+                } else {
+                    set.add(VALIDITY.NOT_EQUAL_PASSWORD);
+                }
+
+
+                if (!Patterns.EMAIL_ADDRESS.matcher(arrTexts[3]).matches()) {
+                    set.add(VALIDITY.NOT_VALID_EMAIL_PATTERN);
+                } else {
+                    set.add(VALIDITY.VALID_EMAIL_PATTERN);
+                }
+
+                if (set.contains(VALIDITY.VALID_EMAIL) &&
+                        set.contains(VALIDITY.VALID_FIELD_PASSWORD_1) &&
+                        set.contains(VALIDITY.VALID_FIELD_PASSWORD_2) &&
+                        set.contains(VALIDITY.VALID_FIELD_USERNAME) &&
+                        set.contains(VALIDITY.VALID_IMAGE) &&
+                        set.contains(VALIDITY.VALID_FULLNAME) &&
+                        set.contains(VALIDITY.EQUAL_PASSWORD) &&
+                        set.contains(VALIDITY.VALID_EMAIL_PATTERN)) {
+                    set.clear();
+                    set.add(VALIDITY.VALID);
                 }
             }
-        }
+        } else { // This if for the update profile
+            for (int i = 0; i < arrTexts.length; i++) {
+                if (arrTexts[i].trim().isEmpty()) {
+                    switch (i) {
+                        case 0:
+                            set.add(VALIDITY.EMPTY_FIELD_USERNAME);
+                            break;
+                        case 1:
+                            set.add(VALIDITY.EMPTY_PASSWORD);
+                            break;
+                        case 2:
+                            set.add(VALIDITY.EMPTY_EMAIL);
+                            break;
+                        case 3:
+                            set.add(VALIDITY.EMPTY_FULLNAME);
+                            break;
+                    }
+                } else {
+                    switch (i) {
+                        case 0:
+                            set.add(VALIDITY.VALID_FIELD_USERNAME);
+                            break;
+                        case 1:
+                            set.add(VALIDITY.VALID_PASSWORD);
+                            break;
+                        case 2:
+                            set.add(VALIDITY.VALID_EMAIL);
+                            break;
+                        case 3:
+                            set.add(VALIDITY.VALID_FULLNAME);
+                            break;
+                    }
+                }
+            }
+            if (!Patterns.EMAIL_ADDRESS.matcher(arrTexts[3]).matches()) {
+                set.add(VALIDITY.NOT_VALID_EMAIL_PATTERN);
+            } else {
+                set.add(VALIDITY.VALID_EMAIL_PATTERN);
+            }
 
-        if (FILE_INPUT_STREAM == null) {
-            set.add(VALIDITY.EMPTY_IMAGE);
-        } else {
-            set.add(VALIDITY.VALID_IMAGE);
-        }
-
-        if (arrTexts[1].equals(arrTexts[2]) && !arrTexts[1].isEmpty()) {
-            set.add(VALIDITY.EQUAL_PASSWORD);
-        } else {
-            set.add(VALIDITY.NOT_EQUAL_PASSWORD);
-        }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(arrTexts[3]).matches()) {
-            set.add(VALIDITY.NOT_VALID_EMAIL_PATTERN);
-        } else {
-            set.add(VALIDITY.VALID_EMAIL_PATTERN);
-        }
-
-        if (set.contains(VALIDITY.VALID_EMAIL) &&
-                set.contains(VALIDITY.VALID_FIELD_PASSWORD_1) &&
-                set.contains(VALIDITY.VALID_FIELD_PASSWORD_2) &&
-                set.contains(VALIDITY.VALID_FIELD_USERNAME) &&
-                set.contains(VALIDITY.VALID_IMAGE) &&
-                set.contains(VALIDITY.VALID_FULLNAME) &&
-                set.contains(VALIDITY.EQUAL_PASSWORD) &&
-                set.contains(VALIDITY.VALID_EMAIL_PATTERN)) {
-            set.clear();
-            set.add(VALIDITY.VALID);
+            if (set.contains(VALIDITY.VALID_EMAIL) &&
+                    set.contains(VALIDITY.VALID_PASSWORD) &&
+                    set.contains(VALIDITY.VALID_FIELD_USERNAME) &&
+                    set.contains(VALIDITY.VALID_FULLNAME) &&
+                    set.contains(VALIDITY.VALID_EMAIL_PATTERN)) {
+                set.clear();
+                set.add(VALIDITY.VALID);
+            }
         }
 
         return set;
     }
-
-    /**TODO:
-     *       2)maglagay ng label sa ilalim ng add photo picture("add profile picture")
-     *       7)Gawing transparent and box sa checkout successful prompt
-     */
-
 }

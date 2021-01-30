@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -251,6 +250,102 @@ public class UserProfileFragment extends Fragment implements IUser.IUserView, Vi
             getActivity().finish();
             UserCredentials.getInstance().setUsername(null);
             UserCredentials.isLoggedIn = false;
+        }
+    }
+
+    @Override
+    public void setErrorUsername() {
+        if(getActivity()!=null){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    txt_username_popup.setError("Empty Username!");
+                }
+            });
+        }
+    }
+
+    @Override
+    public void setErrorPassword() {
+        if(getActivity()!=null){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    txt_password_popup.setError("Empty Password!");
+                }
+            });
+        }
+    }
+
+    @Override
+    public void setErrorEmail(String errorMessage) {
+        if(getActivity()!=null){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    txt_email_popup.setError("Empty Email!");
+                }
+            });
+        }
+    }
+
+    @Override
+    public void setErrorFullname() {
+        if(getActivity()!=null){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    txt_full_name_popup.setError("Empty Fullname!");
+                }
+            });
+        }
+    }
+
+    @Override
+    public void removeErrorUsername() {
+        if(getActivity()!=null){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    txt_username_popup.setError(null);
+                }
+            });
+        }
+    }
+
+    @Override
+    public void removeErrorPassword() {
+        if(getActivity()!=null){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    txt_password_popup.setError(null);
+                }
+            });
+        }
+    }
+
+    @Override
+    public void removeErrorEmail() {
+        if(getActivity()!=null){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    txt_email_popup.setError(null);
+                }
+            });
+        }
+    }
+
+    @Override
+    public void removeErrorFullname() {
+        if(getActivity()!=null){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    txt_full_name_popup.setError(null);
+                }
+            });
         }
     }
 

@@ -49,6 +49,7 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                                 view.removeErrorPassword_1();
                                 view.removeErrorPassword_2();
                                 view.removeErrorEmail();
+                                view.removeErrorFullname();
                                 view.hideLoadingCircler();
                                 break;
                             case EMPTY_FIELD_USERNAME:

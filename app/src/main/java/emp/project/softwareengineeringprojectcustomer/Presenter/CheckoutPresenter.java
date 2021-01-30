@@ -57,6 +57,7 @@ public class CheckoutPresenter implements ICheckout.ICheckoutPresenter {
                         CartModel.getInstance().removeAllValuesOnCart();
                         view.displaySuccessfullPrompt();
                         view.displayCartOrders();
+                        view.displayCartValues();
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     } catch (ClassNotFoundException e) {

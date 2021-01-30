@@ -24,6 +24,22 @@ public interface IUser {
         void hideProgressBarPopup();
 
         void logout();
+
+        void setErrorUsername();
+
+        void setErrorPassword();
+
+        void setErrorEmail(String errorMessage);
+
+        void setErrorFullname();
+
+        void removeErrorUsername();
+
+        void removeErrorPassword();
+
+        void removeErrorEmail();
+
+        void removeErrorFullname();
     }
 
     interface IUserPresenter {
