@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Views.Activities.LoginActivityView">
+    tools:context=".Views.Activities.LoginActivityView"
+    android:background="#f5f5dc">
     <androidx.appcompat.widget.Toolbar
         android:background="#f9b207"
         android:layout_width="match_parent"
