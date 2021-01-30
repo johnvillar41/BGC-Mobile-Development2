@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,22 +19,38 @@ public class RegisterPresenterTest {
     IRegister.IRegisterView view;
     IRegister.IRegisterService service;
     IRegister.IRegisterPresenter presenter;
+    List<String> MockVal = new ArrayList<>();
 
     @Before
     public void setUp() {
         view = new MockRegisterView();
         service = new MockRegisterService();
         presenter = new RegisterPresenter(view, new CustomerModel(), service);
+
+        MockVal.add("asd");
+        MockVal.add("asd");
+        MockVal.add("asd");
+        MockVal.add("asd");
+        MockVal.add("asd@gmail.com");
+    }
+
+    @Test
+    public void testDisplayError() throws InterruptedException {
+        presenter.onRegisterButtonClicked(MockVal, new InputStream() {
+            @Override
+            public int read() throws IOException {
+                return 0;
+            }
+        });
+        Thread.sleep(1000);
+        Assert.assertTrue(((MockRegisterView)view).isErrorDisplayed);
     }
 
     static class MockRegisterView implements IRegister.IRegisterView {
         boolean pass_success;
-        boolean pass_enter_all_fields;
-        boolean pass_password_not_equal;
-        boolean pass_empty_image;
         boolean isGalleryDisplaying;
         boolean isErrorDisplayed;
-        boolean isErrorOnNotEqualPasswordDisplayed;
+
 
         @Override
         public void onSuccess() {
@@ -64,7 +81,8 @@ public class RegisterPresenterTest {
 
         @Override
         public Boolean displayErrors() {
-            return null;
+            isErrorDisplayed = true;
+            return isErrorDisplayed;
         }
     }
 
