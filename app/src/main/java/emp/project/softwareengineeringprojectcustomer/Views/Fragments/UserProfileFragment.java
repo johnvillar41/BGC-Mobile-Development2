@@ -254,6 +254,7 @@ public class UserProfileFragment extends Fragment implements IUser.IUserView, Vi
     }
 
     TextInputLayout[] arrTexts = new TextInputLayout[4];
+    String[] textFieldData = new String[4];
 
     @Override
     public Boolean displayErrors() {
@@ -287,6 +288,9 @@ public class UserProfileFragment extends Fragment implements IUser.IUserView, Vi
         if (errorCtr[0] > 0) {
             return false;
         } else {
+            for (int i = 0; i < textFieldData.length; i++) {
+                textFieldData[i] = arrTexts[i].getEditText().getText().toString();
+            }
             return true;
         }
     }
@@ -300,7 +304,7 @@ public class UserProfileFragment extends Fragment implements IUser.IUserView, Vi
                 break;
             case R.id.btn_update:
                 isUpdateButtonClicked = true;
-                presenter.onUpdateProfileButtonClicked(FILE_INPUT_STREAM, arrTexts);
+                presenter.onUpdateProfileButtonClicked(FILE_INPUT_STREAM, textFieldData);
                 break;
             case R.id.fab_update:
                 presenter.onFloatingUpdateButtonClicked();

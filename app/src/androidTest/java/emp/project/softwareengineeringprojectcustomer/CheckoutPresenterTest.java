@@ -54,7 +54,7 @@ public class CheckoutPresenterTest {
         Assert.assertTrue(((MockCheckoutView) view).isProgressLoaderNotShowing);
     }
 
-    @Test
+
     public void testCheckout() throws InterruptedException {
         CartModel.getInstance().addToCart(new ProductModel(null,PRODUCT_NAME.getVal(),null,PRODUCT_TOTAL_ORDERS.getVal(),null,null,null));
         presenter.onCheckoutButtonClicked();

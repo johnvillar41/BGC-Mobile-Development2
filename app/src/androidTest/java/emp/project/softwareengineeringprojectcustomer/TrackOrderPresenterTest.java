@@ -81,15 +81,15 @@ public class TrackOrderPresenterTest {
     public void testDisplayHideLoader() throws InterruptedException {
         presenter.onDateSortConfirmClicked(MockDatabase.ORDER_DATE.getVal());
         Thread.sleep(1000);
-        Assert.assertFalse(((MockTrackOrderView) view).isLoaderShowing);
+        Assert.assertTrue(((MockTrackOrderView) view).isLoaderHiding);
 
         presenter.loadOrders();
         Thread.sleep(1000);
-        Assert.assertFalse(((MockTrackOrderView) view).isLoaderShowing);
+        Assert.assertTrue(((MockTrackOrderView) view).isLoaderHiding);
 
         presenter.onButtonConfirmSortClicked(CANCELLED);
         Thread.sleep(1000);
-        Assert.assertFalse(((MockTrackOrderView) view).isLoaderShowing);
+        Assert.assertTrue(((MockTrackOrderView) view).isLoaderHiding);
     }
 
     @Test
@@ -125,6 +125,7 @@ public class TrackOrderPresenterTest {
         boolean isLoaderShowing;
         boolean isPopupShowing;
         boolean isDisplayEmptyPromptShowing;
+        boolean isLoaderHiding;
 
         @Override
         public void displayLoader() {
@@ -133,7 +134,7 @@ public class TrackOrderPresenterTest {
 
         @Override
         public void hideLoader() {
-            isLoaderShowing = false;
+            isLoaderHiding = true;
         }
 
         @Override

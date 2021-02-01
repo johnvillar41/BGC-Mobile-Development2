@@ -1,7 +1,5 @@
 package emp.project.softwareengineeringprojectcustomer.Presenter;
 
-import com.google.android.material.textfield.TextInputLayout;
-
 import java.io.InputStream;
 import java.sql.SQLException;
 
@@ -49,17 +47,17 @@ public class UserProfilePresenter implements IUser.IUserPresenter {
     }
 
     @Override
-    public void onUpdateProfileButtonClicked(InputStream profilePicture, TextInputLayout[] arrTexts) {
+    public void onUpdateProfileButtonClicked(InputStream profilePicture, String[] arrTexts) {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 view.displayProgressBarPopup();
                 if(view.displayErrors()){
                     CustomerModel userModel = new CustomerModel(
-                            arrTexts[0].getEditText().getText().toString(),
-                            arrTexts[1].getEditText().getText().toString(),
-                            arrTexts[2].getEditText().getText().toString(),
-                            arrTexts[3].getEditText().getText().toString(),
+                            arrTexts[0],
+                            arrTexts[1],
+                            arrTexts[2],
+                            arrTexts[3],
                             profilePicture
                     );
                     try {

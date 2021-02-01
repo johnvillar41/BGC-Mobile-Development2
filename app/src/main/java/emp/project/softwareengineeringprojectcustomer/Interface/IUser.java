@@ -1,7 +1,5 @@
 package emp.project.softwareengineeringprojectcustomer.Interface;
 
-import com.google.android.material.textfield.TextInputLayout;
-
 import java.io.InputStream;
 import java.sql.SQLException;
 
@@ -37,7 +35,7 @@ public interface IUser {
 
         void onSelectImageButtonClicked();
 
-        void onUpdateProfileButtonClicked(InputStream profilePicture, TextInputLayout[]arrTexts);
+        void onUpdateProfileButtonClicked(InputStream profilePicture, String[]arrTexts);
 
         void loadPopupValues();
     }
