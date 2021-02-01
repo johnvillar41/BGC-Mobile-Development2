@@ -253,99 +253,41 @@ public class UserProfileFragment extends Fragment implements IUser.IUserView, Vi
         }
     }
 
-    @Override
-    public void setErrorUsername() {
-        if(getActivity()!=null){
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    txt_username_popup.setError("Empty Username!");
-                }
-            });
-        }
-    }
+    TextInputLayout[] arrTexts = new TextInputLayout[4];
 
     @Override
-    public void setErrorPassword() {
-        if(getActivity()!=null){
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    txt_password_popup.setError("Empty Password!");
-                }
-            });
-        }
-    }
+    public Boolean displayErrors() {
+        int[] errorCtr = new int[1];
+        if (txt_username_popup.getEditText() != null &&
+                txt_password_popup.getEditText() != null &&
+                txt_full_name_popup.getEditText() != null &&
+                txt_email_popup.getEditText() != null) {
+            arrTexts[0] = txt_username_popup;
+            arrTexts[1] = txt_password_popup;
+            arrTexts[2] = txt_full_name_popup;
+            arrTexts[3] = txt_email_popup;
 
-    @Override
-    public void setErrorEmail(String errorMessage) {
-        if(getActivity()!=null){
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    txt_email_popup.setError("Empty Email!");
-                }
-            });
+            if (getActivity() != null) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (TextInputLayout textInputLayout : arrTexts) {
+                            if (textInputLayout.getEditText().getText().toString().trim().isEmpty()) {
+                                textInputLayout.setError("Empty Field!");
+                                errorCtr[0]++;
+                            } else {
+                                textInputLayout.setError(null);
+                            }
+                        }
+                    }
+                });
+            }
         }
-    }
 
-    @Override
-    public void setErrorFullname() {
-        if(getActivity()!=null){
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    txt_full_name_popup.setError("Empty Fullname!");
-                }
-            });
-        }
-    }
-
-    @Override
-    public void removeErrorUsername() {
-        if(getActivity()!=null){
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    txt_username_popup.setError(null);
-                }
-            });
-        }
-    }
-
-    @Override
-    public void removeErrorPassword() {
-        if(getActivity()!=null){
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    txt_password_popup.setError(null);
-                }
-            });
-        }
-    }
-
-    @Override
-    public void removeErrorEmail() {
-        if(getActivity()!=null){
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    txt_email_popup.setError(null);
-                }
-            });
-        }
-    }
-
-    @Override
-    public void removeErrorFullname() {
-        if(getActivity()!=null){
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    txt_full_name_popup.setError(null);
-                }
-            });
+        if (errorCtr[0] > 0) {
+            return false;
+        } else {
+            return true;
         }
     }
 
@@ -357,16 +299,6 @@ public class UserProfileFragment extends Fragment implements IUser.IUserView, Vi
                 presenter.onSelectImageButtonClicked();
                 break;
             case R.id.btn_update:
-                String[] arrTexts = new String[4];
-                if (txt_username_popup.getEditText() != null &&
-                        txt_password_popup.getEditText() != null &&
-                        txt_full_name_popup.getEditText() != null &&
-                        txt_email_popup.getEditText() != null) {
-                    arrTexts[0] = txt_username_popup.getEditText().getText().toString();
-                    arrTexts[1] = txt_password_popup.getEditText().getText().toString();
-                    arrTexts[2] = txt_full_name_popup.getEditText().getText().toString();
-                    arrTexts[3] = txt_email_popup.getEditText().getText().toString();
-                }
                 isUpdateButtonClicked = true;
                 presenter.onUpdateProfileButtonClicked(FILE_INPUT_STREAM, arrTexts);
                 break;
@@ -451,6 +383,7 @@ public class UserProfileFragment extends Fragment implements IUser.IUserView, Vi
     @Override
     public void onDestroy() {
         circleImageView_image_popup = null;
+        FILE_INPUT_STREAM = null;
         super.onDestroy();
     }
 }

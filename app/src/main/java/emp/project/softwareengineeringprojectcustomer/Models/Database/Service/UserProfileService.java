@@ -54,7 +54,15 @@ public class UserProfileService implements IUser.IUserService {
     public void updateUserCredentials(CustomerModel userModel) throws ClassNotFoundException, SQLException {
         strictMode();
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
-        if (userModel.getPicture() == null) {
+        if (userModel.getInputStream() == null) {
+            String sqlUpdate = "UPDATE customer_table SET user_username=?,user_password=?,user_fullname=?,customer_email=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate);
+            preparedStatement.setString(1, userModel.getUser_username());
+            preparedStatement.setString(2, userModel.getUser_password());
+            preparedStatement.setString(3, userModel.getUser_fullname());
+            preparedStatement.setString(4, userModel.getUser_email());
+            preparedStatement.execute();
+        } else {
             String sqlUpdate = "UPDATE customer_table SET user_username=?,user_password=?,user_fullname=?,customer_email=?,profile_picture=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate);
             preparedStatement.setString(1, userModel.getUser_username());
@@ -62,14 +70,6 @@ public class UserProfileService implements IUser.IUserService {
             preparedStatement.setString(3, userModel.getUser_fullname());
             preparedStatement.setString(4, userModel.getUser_email());
             preparedStatement.setBlob(5, userModel.getInputStream());
-            preparedStatement.execute();
-        } else {
-            String sqlUpdate = "UPDATE customer_table SET user_username=?,user_password=?,user_fullname=?,customer_email=?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate);
-            preparedStatement.setString(1, userModel.getUser_username());
-            preparedStatement.setString(2, userModel.getUser_password());
-            preparedStatement.setString(3, userModel.getUser_fullname());
-            preparedStatement.setString(4, userModel.getUser_email());
             preparedStatement.execute();
         }
     }
