@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.IUser;
@@ -35,26 +37,91 @@ public class UserProfilePresenterTest {
         presenter.onSelectImageButtonClicked();
         Assert.assertTrue(((MockUserProfileView) view).isGalleryDisplayed);
     }
+
     @Test
     public void testDisplayUpdatePopup() throws InterruptedException {
         presenter.onFloatingUpdateButtonClicked();
         Thread.sleep(1000);
-        Assert.assertTrue(((MockUserProfileView)view).isPopupDisplayed);
+        Assert.assertTrue(((MockUserProfileView) view).isPopupDisplayed);
+    }
+
+    @Test
+    public void testDisplayValuesOnUpdatePopup() throws InterruptedException {
+        presenter.loadPopupValues();
+        Thread.sleep(1000);
+        Assert.assertTrue(((MockUserProfileView) view).isProgressBarPopupShowing);
+        Assert.assertTrue(((MockUserProfileView) view).isPopupValuesDisplayed);
+        Assert.assertTrue(((MockUserProfileView) view).isProgressBarPopupNotShowing);
+    }
+
+    @Test
+    public void testLogout() throws InterruptedException {
+        String[] mockArrTexts = {
+                MockCustomerModel.USER_USERNAME.getVal(),
+                MockCustomerModel.USER_PASSWORD.getVal(),
+                MockCustomerModel.USER_FULLNAME.getVal(),
+                MockCustomerModel.USER_EMAIL.getVal()
+        };
+        presenter.onUpdateProfileButtonClicked(new InputStream() {
+            @Override
+            public int read() {
+                return 0;
+            }
+        }, mockArrTexts);
+        Thread.sleep(1000);
+        Assert.assertTrue(((MockUserProfileView) view).isLoggedOut);
+    }
+
+    @Test
+    public void testUpdateUser() throws InterruptedException {
+        String[] mockArrTexts = {
+                MockCustomerModel.USER_USERNAME.getVal(),
+                MockCustomerModel.USER_PASSWORD.getVal(),
+                MockCustomerModel.USER_FULLNAME.getVal(),
+                MockCustomerModel.USER_EMAIL.getVal()
+        };
+        presenter.onUpdateProfileButtonClicked(new InputStream() {
+            @Override
+            public int read() {
+                return 0;
+            }
+        }, mockArrTexts);
+        Thread.sleep(1000);
+        Assert.assertTrue(((MockUserService) service).isUpdated);
+    }
+
+    @Test
+    public void testProgressLoaderShowing() throws InterruptedException {
+        presenter.loadCredentials();
+        Thread.sleep(1000);
+        Assert.assertTrue(((MockUserProfileView)view).isProgressLoaderShowing);
+    }
+
+    @Test
+    public void testProgressNotLoaderShowing() throws InterruptedException {
+        presenter.loadCredentials();
+        Thread.sleep(1000);
+        Assert.assertFalse(((MockUserProfileView)view).isProgressLoaderShowing);
     }
 
     static class MockUserProfileView implements IUser.IUserView {
         boolean isUserProfileDisplayed;
         boolean isGalleryDisplayed;
         boolean isPopupDisplayed;
+        boolean isPopupValuesDisplayed;
+        boolean isLoggedOut;
+        boolean isProgressBarPopupShowing;
+        boolean isProgressBarPopupNotShowing;
+        boolean isProgressLoaderShowing;
 
         @Override
         public void displayLoader() {
-
+            isProgressLoaderShowing = true;
         }
 
         @Override
         public void hideLoader() {
-
+            isProgressLoaderShowing = false;
         }
 
         @Override
@@ -81,27 +148,34 @@ public class UserProfilePresenterTest {
 
         @Override
         public void displayUserCredentialsPopup(CustomerModel userModel) {
-
+            if (userModel.getUser_id().equals(MockCustomerModel.USER_ID.getVal()) &&
+                    userModel.getUser_username().equals(MockCustomerModel.USER_USERNAME.getVal()) &&
+                    userModel.getUser_password().equals(MockCustomerModel.USER_PASSWORD.getVal()) &&
+                    userModel.getUser_fullname().equals(MockCustomerModel.USER_FULLNAME.getVal()) &&
+                    userModel.getUser_status().equals(MockCustomerModel.USER_STATUS.getVal()) &&
+                    userModel.getUser_email().equals(MockCustomerModel.USER_EMAIL.getVal())) {
+                isPopupValuesDisplayed = true;
+            }
         }
 
         @Override
         public void displayProgressBarPopup() {
-
+            isProgressBarPopupShowing = true;
         }
 
         @Override
         public void hideProgressBarPopup() {
-
+            isProgressBarPopupNotShowing = true;
         }
 
         @Override
         public void logout() {
-
+            isLoggedOut = true;
         }
 
         @Override
         public Boolean displayErrors() {
-            return null;
+            return true;
         }
     }
 
@@ -125,6 +199,9 @@ public class UserProfilePresenterTest {
     }
 
     static class MockUserService implements IUser.IUserService {
+
+        boolean isUpdated;
+
         @Override
         public CustomerModel fetchUserCredentials() {
             return new CustomerModel(
@@ -140,6 +217,12 @@ public class UserProfilePresenterTest {
 
         @Override
         public void updateUserCredentials(CustomerModel userModel) {
+            if (userModel.getUser_username().equals(MockCustomerModel.USER_USERNAME.getVal()) &&
+                    userModel.getUser_password().equals(MockCustomerModel.USER_PASSWORD.getVal()) &&
+                    userModel.getUser_fullname().equals(MockCustomerModel.USER_FULLNAME.getVal()) &&
+                    userModel.getUser_email().equals(MockCustomerModel.USER_EMAIL.getVal())) {
+                isUpdated = true;
+            }
 
         }
     }
