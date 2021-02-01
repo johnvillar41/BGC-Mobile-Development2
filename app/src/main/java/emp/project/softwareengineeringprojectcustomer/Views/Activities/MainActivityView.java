@@ -48,7 +48,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
     private TextView navFullname, navEmail, navUsername;
     private CircleImageView profile_picture;
     private IMain.IMainPresenter presenter;
-    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,22 +97,27 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
         super.onResume();
     }
 
+    private static final String LOGOUT = "Logout";
+    private static final String LOGOUT_MESSAGE = "Are you sure you want to logout?";
+    private static final String CONFIRM = "Confirm";
+    private static final String CANCEL = "Cancel";
+
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setTitle("Logout")
-                    .setMessage("Are you sure you want to logout?")
+            alertDialog.setTitle(LOGOUT)
+                    .setMessage(LOGOUT_MESSAGE)
                     .setIcon(R.drawable.ic_baseline_exit_to_app_24)
-                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(CONFIRM, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             UserCredentials.isLoggedIn = false;
                             moveTaskToBack(true);
                         }
-                    }).setNegativeButton("Cancel", null);
+                    }).setNegativeButton(CANCEL, null);
             alertDialog.show();
         }
     }
@@ -181,7 +186,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
                 navFullname.setText(userModel.getUser_username());
                 navEmail.setText(userModel.getUser_email());
                 navUsername.setText(userModel.getUser_username());
-                Blob b = (Blob)userModel.getPicture();
+                Blob b = (Blob) userModel.getPicture();
                 int[] blobLength = new int[1];
                 try {
                     blobLength[0] = (int) b.length();
@@ -196,16 +201,6 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
                 }
             }
         });
-
-    }
-
-    @Override
-    public void displayLoadingScreen() {
-
-    }
-
-    @Override
-    public void hideLoadingScreen() {
 
     }
 }

@@ -8,10 +8,6 @@ import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 public interface IMain {
     interface IMainView {
         void displayUserDetails(CustomerModel userList);
-
-        void displayLoadingScreen();
-
-        void hideLoadingScreen();
     }
 
     interface IMainPresenter {
