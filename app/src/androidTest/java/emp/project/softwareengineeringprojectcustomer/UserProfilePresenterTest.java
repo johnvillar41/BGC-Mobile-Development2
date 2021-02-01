@@ -101,7 +101,7 @@ public class UserProfilePresenterTest {
     public void testProgressNotLoaderShowing() throws InterruptedException {
         presenter.loadCredentials();
         Thread.sleep(1000);
-        Assert.assertFalse(((MockUserProfileView)view).isProgressLoaderShowing);
+        Assert.assertTrue(((MockUserProfileView)view).isProgressLoaderNotShowing);
     }
 
     static class MockUserProfileView implements IUser.IUserView {
@@ -113,6 +113,7 @@ public class UserProfilePresenterTest {
         boolean isProgressBarPopupShowing;
         boolean isProgressBarPopupNotShowing;
         boolean isProgressLoaderShowing;
+        boolean isProgressLoaderNotShowing;
 
         @Override
         public void displayLoader() {
@@ -121,7 +122,7 @@ public class UserProfilePresenterTest {
 
         @Override
         public void hideLoader() {
-            isProgressLoaderShowing = false;
+            isProgressLoaderNotShowing = true;
         }
 
         @Override
