@@ -114,7 +114,6 @@ public class CheckoutActivityView extends AppCompatActivity implements ICheckout
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                destroyTextView();
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(CheckoutActivityView.this);
                 LayoutInflater inflater = getLayoutInflater();
                 View dialogView = inflater.inflate(R.layout.custom_popup_successful_checkout, null);
