@@ -36,7 +36,7 @@ import emp.project.softwareengineeringprojectcustomer.Presenter.MainPresenter;
 import emp.project.softwareengineeringprojectcustomer.R;
 import emp.project.softwareengineeringprojectcustomer.UserCredentials;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.HomeFragment;
-import emp.project.softwareengineeringprojectcustomer.Views.Fragments.NewsFragment;
+import emp.project.softwareengineeringprojectcustomer.Views.Fragments.InformationFragment;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.TrackOrderFragment;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.UserProfileFragment;
 
@@ -155,7 +155,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.nav_slideshow:
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
-                        new NewsFragment()).commit();
+                        new InformationFragment()).commit();
                 toolbar.setTitle(INFORMATION);
                 break;
             case R.id.nav_profile:
