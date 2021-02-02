@@ -12,13 +12,7 @@ public interface ILogin {
 
         void hideProgressLoader();
 
-        void setErrorUsername();
-
-        void setErrorPassword();
-
-        void removeErrorUsername();
-
-        void removeErrorPassword();
+        Boolean displayErrors();
     }
 
     interface ILoginPresenter {

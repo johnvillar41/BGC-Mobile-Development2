@@ -218,6 +218,12 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
             }
         });
 
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         if (errorCtr[0] == 0) {
             return true;
         } else {

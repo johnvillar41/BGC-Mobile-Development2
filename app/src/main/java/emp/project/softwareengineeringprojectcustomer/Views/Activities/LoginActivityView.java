@@ -36,6 +36,7 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
     private TextInputLayout txt_username;
     private TextInputLayout txt_password;
     private View view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +48,13 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
         Toolbar toolbar = findViewById(R.id.loginToolbar);
         setSupportActionBar(toolbar);
         toolbar.setBackground(null);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
+        }
 
         txt_username = findViewById(R.id.txt_username);
-
         txt_password = findViewById(R.id.txt_password);
 
         lottieAnimationView_Loader = findViewById(R.id.progressBar_loader);
@@ -63,9 +65,11 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
                 view = v;
                 InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                presenter.onLoginButtonClicked(
-                        txt_username.getEditText().getText().toString(),
-                        txt_password.getEditText().getText().toString());
+                if (txt_username.getEditText() != null && txt_password.getEditText() != null) {
+                    presenter.onLoginButtonClicked(
+                            txt_username.getEditText().getText().toString(),
+                            txt_password.getEditText().getText().toString());
+                }
             }
         });
 
@@ -78,7 +82,7 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
         }
         return super.onOptionsItemSelected(item);
     }
-    
+
     @SuppressLint("CommitPrefEdits")
     @Override
     public void onSuccess() {
@@ -134,44 +138,39 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
     }
 
     @Override
-    public void setErrorUsername() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt_username.setError("Empty Username");
-            }
-        });
-    }
+    public Boolean displayErrors() {
+        int[] errorCtr = new int[1];
+        TextInputLayout[] textInputLayouts = new TextInputLayout[2];
+        textInputLayouts[0] = txt_username;
+        textInputLayouts[1] = txt_password;
 
-    @Override
-    public void setErrorPassword() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt_password.setError("Empty Password");
-            }
-        });
-    }
+        for (TextInputLayout txt : textInputLayouts) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (txt.getEditText() != null) {
+                        if (txt.getEditText().getText().toString().trim().isEmpty()) {
+                            txt.setError("Empty field!");
+                            errorCtr[0]++;
+                        } else {
+                            txt.setError(null);
+                        }
+                    }
+                }
+            });
+        }
 
-    @Override
-    public void removeErrorUsername() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt_username.setError(null);
-            }
-        });
-    }
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-    @Override
-    public void removeErrorPassword() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt_password.setError(null);
-            }
-        });
-
+        if (errorCtr[0] > 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

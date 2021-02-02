@@ -285,6 +285,12 @@ public class UserProfileFragment extends Fragment implements IUser.IUserView, Vi
             }
         }
 
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         if (errorCtr[0] > 0) {
             return false;
         } else {
