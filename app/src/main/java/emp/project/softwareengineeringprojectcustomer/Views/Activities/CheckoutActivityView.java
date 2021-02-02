@@ -26,7 +26,9 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import emp.project.softwareengineeringprojectcustomer.Interface.ICart;
 import emp.project.softwareengineeringprojectcustomer.Interface.ICheckout;
+import emp.project.softwareengineeringprojectcustomer.Interface.IMain;
 import emp.project.softwareengineeringprojectcustomer.IntroActivityView;
 import emp.project.softwareengineeringprojectcustomer.LoadingScreenView;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
@@ -35,7 +37,7 @@ import emp.project.softwareengineeringprojectcustomer.Presenter.CheckoutPresente
 import emp.project.softwareengineeringprojectcustomer.R;
 import emp.project.softwareengineeringprojectcustomer.Views.Adapters.CheckoutRecyclerView;
 
-public class CheckoutActivityView extends AppCompatActivity implements ICheckout.ICheckoutView {
+public class CheckoutActivityView extends AppCompatActivity implements ICheckout.ICheckoutView, ICart {
     private RecyclerView recyclerViewOrders;
     private TextView txtCartTotal;
     private Button btnCheckout;
@@ -119,6 +121,7 @@ public class CheckoutActivityView extends AppCompatActivity implements ICheckout
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                destroyTextView();
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(CheckoutActivityView.this);
                 LayoutInflater inflater = getLayoutInflater();
                 View dialogView = inflater.inflate(R.layout.custom_popup_successful_checkout, null);

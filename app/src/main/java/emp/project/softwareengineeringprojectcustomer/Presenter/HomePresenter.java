@@ -1,5 +1,7 @@
 package emp.project.softwareengineeringprojectcustomer.Presenter;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
@@ -8,17 +10,21 @@ import java.sql.SQLException;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
+import emp.project.softwareengineeringprojectcustomer.Interface.ICart;
 import emp.project.softwareengineeringprojectcustomer.Interface.IHome;
+import emp.project.softwareengineeringprojectcustomer.Interface.IMain;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
 
-public class HomePresenter implements IHome.IHomePresenter {
+public class HomePresenter implements IHome.IHomePresenter, ICart {
     private IHome.IHomeView view;
     private IHome.IHomeService service;
+    private Activity activity;
 
-    public HomePresenter(IHome.IHomeView view, IHome.IHomeService service) {
+    public HomePresenter(IHome.IHomeView view, IHome.IHomeService service, Activity activity) {
         this.view = view;
         this.service = service;
+        this.activity = activity;
     }
 
     @Override
@@ -105,6 +111,7 @@ public class HomePresenter implements IHome.IHomePresenter {
                         } else {
                             CartModel.getInstance().addToCart(model);
                             view.displayMessage(SUCCESS_ADD_TO_CART);
+                            displayTotalCartNumbers(activity);
                         }
                     } else {
                         view.displayMessage(PRODUCT_NOT_ENOUGH);
@@ -116,7 +123,8 @@ public class HomePresenter implements IHome.IHomePresenter {
                 }
                 view.hideProgressBarProducts();
             }
-        });thread.start();
+        });
+        thread.start();
 
     }
 }

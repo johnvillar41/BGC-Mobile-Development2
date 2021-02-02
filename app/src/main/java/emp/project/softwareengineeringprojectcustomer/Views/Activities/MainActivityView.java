@@ -31,6 +31,7 @@ import java.sql.SQLException;
 import de.hdodenhof.circleimageview.CircleImageView;
 import emp.project.softwareengineeringprojectcustomer.Interface.IMain;
 import emp.project.softwareengineeringprojectcustomer.IntroActivityView;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.MainService;
 import emp.project.softwareengineeringprojectcustomer.Presenter.MainPresenter;
@@ -49,6 +50,9 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
     private CircleImageView profile_picture;
     private IMain.IMainPresenter presenter;
 
+    @SuppressLint("StaticFieldLeak")
+    public static TextView txt_total_cart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +61,8 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
         setContentView(R.layout.activity_main_view);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        txt_total_cart = findViewById(R.id.txt_number_notification);
 
         if (!UserCredentials.isLoggedIn) {
             this.finish();
@@ -85,8 +91,9 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
         }
         toolbar.setTitle(HOME);
 
-        presenter = new MainPresenter(this, MainService.getInstance());
+        presenter = new MainPresenter(this, MainService.getInstance(),this);
         presenter.loadUserDetails();
+        presenter.loadCartNumber();
     }
 
     @Override
@@ -202,5 +209,11 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
             }
         });
 
+    }
+
+    @Override
+    protected void onResumeFragments() {
+        presenter.loadCartNumber();
+        super.onResumeFragments();
     }
 }

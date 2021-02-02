@@ -37,7 +37,7 @@ public class HomeFragment extends Fragment implements IHome.IHomeView {
                              ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         view = rootView;
-        presenter = new HomePresenter(this, HomeService.getINSTANCE());
+        presenter = new HomePresenter(this, HomeService.getINSTANCE(),this.getActivity());
 
         recyclerView_Category = rootView.findViewById(R.id.recyclerView_Category);
         recyclerView_Home = rootView.findViewById(R.id.recyclerView_Home);
