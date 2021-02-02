@@ -1,18 +1,15 @@
 package emp.project.softwareengineeringprojectcustomer.Presenter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
 import java.sql.SQLException;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.ICart;
 import emp.project.softwareengineeringprojectcustomer.Interface.IHome;
-import emp.project.softwareengineeringprojectcustomer.Interface.IMain;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
 

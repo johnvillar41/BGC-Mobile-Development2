@@ -1,7 +1,6 @@
 package emp.project.softwareengineeringprojectcustomer.Presenter;
 
 import android.app.Activity;
-import android.content.Context;
 
 import java.sql.SQLException;
 

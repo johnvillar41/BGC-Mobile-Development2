@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -24,7 +23,6 @@ import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.HomeService;
 import emp.project.softwareengineeringprojectcustomer.Presenter.HomePresenter;
 import emp.project.softwareengineeringprojectcustomer.R;
-import emp.project.softwareengineeringprojectcustomer.Views.Activities.LoginActivityView;
 import emp.project.softwareengineeringprojectcustomer.Views.Adapters.HomeCategoryRecyclerView;
 import emp.project.softwareengineeringprojectcustomer.Views.Adapters.HomeProductRecyclerView;
 

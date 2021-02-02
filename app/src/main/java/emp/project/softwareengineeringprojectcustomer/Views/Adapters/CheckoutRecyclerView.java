@@ -16,8 +16,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.mysql.jdbc.Blob;
 
-import org.w3c.dom.Text;
-
 import java.sql.SQLException;
 import java.util.List;
 

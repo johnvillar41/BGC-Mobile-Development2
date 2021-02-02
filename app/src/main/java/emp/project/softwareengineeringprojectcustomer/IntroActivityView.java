@@ -1,19 +1,14 @@
 package emp.project.softwareengineeringprojectcustomer;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import androidx.appcompat.app.AppCompatActivity;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import emp.project.softwareengineeringprojectcustomer.Views.Activities.LoginActivityView;
 import emp.project.softwareengineeringprojectcustomer.Views.Activities.RegisterActivityView;
 

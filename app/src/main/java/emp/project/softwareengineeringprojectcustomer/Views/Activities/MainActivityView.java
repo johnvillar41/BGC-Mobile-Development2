@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,15 +30,14 @@ import java.sql.SQLException;
 import de.hdodenhof.circleimageview.CircleImageView;
 import emp.project.softwareengineeringprojectcustomer.Interface.IMain;
 import emp.project.softwareengineeringprojectcustomer.IntroActivityView;
-import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.MainService;
 import emp.project.softwareengineeringprojectcustomer.Presenter.MainPresenter;
 import emp.project.softwareengineeringprojectcustomer.R;
 import emp.project.softwareengineeringprojectcustomer.UserCredentials;
-import emp.project.softwareengineeringprojectcustomer.Views.Fragments.TrackOrderFragment;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.HomeFragment;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.NewsFragment;
+import emp.project.softwareengineeringprojectcustomer.Views.Fragments.TrackOrderFragment;
 import emp.project.softwareengineeringprojectcustomer.Views.Fragments.UserProfileFragment;
 
 public class MainActivityView extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, IMain.IMainView {

@@ -1,7 +1,5 @@
 package emp.project.softwareengineeringprojectcustomer.Models.Database.Service;
 
-import android.os.StrictMode;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

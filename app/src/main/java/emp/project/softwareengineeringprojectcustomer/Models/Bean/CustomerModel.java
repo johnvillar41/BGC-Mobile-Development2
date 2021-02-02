@@ -1,16 +1,10 @@
 package emp.project.softwareengineeringprojectcustomer.Models.Bean;
 
-import android.text.TextUtils;
 import android.util.Patterns;
-
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.InputStream;
 import java.sql.Blob;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
 public class CustomerModel {
     private String user_id, user_username, user_password, user_fullname, user_status, user_email;

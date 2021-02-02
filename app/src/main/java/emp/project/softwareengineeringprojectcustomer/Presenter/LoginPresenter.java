@@ -1,17 +1,10 @@
 package emp.project.softwareengineeringprojectcustomer.Presenter;
 
-import android.app.Activity;
-import android.content.Context;
-
-import java.lang.ref.WeakReference;
 import java.sql.SQLException;
 import java.util.HashSet;
-import java.util.List;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.ILogin;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
-import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.LoginService;
-import emp.project.softwareengineeringprojectcustomer.Views.Activities.LoginActivityView;
 
 public class LoginPresenter implements ILogin.ILoginPresenter {
     private ILogin.ILoginView view;

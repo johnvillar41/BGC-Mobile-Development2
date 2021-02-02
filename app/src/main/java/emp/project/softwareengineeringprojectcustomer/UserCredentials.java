@@ -1,7 +1,6 @@
 package emp.project.softwareengineeringprojectcustomer;
 
 import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
