@@ -96,7 +96,7 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
             }
         });
         UserCredentials.getInstance().setUsername(txt_username.getEditText().getText().toString());
-        UserCredentials.isLoggedIn = true;
+        UserCredentials.getInstance().loginAccount();
     }
 
     @Override

@@ -62,7 +62,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
 
         txt_total_cart = findViewById(R.id.txt_number_notification);
 
-        if (!UserCredentials.isLoggedIn) {
+        if (!UserCredentials.getInstance().checkLoginStatus()) {
             this.finish();
         }
 
@@ -96,7 +96,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
 
     @Override
     protected void onResume() {
-        if (!UserCredentials.isLoggedIn) {
+        if (!UserCredentials.getInstance().checkLoginStatus()) {
             this.finish();
         }
         super.onResume();
@@ -119,7 +119,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
                     .setPositiveButton(CONFIRM, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            UserCredentials.isLoggedIn = false;
+                            UserCredentials.getInstance().logoutAccount();
                             moveTaskToBack(true);
                         }
                     }).setNegativeButton(CANCEL, null);
@@ -167,7 +167,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
                 Intent intent = new Intent(this, IntroActivityView.class);
                 startActivity(intent);
                 MainActivityView.this.finish();
-                UserCredentials.isLoggedIn = false;
+                UserCredentials.getInstance().logoutAccount();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

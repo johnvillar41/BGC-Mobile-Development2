@@ -13,7 +13,7 @@ import emp.project.softwareengineeringprojectcustomer.Interface.IStrictMode;
 public class UserCredentials implements IStrictMode {
     private String username;
     private static UserCredentials instance;
-    public static boolean isLoggedIn;
+    private static boolean isLoggedIn;
 
     private UserCredentials() {
 
@@ -35,6 +35,18 @@ public class UserCredentials implements IStrictMode {
         return username;
     }
 
+    public void logoutAccount() {
+        isLoggedIn = false;
+    }
+
+    public void loginAccount() {
+        isLoggedIn = true;
+    }
+
+    public Boolean checkLoginStatus() {
+        return isLoggedIn;
+    }
+
     public String getUserEmail() throws ClassNotFoundException, SQLException {
         strictMode();
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
@@ -48,11 +60,4 @@ public class UserCredentials implements IStrictMode {
             return null;
         }
     }
-    /*TODO:
-    Customer App Notes:
-    * Add (on employee app): View all registered end-users/customers
-    * (For clarification/reminder) "Slide Show" is for showing the tutorials of each product. Only accessible for ordered products, after the order is "finished". -> May encourage buying of products.
-    * Displaying full name, email, and profile picture
-    * Notification for adding products to the cart (red circle with a number -> number represents the current number of items in the cart)
-     */
 }

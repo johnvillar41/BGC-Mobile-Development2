@@ -27,7 +27,7 @@ public interface ICart {
         });
     }
 
-    default void destroyTextView() {
+    default void destroyCartNumber() {
         MainActivityView.txt_total_cart = null;
     }
 }

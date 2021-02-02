@@ -249,7 +249,7 @@ public class UserProfileFragment extends Fragment implements IUser.IUserView, Vi
             dialog.cancel();
             getActivity().finish();
             UserCredentials.getInstance().setUsername(null);
-            UserCredentials.isLoggedIn = false;
+            UserCredentials.getInstance().logoutAccount();
         }
     }
 
