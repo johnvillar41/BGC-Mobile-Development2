@@ -5,8 +5,10 @@ import java.sql.SQLException;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 
 public interface IMain {
-    interface IMainView extends ICart{
+    interface IMainView {
         void displayUserDetails(CustomerModel userList);
+
+        void displayTotalNumberOfCartNumbers();
     }
 
     interface IMainPresenter {

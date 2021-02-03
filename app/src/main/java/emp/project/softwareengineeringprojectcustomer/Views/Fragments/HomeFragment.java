@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +18,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
-import emp.project.softwareengineeringprojectcustomer.Interface.ICart;
 import emp.project.softwareengineeringprojectcustomer.Interface.IHome;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
@@ -155,28 +153,15 @@ public class HomeFragment extends Fragment implements IHome.IHomeView {
     }
 
     @Override
-    public void displayTotalCartNumbers() {
+    public void displayTotalNumberCart(String totalNumberOfOrders) {
         if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     MainActivityView.txt_total_cart.setVisibility(View.VISIBLE);
-                    MainActivityView.txt_total_cart.setText(CartModel.getInstance().getTotalNumberOfOrders());
+                    MainActivityView.txt_total_cart.setText(totalNumberOfOrders);
                 }
             });
         }
-    }
-
-    @Override
-    public void hideTotalCartNumbers() {
-        if (getActivity() != null) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    MainActivityView.txt_total_cart.setVisibility(View.INVISIBLE);
-                }
-            });
-        }
-
     }
 }

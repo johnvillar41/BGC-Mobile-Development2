@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.snackbar.Snackbar;
 
-import emp.project.softwareengineeringprojectcustomer.Interface.ICart;
 import emp.project.softwareengineeringprojectcustomer.Interface.ICheckout;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.CheckoutService;
@@ -182,26 +181,5 @@ public class CheckoutActivityView extends AppCompatActivity implements ICheckout
             this.finish();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void displayTotalCartNumbers() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                MainActivityView.txt_total_cart.setVisibility(View.VISIBLE);
-                MainActivityView.txt_total_cart.setText(CartModel.getInstance().getTotalNumberOfOrders());
-            }
-        });
-    }
-
-    @Override
-    public void hideTotalCartNumbers() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                MainActivityView.txt_total_cart.setVisibility(View.INVISIBLE);
-            }
-        });
     }
 }

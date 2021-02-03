@@ -27,7 +27,6 @@ public class CartModel {
         cartList.add(productModel);
     }
 
-
     public List<ProductModel> getCartValues() {
         return cartList;
     }

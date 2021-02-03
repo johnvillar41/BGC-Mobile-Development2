@@ -6,7 +6,7 @@ import java.util.List;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
 
 public interface IHome {
-    interface IHomeView extends ICart{
+    interface IHomeView {
         void displayProgressBarProducts();
 
         void hideProgressBarProducts();
@@ -15,11 +15,13 @@ public interface IHome {
 
         void hideProgressBarCategories();
 
-        void displayRecyclerViewCategory(List<String>categories);
+        void displayRecyclerViewCategory(List<String> categories);
 
-        void displayRecyclerViewHomeProducts(List<ProductModel>productModelLists);
+        void displayRecyclerViewHomeProducts(List<ProductModel> productModelLists);
 
         void displayMessage(String message);
+
+        void displayTotalNumberCart(String totalNumberOfOrders);
     }
 
     interface IHomePresenter {
@@ -29,10 +31,10 @@ public interface IHome {
 
         void loadProducts();
 
-        void onConfirmButtonClicked(String totalNumberOrders,ProductModel model);
+        void onConfirmButtonClicked(String totalNumberOrders, ProductModel model);
     }
 
-    interface IHomeService extends IStrictMode{
+    interface IHomeService extends IStrictMode {
         List<ProductModel> getProducts(String category) throws ClassNotFoundException, SQLException;
 
         List<String> getCategories() throws ClassNotFoundException, SQLException;

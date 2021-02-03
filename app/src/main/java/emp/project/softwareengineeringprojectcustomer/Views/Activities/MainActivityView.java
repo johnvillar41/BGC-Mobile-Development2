@@ -28,7 +28,6 @@ import com.mysql.jdbc.Blob;
 import java.sql.SQLException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import emp.project.softwareengineeringprojectcustomer.Interface.ICart;
 import emp.project.softwareengineeringprojectcustomer.Interface.IMain;
 import emp.project.softwareengineeringprojectcustomer.IntroActivityView;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
@@ -212,29 +211,17 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
     }
 
     @Override
+    public void displayTotalNumberOfCartNumbers() {
+        if (Integer.parseInt(CartModel.getInstance().getTotalNumberOfOrders()) > 0) {
+            txt_total_cart.setText(CartModel.getInstance().getTotalNumberOfOrders());
+        } else {
+            txt_total_cart.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
     protected void onResumeFragments() {
         presenter.loadCartNumber();
         super.onResumeFragments();
-    }
-
-    @Override
-    public void displayTotalCartNumbers() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt_total_cart.setVisibility(View.VISIBLE);
-                txt_total_cart.setText(CartModel.getInstance().getTotalNumberOfOrders());
-            }
-        });
-    }
-
-    @Override
-    public void hideTotalCartNumbers() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt_total_cart.setVisibility(View.INVISIBLE);
-            }
-        });
     }
 }

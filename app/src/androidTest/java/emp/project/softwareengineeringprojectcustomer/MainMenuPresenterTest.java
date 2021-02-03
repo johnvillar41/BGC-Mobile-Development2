@@ -1,21 +1,12 @@
 package emp.project.softwareengineeringprojectcustomer;
 
-import android.app.Activity;
-import android.content.Context;
-import android.view.View;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.SQLException;
-
-import emp.project.softwareengineeringprojectcustomer.Interface.ICart;
 import emp.project.softwareengineeringprojectcustomer.Interface.IMain;
-import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 import emp.project.softwareengineeringprojectcustomer.Presenter.MainPresenter;
-import emp.project.softwareengineeringprojectcustomer.Views.Activities.MainActivityView;
 
 public class MainMenuPresenterTest {
     IMain.IMainView view;
@@ -55,13 +46,8 @@ public class MainMenuPresenterTest {
         }
 
         @Override
-        public void displayTotalCartNumbers() {
+        public void displayTotalNumberOfCartNumbers() {
             
-        }
-
-        @Override
-        public void hideTotalCartNumbers() {
-
         }
     }
 

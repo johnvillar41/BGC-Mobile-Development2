@@ -101,10 +101,10 @@ public class HomePresenter implements IHome.IHomePresenter {
                                 }
                             }
                             view.displayMessage(SUCCESS_UPDATE_TO_CART);
-                            view.displayTotalCartNumbers();
                         } else {
                             CartModel.getInstance().addToCart(model);
                             view.displayMessage(SUCCESS_ADD_TO_CART);
+                            view.displayTotalNumberCart(CartModel.getInstance().getTotalNumberOfOrders());
                         }
                     } else {
                         view.displayMessage(PRODUCT_NOT_ENOUGH);
@@ -118,6 +118,5 @@ public class HomePresenter implements IHome.IHomePresenter {
             }
         });
         thread.start();
-
     }
 }

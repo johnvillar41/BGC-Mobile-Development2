@@ -3,7 +3,7 @@ package emp.project.softwareengineeringprojectcustomer.Interface;
 import java.sql.SQLException;
 
 public interface ICheckout {
-    interface ICheckoutView extends ICart{
+    interface ICheckoutView {
         void displayCartOrders();
 
         void displayProgressLoader();
@@ -32,6 +32,6 @@ public interface ICheckout {
     interface ICheckoutService {
         void insertOrdersToDB() throws SQLException, ClassNotFoundException;
 
-        void insertToSpecificOrdersDB(String productName,String totalNumberOfOrders) throws ClassNotFoundException, SQLException;
+        void insertToSpecificOrdersDB(String productName, String totalNumberOfOrders) throws ClassNotFoundException, SQLException;
     }
 }
