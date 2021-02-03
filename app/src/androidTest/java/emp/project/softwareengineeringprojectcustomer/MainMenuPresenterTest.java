@@ -1,14 +1,21 @@
 package emp.project.softwareengineeringprojectcustomer;
 
+import android.app.Activity;
+import android.content.Context;
+import android.view.View;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
 
+import emp.project.softwareengineeringprojectcustomer.Interface.ICart;
 import emp.project.softwareengineeringprojectcustomer.Interface.IMain;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 import emp.project.softwareengineeringprojectcustomer.Presenter.MainPresenter;
+import emp.project.softwareengineeringprojectcustomer.Views.Activities.MainActivityView;
 
 public class MainMenuPresenterTest {
     IMain.IMainView view;
@@ -26,7 +33,7 @@ public class MainMenuPresenterTest {
     public void testDisplayUserDetails() throws InterruptedException {
         presenter.loadUserDetails();
         Thread.sleep(1000);
-        Assert.assertTrue(((MockMainView)view).isUserDisplayed);
+        Assert.assertTrue(((MockMainView) view).isUserDisplayed);
     }
 
     enum MockCustomerModel {
@@ -37,13 +44,24 @@ public class MainMenuPresenterTest {
 
     static class MockMainView implements IMain.IMainView {
         boolean isUserDisplayed;
+
         @Override
         public void displayUserDetails(CustomerModel userList) {
             if (userList.getUser_username().equals(MockCustomerModel.USERNAME.name()) &&
-            userList.getUser_fullname().equals(MockCustomerModel.FULLNAME.name()) &&
-            userList.getUser_email().equals(MockCustomerModel.EMAIL.name())){
+                    userList.getUser_fullname().equals(MockCustomerModel.FULLNAME.name()) &&
+                    userList.getUser_email().equals(MockCustomerModel.EMAIL.name())) {
                 isUserDisplayed = true;
             }
+        }
+
+        @Override
+        public void displayTotalCartNumbers() {
+            
+        }
+
+        @Override
+        public void hideTotalCartNumbers() {
+
         }
     }
 

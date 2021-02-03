@@ -30,7 +30,7 @@ import emp.project.softwareengineeringprojectcustomer.Presenter.CheckoutPresente
 import emp.project.softwareengineeringprojectcustomer.R;
 import emp.project.softwareengineeringprojectcustomer.Views.Adapters.CheckoutRecyclerView;
 
-public class CheckoutActivityView extends AppCompatActivity implements ICheckout.ICheckoutView, ICart {
+public class CheckoutActivityView extends AppCompatActivity implements ICheckout.ICheckoutView {
     private RecyclerView recyclerViewOrders;
     private TextView txtCartTotal;
     private Button btnCheckout;
@@ -182,5 +182,16 @@ public class CheckoutActivityView extends AppCompatActivity implements ICheckout
             this.finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void displayTotalCartNumbers() {
+        MainActivityView.txt_total_cart.setVisibility(View.VISIBLE);
+        MainActivityView.txt_total_cart.setText(CartModel.getInstance().getTotalNumberOfOrders());
+    }
+
+    @Override
+    public void hideTotalCartNumbers() {
+        MainActivityView.txt_total_cart.setVisibility(View.INVISIBLE);
     }
 }

@@ -9,16 +9,14 @@ import emp.project.softwareengineeringprojectcustomer.Interface.IMain;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 
-public class MainPresenter implements IMain.IMainPresenter, ICart {
+public class MainPresenter implements IMain.IMainPresenter {
 
     private IMain.IMainView view;
     private IMain.IMainService service;
-    private Activity activity;
 
-    public MainPresenter(IMain.IMainView view, IMain.IMainService service, Activity activity) {
+    public MainPresenter(IMain.IMainView view, IMain.IMainService service) {
         this.view = view;
         this.service = service;
-        this.activity = activity;
     }
 
     @Override
@@ -44,10 +42,10 @@ public class MainPresenter implements IMain.IMainPresenter, ICart {
     public void loadCartNumber() {
         if (Integer.parseInt(CartModel.getInstance().getTotalNumberOfOrders()) > 0) {
             //This comes from ICart interface
-            displayTotalCartNumbers(activity);
+            view.displayTotalCartNumbers();
         } else {
             //This comes from ICart interface
-            hideTotalCartNumbers(activity);
+            view.hideTotalCartNumbers();
         }
     }
 }

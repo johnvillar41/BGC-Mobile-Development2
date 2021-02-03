@@ -28,8 +28,10 @@ import com.mysql.jdbc.Blob;
 import java.sql.SQLException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import emp.project.softwareengineeringprojectcustomer.Interface.ICart;
 import emp.project.softwareengineeringprojectcustomer.Interface.IMain;
 import emp.project.softwareengineeringprojectcustomer.IntroActivityView;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.MainService;
 import emp.project.softwareengineeringprojectcustomer.Presenter.MainPresenter;
@@ -89,7 +91,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
         }
         toolbar.setTitle(HOME);
 
-        presenter = new MainPresenter(this, MainService.getInstance(),this);
+        presenter = new MainPresenter(this, MainService.getInstance());
         presenter.loadUserDetails();
         presenter.loadCartNumber();
     }
@@ -213,5 +215,16 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
     protected void onResumeFragments() {
         presenter.loadCartNumber();
         super.onResumeFragments();
+    }
+
+    @Override
+    public void displayTotalCartNumbers() {
+        txt_total_cart.setVisibility(View.VISIBLE);
+        txt_total_cart.setText(CartModel.getInstance().getTotalNumberOfOrders());
+    }
+
+    @Override
+    public void hideTotalCartNumbers() {
+        txt_total_cart.setVisibility(View.INVISIBLE);
     }
 }

@@ -18,11 +18,14 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
+import emp.project.softwareengineeringprojectcustomer.Interface.ICart;
 import emp.project.softwareengineeringprojectcustomer.Interface.IHome;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.HomeService;
 import emp.project.softwareengineeringprojectcustomer.Presenter.HomePresenter;
 import emp.project.softwareengineeringprojectcustomer.R;
+import emp.project.softwareengineeringprojectcustomer.Views.Activities.MainActivityView;
 import emp.project.softwareengineeringprojectcustomer.Views.Adapters.HomeCategoryRecyclerView;
 import emp.project.softwareengineeringprojectcustomer.Views.Adapters.HomeProductRecyclerView;
 
@@ -35,7 +38,7 @@ public class HomeFragment extends Fragment implements IHome.IHomeView {
                              ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         view = rootView;
-        presenter = new HomePresenter(this, HomeService.getINSTANCE(),this.getActivity());
+        presenter = new HomePresenter(this, HomeService.getINSTANCE());
 
         recyclerView_Category = rootView.findViewById(R.id.recyclerView_Category);
         recyclerView_Home = rootView.findViewById(R.id.recyclerView_Home);
@@ -147,5 +150,16 @@ public class HomeFragment extends Fragment implements IHome.IHomeView {
                 }
             });
         }
+    }
+
+    @Override
+    public void displayTotalCartNumbers() {
+        MainActivityView.txt_total_cart.setVisibility(View.VISIBLE);
+        MainActivityView.txt_total_cart.setText(CartModel.getInstance().getTotalNumberOfOrders());
+    }
+
+    @Override
+    public void hideTotalCartNumbers() {
+        MainActivityView.txt_total_cart.setVisibility(View.INVISIBLE);
     }
 }

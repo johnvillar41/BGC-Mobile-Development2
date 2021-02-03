@@ -53,7 +53,7 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        model = getPosition(position);
+        ProductModel model = getPosition(position);
         Blob b = (Blob) model.getProduct_picture();
         int[] blobLength = new int[1];
         try {

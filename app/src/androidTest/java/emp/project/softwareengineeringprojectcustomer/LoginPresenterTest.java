@@ -31,13 +31,6 @@ public class LoginPresenterTest {
     }
 
     @Test
-    public void testError_EMPTY_FIELD() throws InterruptedException {
-        presenter.onLoginButtonClicked("", "");
-        Thread.sleep(1000);
-        Assert.assertTrue(MockLoginView.pass_error_empty_field);
-    }
-
-    @Test
     public void testError_USER_NOT_FOUND() throws InterruptedException {
         presenter.onLoginButtonClicked("john", "johnyy");
         Thread.sleep(1000);
@@ -49,7 +42,6 @@ public class LoginPresenterTest {
 
     static class MockLoginView implements ILogin.ILoginView {
         static boolean pass_success;
-        static boolean pass_error_empty_field;
         static boolean pass_error_user_not_found;
         @Override
         public void onSuccess() {
@@ -58,9 +50,6 @@ public class LoginPresenterTest {
 
         @Override
         public void onError(String errorMessage) {
-            if (errorMessage.equals(LoginPresenter.EMPTY_FIELD)) {
-                pass_error_empty_field = true;
-            }
             if (errorMessage.equals(LoginPresenter.USER_NOT_FOUND)) {
                 pass_error_user_not_found = true;
             }
@@ -77,23 +66,8 @@ public class LoginPresenterTest {
         }
 
         @Override
-        public void setErrorUsername() {
-
-        }
-
-        @Override
-        public void setErrorPassword() {
-
-        }
-
-        @Override
-        public void removeErrorUsername() {
-
-        }
-
-        @Override
-        public void removeErrorPassword() {
-
+        public Boolean displayErrors() {
+            return null;
         }
     }
 

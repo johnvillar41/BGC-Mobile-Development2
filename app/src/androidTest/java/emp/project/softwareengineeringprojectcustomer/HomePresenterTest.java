@@ -1,5 +1,7 @@
 package emp.project.softwareengineeringprojectcustomer;
 
+import android.app.Activity;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +26,6 @@ public class HomePresenterTest {
     IHome.IHomeView view;
     IHome.IHomeService service;
     IHome.IHomePresenter presenter;
-
     @Before
     public void setUp() {
         view = new MockHomeView();
@@ -36,21 +37,21 @@ public class HomePresenterTest {
     public void testCategoryDisplay() throws InterruptedException {
         presenter.loadCategories();
         Thread.sleep(1000);
-        Assert.assertTrue(((MockHomeView)view).isCategoryDisplayed);
+        Assert.assertTrue(((MockHomeView) view).isCategoryDisplayed);
     }
 
     @Test
     public void testProductsDisplay() throws InterruptedException {
         presenter.onCategoryButtonClicked(MOCK_CATEGORY);
         Thread.sleep(1000);
-        Assert.assertTrue(((MockHomeView)view).isProductDisplayed);
+        Assert.assertTrue(((MockHomeView) view).isProductDisplayed);
     }
 
     @Test
     public void testDisplayProgressBarOnCategory() throws InterruptedException {
         presenter.loadCategories();
         Thread.sleep(1000);
-        Assert.assertTrue(((MockHomeView)view).isProgressBardisplayed);
+        Assert.assertTrue(((MockHomeView) view).isProgressBardisplayed);
     }
 
     @Test
@@ -126,6 +127,16 @@ public class HomePresenterTest {
                     isMessageDisplayed = true;
                     break;
             }
+        }
+
+        @Override
+        public void displayTotalCartNumbers() {
+
+        }
+
+        @Override
+        public void hideTotalCartNumbers() {
+
         }
     }
 

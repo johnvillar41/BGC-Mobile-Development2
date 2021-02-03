@@ -3,7 +3,7 @@ package emp.project.softwareengineeringprojectcustomer.Interface;
 import java.sql.SQLException;
 
 public interface ICheckout {
-    interface ICheckoutView {
+    interface ICheckoutView extends ICart{
         void displayCartOrders();
 
         void displayProgressLoader();

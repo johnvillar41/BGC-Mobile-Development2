@@ -2,6 +2,7 @@ package emp.project.softwareengineeringprojectcustomer.Presenter;
 
 import android.app.Activity;
 import android.os.Build;
+import android.view.View;
 
 import androidx.annotation.RequiresApi;
 
@@ -12,16 +13,15 @@ import emp.project.softwareengineeringprojectcustomer.Interface.ICart;
 import emp.project.softwareengineeringprojectcustomer.Interface.IHome;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
+import emp.project.softwareengineeringprojectcustomer.Views.Activities.MainActivityView;
 
-public class HomePresenter implements IHome.IHomePresenter, ICart {
+public class HomePresenter implements IHome.IHomePresenter {
     private IHome.IHomeView view;
     private IHome.IHomeService service;
-    private Activity activity;
 
-    public HomePresenter(IHome.IHomeView view, IHome.IHomeService service, Activity activity) {
+    public HomePresenter(IHome.IHomeView view, IHome.IHomeService service) {
         this.view = view;
         this.service = service;
-        this.activity = activity;
     }
 
     @Override
@@ -108,7 +108,6 @@ public class HomePresenter implements IHome.IHomePresenter, ICart {
                         } else {
                             CartModel.getInstance().addToCart(model);
                             view.displayMessage(SUCCESS_ADD_TO_CART);
-                            displayTotalCartNumbers(activity);
                         }
                     } else {
                         view.displayMessage(PRODUCT_NOT_ENOUGH);
