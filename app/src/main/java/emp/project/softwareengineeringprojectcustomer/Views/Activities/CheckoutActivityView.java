@@ -186,12 +186,22 @@ public class CheckoutActivityView extends AppCompatActivity implements ICheckout
 
     @Override
     public void displayTotalCartNumbers() {
-        MainActivityView.txt_total_cart.setVisibility(View.VISIBLE);
-        MainActivityView.txt_total_cart.setText(CartModel.getInstance().getTotalNumberOfOrders());
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                MainActivityView.txt_total_cart.setVisibility(View.VISIBLE);
+                MainActivityView.txt_total_cart.setText(CartModel.getInstance().getTotalNumberOfOrders());
+            }
+        });
     }
 
     @Override
     public void hideTotalCartNumbers() {
-        MainActivityView.txt_total_cart.setVisibility(View.INVISIBLE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                MainActivityView.txt_total_cart.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 }

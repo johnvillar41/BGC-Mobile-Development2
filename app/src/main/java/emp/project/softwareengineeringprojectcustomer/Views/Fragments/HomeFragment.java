@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +35,7 @@ public class HomeFragment extends Fragment implements IHome.IHomeView {
     private LottieAnimationView lottieAnimationView_loading_products, lottieAnimationView_loading_categories;
     private IHome.IHomePresenter presenter;
     private View view;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
@@ -136,7 +138,7 @@ public class HomeFragment extends Fragment implements IHome.IHomeView {
 
     @Override
     public void displayMessage(String message) {
-        if(getActivity()!=null){
+        if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -154,12 +156,27 @@ public class HomeFragment extends Fragment implements IHome.IHomeView {
 
     @Override
     public void displayTotalCartNumbers() {
-        MainActivityView.txt_total_cart.setVisibility(View.VISIBLE);
-        MainActivityView.txt_total_cart.setText(CartModel.getInstance().getTotalNumberOfOrders());
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    MainActivityView.txt_total_cart.setVisibility(View.VISIBLE);
+                    MainActivityView.txt_total_cart.setText(CartModel.getInstance().getTotalNumberOfOrders());
+                }
+            });
+        }
     }
 
     @Override
     public void hideTotalCartNumbers() {
-        MainActivityView.txt_total_cart.setVisibility(View.INVISIBLE);
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    MainActivityView.txt_total_cart.setVisibility(View.INVISIBLE);
+                }
+            });
+        }
+
     }
 }

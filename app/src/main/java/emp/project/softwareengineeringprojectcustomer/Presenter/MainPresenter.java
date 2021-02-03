@@ -1,10 +1,7 @@
 package emp.project.softwareengineeringprojectcustomer.Presenter;
 
-import android.app.Activity;
-
 import java.sql.SQLException;
 
-import emp.project.softwareengineeringprojectcustomer.Interface.ICart;
 import emp.project.softwareengineeringprojectcustomer.Interface.IMain;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;

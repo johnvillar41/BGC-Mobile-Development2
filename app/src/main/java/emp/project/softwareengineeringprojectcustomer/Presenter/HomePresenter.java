@@ -1,19 +1,15 @@
 package emp.project.softwareengineeringprojectcustomer.Presenter;
 
-import android.app.Activity;
 import android.os.Build;
-import android.view.View;
 
 import androidx.annotation.RequiresApi;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import emp.project.softwareengineeringprojectcustomer.Interface.ICart;
 import emp.project.softwareengineeringprojectcustomer.Interface.IHome;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
-import emp.project.softwareengineeringprojectcustomer.Views.Activities.MainActivityView;
 
 public class HomePresenter implements IHome.IHomePresenter {
     private IHome.IHomeView view;
@@ -105,6 +101,7 @@ public class HomePresenter implements IHome.IHomePresenter {
                                 }
                             }
                             view.displayMessage(SUCCESS_UPDATE_TO_CART);
+                            view.displayTotalCartNumbers();
                         } else {
                             CartModel.getInstance().addToCart(model);
                             view.displayMessage(SUCCESS_ADD_TO_CART);

@@ -3,6 +3,7 @@ package emp.project.softwareengineeringprojectcustomer.Views.Adapters;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,10 +29,11 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import emp.project.softwareengineeringprojectcustomer.Interface.IHome;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
 import emp.project.softwareengineeringprojectcustomer.R;
 
-public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRecyclerView.MyViewHolder> implements View.OnClickListener {
+public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRecyclerView.MyViewHolder> {
 
     Context context;
     IHome.IHomePresenter presenter;
@@ -79,10 +81,6 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
         });
     }
 
-    ProductModel model;
-    TextInputLayout editText_number_total;
-    AlertDialog dialog;
-
     private void displayAlertDialog(ProductModel model) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
@@ -93,7 +91,7 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
         Button btn_up = dialogView.findViewById(R.id.btn_up);
         Button btn_down = dialogView.findViewById(R.id.btn_down);
         CardView cardView_exit = dialogView.findViewById(R.id.exit);
-        editText_number_total = dialogView.findViewById(R.id.txt_total_orders);
+        TextInputLayout editText_number_total = dialogView.findViewById(R.id.txt_total_orders);
 
         Blob b = (Blob) model.getProduct_picture();
         int[] blobLength = new int[1];
@@ -110,31 +108,13 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
         }
 
         dialogBuilder.setView(dialogView);
-        dialog = dialogBuilder.create();
+        AlertDialog dialog = dialogBuilder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
 
-        btn_confirm.setOnClickListener(this);
-        btn_up.setOnClickListener(this);
-        btn_down.setOnClickListener(this);
-        cardView_exit.setOnClickListener(this);
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return productList.size();
-    }
-
-    private ProductModel getPosition(int position) {
-        return productList.get(position);
-    }
-
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.btn_confirm:
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 if (editText_number_total.getEditText() != null) {
                     if (editText_number_total.getEditText().getText().toString().isEmpty() || Integer.parseInt(editText_number_total.getEditText().getText().toString()) <= 0) {
                         Toast.makeText(context, "Empty!", Toast.LENGTH_SHORT).show();
@@ -154,8 +134,11 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
                         dialog.cancel();
                     }
                 }
-                break;
-            case R.id.btn_up:
+            }
+        });
+        btn_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 if (editText_number_total.getEditText() != null) {
                     int total;
                     if (editText_number_total.getEditText().getText().toString().isEmpty()) {
@@ -166,8 +149,11 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
                     total++;
                     editText_number_total.getEditText().setText(String.valueOf(total));
                 }
-                break;
-            case R.id.btn_down:
+            }
+        });
+        btn_down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 if (editText_number_total.getEditText() != null) {
                     int total;
                     if (editText_number_total.getEditText().getText().toString().isEmpty() || Integer.parseInt(editText_number_total.getEditText().getText().toString()) < 1) {
@@ -178,11 +164,24 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
                     }
                     editText_number_total.getEditText().setText(String.valueOf(total));
                 }
-                break;
-            case R.id.exit:
+            }
+        });
+        cardView_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 dialog.cancel();
-                break;
-        }
+            }
+        });
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return productList.size();
+    }
+
+    private ProductModel getPosition(int position) {
+        return productList.get(position);
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

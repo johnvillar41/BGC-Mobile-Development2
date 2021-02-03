@@ -93,7 +93,6 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
 
         presenter = new MainPresenter(this, MainService.getInstance());
         presenter.loadUserDetails();
-        presenter.loadCartNumber();
     }
 
     @Override
@@ -101,6 +100,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
         if (!UserCredentials.getInstance().checkLoginStatus()) {
             this.finish();
         }
+        presenter.loadCartNumber();
         super.onResume();
     }
 
@@ -219,12 +219,22 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
 
     @Override
     public void displayTotalCartNumbers() {
-        txt_total_cart.setVisibility(View.VISIBLE);
-        txt_total_cart.setText(CartModel.getInstance().getTotalNumberOfOrders());
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_total_cart.setVisibility(View.VISIBLE);
+                txt_total_cart.setText(CartModel.getInstance().getTotalNumberOfOrders());
+            }
+        });
     }
 
     @Override
     public void hideTotalCartNumbers() {
-        txt_total_cart.setVisibility(View.INVISIBLE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_total_cart.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 }
