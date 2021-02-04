@@ -27,6 +27,12 @@ public class MainMenuPresenterTest {
         Assert.assertTrue(((MockMainView) view).isUserDisplayed);
     }
 
+    @Test
+    public void testDisplayTotalNumberOfCartValues() {
+        presenter.loadCartNumber();
+        Assert.assertTrue(((MockMainView)view).isCartNumberDisplayed);
+    }
+
     enum MockCustomerModel {
         USERNAME,
         FULLNAME,
@@ -35,6 +41,7 @@ public class MainMenuPresenterTest {
 
     static class MockMainView implements IMain.IMainView {
         boolean isUserDisplayed;
+        boolean isCartNumberDisplayed;
 
         @Override
         public void displayUserDetails(CustomerModel userList) {
@@ -47,7 +54,7 @@ public class MainMenuPresenterTest {
 
         @Override
         public void displayTotalNumberOfCartNumbers() {
-            
+            isCartNumberDisplayed = true;
         }
     }
 

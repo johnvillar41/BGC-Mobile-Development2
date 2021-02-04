@@ -1,9 +1,7 @@
 package emp.project.softwareengineeringprojectcustomer.Views.Adapters;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +27,6 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import emp.project.softwareengineeringprojectcustomer.Interface.IHome;
-import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
 import emp.project.softwareengineeringprojectcustomer.R;
 
@@ -196,7 +193,7 @@ public class HomeProductRecyclerView extends RecyclerView.Adapter<HomeProductRec
             txt_product_price = itemView.findViewById(R.id.txt_product_price);
             btn_buy_now = itemView.findViewById(R.id.btn_buy_now);
             txt_product_stocks = itemView.findViewById(R.id.txt_product_stocks);
-            txt_product_description = itemView.findViewById(R.id.txt_product_description);
+            txt_product_description = itemView.findViewById(R.id.txt_product_title);
         }
     }
 }

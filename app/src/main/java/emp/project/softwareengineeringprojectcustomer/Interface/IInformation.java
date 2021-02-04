@@ -17,7 +17,7 @@ public interface IInformation {
         void loadPageValues();
     }
 
-    interface IInformationService {
+    interface IInformationService extends IStrictMode{
         List<InformationModel> fetchInformationData();
     }
 }

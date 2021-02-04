@@ -130,12 +130,7 @@ public class HomePresenterTest {
         }
 
         @Override
-        public void displayTotalCartNumbers() {
-
-        }
-
-        @Override
-        public void hideTotalCartNumbers() {
+        public void displayTotalNumberCart(String totalNumberOfOrders) {
 
         }
     }
@@ -206,7 +201,7 @@ public class HomePresenterTest {
         @Override
         public Integer checkIfProductIsEnough(String product_id) {
             List<ProductModel> mockDatabase = new ArrayList<>();
-            mockDatabase.add(new ProductModel(PRODUCT_ID.getVal(), PRODUCT_NAME.getVal(), PRODUCT_DESCRIPTION.getVal(), PRODUCT_PRICE.getVal(), null, PRODUCT_STOCKS.getVal(), PRODUCT_CATEGORY.getVal()));
+            mockDatabase.add(new ProductModel(MOCK_PRODUCT_MODEL.PRODUCT_ID.getVal(), MOCK_PRODUCT_MODEL.PRODUCT_NAME.getVal(), MOCK_PRODUCT_MODEL.PRODUCT_DESCRIPTION.getVal(), MOCK_PRODUCT_MODEL.PRODUCT_PRICE.getVal(), null, MOCK_PRODUCT_MODEL.PRODUCT_STOCKS.getVal(), MOCK_PRODUCT_MODEL.PRODUCT_CATEGORY.getVal()));
             return Integer.parseInt(mockDatabase.get(0).getProduct_stocks());
         }
     }

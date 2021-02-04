@@ -92,7 +92,7 @@
                     android:textSize="15dp"
                     android:layout_below="@+id/txt_product_name"
                     android:layout_toRightOf="@+id/image_product"
-                    android:id="@+id/txt_product_description"/>
+                    android:id="@+id/txt_product_title"/>
             </TableRow>
         </TableLayout>
 
