@@ -189,7 +189,7 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                navFullname.setText(userModel.getUser_username());
+                navFullname.setText(userModel.getUser_fullname());
                 navEmail.setText(userModel.getUser_email());
                 navUsername.setText(userModel.getUser_username());
                 Blob b = (Blob) userModel.getPicture();
