@@ -176,7 +176,7 @@ public class TrackOrderFragment extends Fragment implements ITrackOrder.ITrackOr
                             break;
                     }
                 } catch (NullPointerException e) {
-                    Toast.makeText(TrackOrderFragment.this.getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TrackOrderFragment.this.getActivity(), "Please put a check mark.", Toast.LENGTH_SHORT).show();
                 }
                 dialog.cancel();
                 SortByRecyclerView.getClickedString = null;
