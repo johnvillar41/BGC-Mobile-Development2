@@ -21,13 +21,5 @@
         app:lottie_loop="true"
         android:visibility="invisible"
         app:lottie_rawRes="@raw/loading_circle" />
-    <Button
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_add_cart"
-        android:text="Add to cart"/>
 
 </RelativeLayout>
