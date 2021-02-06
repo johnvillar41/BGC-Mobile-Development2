@@ -47,7 +47,7 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login_view);
 
-        presenter = new LoginPresenter(this, new CustomerModel(), LoginService.getInstance());
+        presenter = new LoginPresenter(this, LoginService.getInstance());
         Toolbar toolbar = findViewById(R.id.loginToolbar);
         setSupportActionBar(toolbar);
         toolbar.setBackground(null);
@@ -103,7 +103,7 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
     }
 
     @Override
-    public void onError(String errorMessage) {
+    public void displaySnackBarMessage(String errorMessage) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -188,19 +188,20 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
                 TextInputLayout textInputLayout = dialogView.findViewById(R.id.txt_code);
                 Button btn_submit = dialogView.findViewById(R.id.btn_submit);
 
-                btn_submit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                        presenter.onSubmitCodeButtonClicked(textInputLayout.getEditText().getText().toString().trim(),txt_username.getEditText().getText().toString() );
-                    }
-                });
 
                 dialogBuilder.setView(dialogView);
                 AlertDialog dialog = dialogBuilder.create();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                 dialog.show();
+
+                btn_submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                        presenter.onSubmitCodeButtonClicked(textInputLayout.getEditText().getText().toString().trim(), txt_username.getEditText().getText().toString());
+                    }
+                });
             }
         });
 

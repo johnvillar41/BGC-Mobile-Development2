@@ -2,13 +2,11 @@ package emp.project.softwareengineeringprojectcustomer;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 
 import java.sql.SQLException;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.ILogin;
-import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 import emp.project.softwareengineeringprojectcustomer.Presenter.LoginPresenter;
 
 public class LoginPresenterTest {
@@ -20,7 +18,7 @@ public class LoginPresenterTest {
     public void setUp() {
         view = new MockLoginView();
         service = new MockLoginService();
-        presenter = new LoginPresenter(view, new CustomerModel(), service);
+        presenter = new LoginPresenter(view, service);
     }
 
     @Test
@@ -49,7 +47,7 @@ public class LoginPresenterTest {
         }
 
         @Override
-        public void onError(String errorMessage) {
+        public void displaySnackBarMessage(String errorMessage) {
             if (errorMessage.equals(LoginPresenter.USER_NOT_FOUND)) {
                 pass_error_user_not_found = true;
             }
@@ -69,17 +67,37 @@ public class LoginPresenterTest {
         public Boolean displayErrors() {
             return null;
         }
+
+        @Override
+        public void displayPopupConfirmation() {
+
+        }
+
+        @Override
+        public void displayStatusMessage(String message) {
+
+        }
     }
 
     static class MockLoginService implements ILogin.ILoginService {
 
         @Override
-        public boolean fetchCustomerLoginCredentials(String username, String password) {
+        public void updateUserStatus(String username) {
+
+        }
+
+        @Override
+        public LoginValidity fetchCustomerLoginCredentials(String username, String password) {
             if (username.equals(MOCK_USER) && password.equals(MOCK_PASS)) {
-                return true;
+                return null;
             } else {
-                return false;
+                return null;
             }
+        }
+
+        @Override
+        public Boolean validateCode(String code, String username) {
+            return null;
         }
     }
 }

@@ -41,6 +41,7 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                         SendEmail sendEmail = new SendEmail(arrTexts.get(3), code);
                         sendEmail.sendMailCode();
                         view.hideLoadingCircler();
+                        view.onSuccess();
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                         view.hideLoadingCircler();
@@ -49,7 +50,6 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                         view.hideLoadingCircler();
                     }
                 }
-                view.onSuccess();
                 view.hideLoadingCircler();
             }
         });

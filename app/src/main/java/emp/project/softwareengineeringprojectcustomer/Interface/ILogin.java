@@ -6,7 +6,7 @@ public interface ILogin {
     interface ILoginView {
         void onSuccess();
 
-        void onError(String errorMessage);
+        void displaySnackBarMessage(String errorMessage);
 
         void displayProgressLoader();
 
