@@ -18,6 +18,7 @@ public class LoginPresenter implements ILogin.ILoginPresenter {
     }
 
     public final static String USER_NOT_FOUND = "User not found!";
+    public final static String USER_PENDING = "User still pending!";
 
     @Override
     public void onLoginButtonClicked(String username, String password) {
@@ -26,10 +27,12 @@ public class LoginPresenter implements ILogin.ILoginPresenter {
             public void run() {
                 view.displayProgressLoader();
                 if (view.displayErrors()) {
-
                     try {
-                        if (service.fetchCustomerLoginCredentials(username, password)) {
+                        if (service.fetchCustomerLoginCredentials(username, password).equals(ILogin.ILoginService.LoginValidity.ACTIVE)) {
                             view.onSuccess();
+                        } else if (service.fetchCustomerLoginCredentials(username, password).equals(ILogin.ILoginService.LoginValidity.PENDING)) {
+                            view.displayPopupConfirmation();
+                            view.onError(USER_PENDING);
                         } else {
                             view.onError(USER_NOT_FOUND);
                         }
@@ -43,6 +46,29 @@ public class LoginPresenter implements ILogin.ILoginPresenter {
             }
         });
         thread.start();
+
+    }
+
+    @Override
+    public void onSubmitCodeButtonClicked(String code, String username) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if(service.validateCode(code,username)){
+                        service.updateUserStatus(username);
+                        view.onError("Congratulations");
+                        view.displayStatusMessage("Congratulations you can now login");
+                    } else {
+                        view.onError("Invalid code!");
+                    }
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });thread.start();
 
     }
 }

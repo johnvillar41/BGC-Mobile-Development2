@@ -3,8 +3,10 @@ package emp.project.softwareengineeringprojectcustomer.Views.Activities;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -171,6 +174,46 @@ public class LoginActivityView extends AppCompatActivity implements ILogin.ILogi
         } else {
             return true;
         }
+    }
+
+    @Override
+    public void displayPopupConfirmation() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LoginActivityView.this);
+                LayoutInflater inflater = getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.custom_popup_confirmation, null);
+
+                TextInputLayout textInputLayout = dialogView.findViewById(R.id.txt_code);
+                Button btn_submit = dialogView.findViewById(R.id.btn_submit);
+
+                btn_submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                        presenter.onSubmitCodeButtonClicked(textInputLayout.getEditText().getText().toString().trim(),txt_username.getEditText().getText().toString() );
+                    }
+                });
+
+                dialogBuilder.setView(dialogView);
+                AlertDialog dialog = dialogBuilder.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+    }
+
+    @Override
+    public void displayStatusMessage(String message) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(LoginActivityView.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

@@ -3,6 +3,7 @@ package emp.project.softwareengineeringprojectcustomer.Presenter;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.IRegister;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
@@ -30,13 +31,14 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                 view.displayLoadingCircle();
                 if (view.displayErrors()) {
                     try {
+                        String code = generateCode();
                         model = new CustomerModel(arrTexts.get(0),
                                 arrTexts.get(1),
                                 arrTexts.get(2),
                                 CUSTOMER_STATUS_PENDING,
-                                arrTexts.get(3), FILE_INPUT_STREAM);
+                                arrTexts.get(3), FILE_INPUT_STREAM, code);
                         service.insertCustomerToDB(model);
-                        SendEmail sendEmail = new SendEmail(arrTexts.get(3));
+                        SendEmail sendEmail = new SendEmail(arrTexts.get(3), code);
                         sendEmail.sendMailCode();
                         view.hideLoadingCircler();
                     } catch (ClassNotFoundException e) {
@@ -58,5 +60,19 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
     @Override
     public void onImageButtonClicked() {
         view.loadImageFromGallery();
+    }
+
+    private String generateCode() {
+        int leftLimit = 97;
+        int rightLimit = 122;
+        int targetStringLength = 10;
+        Random random = new Random();
+        StringBuilder buffer = new StringBuilder(targetStringLength);
+        for (int i = 0; i < targetStringLength; i++) {
+            int randomLimitedInt = leftLimit + (int)
+                    (random.nextFloat() * (rightLimit - leftLimit + 1));
+            buffer.append((char) randomLimitedInt);
+        }
+        return buffer.toString().toUpperCase();
     }
 }

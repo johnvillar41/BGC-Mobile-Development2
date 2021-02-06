@@ -12,26 +12,17 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.LoginService;
+
 public class SendEmail {
     private String userEmail;
-
-    public SendEmail(String userEmail) {
+    private String code;
+    public SendEmail(String userEmail,String code) {
         this.userEmail = userEmail;
+        this.code = code;
     }
 
-    private String generateCode() {
-        int leftLimit = 97;
-        int rightLimit = 122;
-        int targetStringLength = 10;
-        Random random = new Random();
-        StringBuilder buffer = new StringBuilder(targetStringLength);
-        for (int i = 0; i < targetStringLength; i++) {
-            int randomLimitedInt = leftLimit + (int)
-                    (random.nextFloat() * (rightLimit - leftLimit + 1));
-            buffer.append((char) randomLimitedInt);
-        }
-        return buffer.toString();
-    }
+
 
     public void sendMailCode() {
         Properties properties = new Properties();
@@ -64,7 +55,7 @@ public class SendEmail {
             message.setFrom(new InternetAddress(accountEmailJWCA));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recicpient));
             message.setSubject("Code for AGT Confirmation Account");
-            message.setText(generateCode());
+            message.setText(code);
             return message;
         } catch (Exception e) {
             e.printStackTrace();
