@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ public class RegisterPresenterTest {
             public int read() throws IOException {
                 return 0;
             }
-        });
+        }, );
         Thread.sleep(1000);
         Assert.assertTrue(((MockRegisterView)view).isErrorDisplayed);
     }

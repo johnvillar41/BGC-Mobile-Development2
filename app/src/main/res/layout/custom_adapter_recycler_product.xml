@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="150dp"
+            android:layout_width="120dp"
             app:civ_border_width="2dp"
             app:civ_border_color="#000000"
             android:layout_height="150dp"
@@ -21,8 +21,9 @@
             android:id="@+id/image_product"/>
         <TableLayout
             android:layout_margin="15dp"
+            android:id="@+id/table_layout"
             android:layout_toRightOf="@+id/image_product"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TableRow
                 android:layout_height="wrap_content"
@@ -88,6 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Description here"
+                    android:maxLines="4"
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:layout_below="@+id/txt_product_name"
@@ -102,7 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add"
-            android:layout_marginTop="100dp"
+            android:layout_below="@+id/table_layout"
             android:id="@+id/btn_buy_now"
             android:layout_alignParentRight="true" />
     </RelativeLayout>
