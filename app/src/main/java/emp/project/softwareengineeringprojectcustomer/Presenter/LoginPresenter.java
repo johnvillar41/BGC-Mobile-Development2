@@ -3,7 +3,6 @@ package emp.project.softwareengineeringprojectcustomer.Presenter;
 import java.sql.SQLException;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.ILogin;
-import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 
 public class LoginPresenter implements ILogin.ILoginPresenter {
     private ILogin.ILoginView view;
@@ -26,9 +25,9 @@ public class LoginPresenter implements ILogin.ILoginPresenter {
                 view.displayProgressLoader();
                 if (view.displayErrors()) {
                     try {
-                        if (service.fetchCustomerLoginCredentials(username, password).equals(ILogin.ILoginService.LoginValidity.ACTIVE)) {
+                        if (service.fetchCustomerLoginCredentials(username, password).equals(ILogin.ILoginService.LoginStatus.ACTIVE)) {
                             view.onSuccess();
-                        } else if (service.fetchCustomerLoginCredentials(username, password).equals(ILogin.ILoginService.LoginValidity.PENDING)) {
+                        } else if (service.fetchCustomerLoginCredentials(username, password).equals(ILogin.ILoginService.LoginStatus.PENDING)) {
                             view.displayPopupConfirmation();
                             view.displaySnackBarMessage(USER_PENDING);
                         } else {

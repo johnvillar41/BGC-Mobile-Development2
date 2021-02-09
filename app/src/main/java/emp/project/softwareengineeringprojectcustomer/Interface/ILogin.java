@@ -28,13 +28,13 @@ public interface ILogin {
     interface ILoginService extends IStrictMode {
         void updateUserStatus(String username) throws ClassNotFoundException, SQLException;
 
-        enum LoginValidity {
+        enum LoginStatus {
             ACTIVE,
             PENDING,
             NOT_FOUND
         }
 
-        LoginValidity fetchCustomerLoginCredentials(String username, String password) throws SQLException, ClassNotFoundException;
+        LoginStatus fetchCustomerLoginCredentials(String username, String password) throws SQLException, ClassNotFoundException;
 
         Boolean validateCode(String code,String username) throws ClassNotFoundException, SQLException;
     }

@@ -36,7 +36,7 @@ public class LoginService implements ILogin.ILoginService {
     }
 
     @Override
-    public LoginValidity fetchCustomerLoginCredentials(String username, String password) throws SQLException, ClassNotFoundException {
+    public LoginStatus fetchCustomerLoginCredentials(String username, String password) throws SQLException, ClassNotFoundException {
         strictMode();
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
         String sqlGetCustomer = "SELECT * FROM customer_table WHERE user_username LIKE BINARY ? AND user_password LIKE BINARY ?";
@@ -49,19 +49,19 @@ public class LoginService implements ILogin.ILoginService {
                 preparedStatement.close();
                 connection.close();
                 resultSet.close();
-                return LoginValidity.PENDING;
+                return LoginStatus.PENDING;
             } else {
                 preparedStatement.close();
                 connection.close();
                 resultSet.close();
-                return LoginValidity.ACTIVE;
+                return LoginStatus.ACTIVE;
             }
 
         } else {
             preparedStatement.close();
             connection.close();
             resultSet.close();
-            return LoginValidity.NOT_FOUND;
+            return LoginStatus.NOT_FOUND;
         }
     }
 

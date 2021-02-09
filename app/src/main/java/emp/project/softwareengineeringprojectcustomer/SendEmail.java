@@ -49,7 +49,9 @@ public class SendEmail {
 
         Message message = prepareMessage(session, userEmail);
         try {
-            Transport.send(message);
+            if (message != null) {
+                Transport.send(message);
+            }
         } catch (MessagingException e) {
             e.printStackTrace();
         }
@@ -63,7 +65,7 @@ public class SendEmail {
             message.setFrom(new InternetAddress(SendEmail.ACCOUNT_EMAIL_JWCA));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recicpient));
             message.setSubject(SUBJECT);
-            message.setText(code);
+            message.setText("Your Confirmation code is: " + code);
             return message;
         } catch (Exception e) {
             e.printStackTrace();
