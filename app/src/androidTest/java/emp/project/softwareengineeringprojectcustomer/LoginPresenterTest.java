@@ -5,8 +5,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.ILogin;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 import emp.project.softwareengineeringprojectcustomer.Presenter.LoginPresenter;
 
 public class LoginPresenterTest {
@@ -25,22 +28,31 @@ public class LoginPresenterTest {
     public void testSuccess() throws InterruptedException {
         presenter.onLoginButtonClicked(MOCK_USER, MOCK_PASS);
         Thread.sleep(1000);
-        Assert.assertTrue(MockLoginView.pass_success);
+        Assert.assertTrue(((MockLoginView) view).pass_success);
     }
 
     @Test
     public void testError_USER_NOT_FOUND() throws InterruptedException {
         presenter.onLoginButtonClicked("john", "johnyy");
         Thread.sleep(1000);
-        Assert.assertTrue(MockLoginView.pass_error_user_not_found);
+        Assert.assertTrue(((MockLoginView) view).pass_error_user_not_found);
+    }
+
+    @Test
+    public void testDisplayPopupForPendingUsers() throws InterruptedException {
+        presenter.onLoginButtonClicked(MOCK_USER, MOCK_PASS);
+        Thread.sleep(1000);
+        Assert.assertTrue(((MockLoginView) view).isPopupDisplayed);
     }
 
     private static final String MOCK_USER = "sample";
     private static final String MOCK_PASS = "sample";
 
     static class MockLoginView implements ILogin.ILoginView {
-        static boolean pass_success;
-        static boolean pass_error_user_not_found;
+        boolean pass_success;
+        boolean pass_error_user_not_found;
+        boolean isPopupDisplayed;
+
         @Override
         public void onSuccess() {
             pass_success = true;
@@ -70,7 +82,7 @@ public class LoginPresenterTest {
 
         @Override
         public void displayPopupConfirmation() {
-
+            isPopupDisplayed = true;
         }
 
         @Override
@@ -81,6 +93,11 @@ public class LoginPresenterTest {
 
     static class MockLoginService implements ILogin.ILoginService {
 
+        private static final List<CustomerModel> MOCK_CUSTOMER_DB = Arrays.asList(
+                new CustomerModel(MOCK_USER, "Password", "Name", "STatus", "Email", null, "Pending"),
+                new CustomerModel("Sample2", "Password", "Name", "STatus", "Email", null, "Active")
+        );
+
         @Override
         public void updateUserStatus(String username) {
 
@@ -88,11 +105,18 @@ public class LoginPresenterTest {
 
         @Override
         public LoginValidity fetchCustomerLoginCredentials(String username, String password) {
-            if (username.equals(MOCK_USER) && password.equals(MOCK_PASS)) {
-                return null;
-            } else {
-                return null;
+            for (CustomerModel customerModel : MOCK_CUSTOMER_DB) {
+                if (username.equals(customerModel.getUser_username())) {
+                    if (customerModel.getUser_status().equals("Pending")) {
+                        return LoginValidity.PENDING;
+                    } else {
+                        return LoginValidity.ACTIVE;
+                    }
+                } else {
+                    return LoginValidity.NOT_FOUND;
+                }
             }
+            return null;
         }
 
         @Override

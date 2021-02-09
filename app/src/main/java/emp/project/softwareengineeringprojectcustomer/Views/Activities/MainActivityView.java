@@ -140,36 +140,29 @@ public class MainActivityView extends AppCompatActivity implements NavigationVie
     private static final String USER_PROFILE = "User Profile";
 
 
-    @SuppressLint({"NonConstantResourceId"})
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
-                        new HomeFragment()).commit();
-                toolbar.setTitle(HOME);
-                break;
-            case R.id.nav_track_order:
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
-                        new TrackOrderFragment()).commit();
-                toolbar.setTitle(TRACK_ORDER);
-                break;
-            case R.id.nav_slideshow:
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
-                        new InformationFragment()).commit();
-                toolbar.setTitle(INFORMATION);
-                break;
-            case R.id.nav_profile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
-                        new UserProfileFragment()).commit();
-                toolbar.setTitle(USER_PROFILE);
-                break;
-            case R.id.nav_logout:
-                Intent intent = new Intent(this, IntroActivityView.class);
-                startActivity(intent);
-                MainActivityView.this.finish();
-                UserCredentials.getInstance().logoutAccount();
-                break;
+        if (item.getItemId() == R.id.nav_home) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
+                    new HomeFragment()).commit();
+            toolbar.setTitle(HOME);
+        } else if (item.getItemId() == R.id.nav_track_order) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
+                    new TrackOrderFragment()).commit();
+            toolbar.setTitle(TRACK_ORDER);
+        } else if (item.getItemId() == R.id.nav_slideshow) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
+                    new InformationFragment()).commit();
+            toolbar.setTitle(INFORMATION);
+        } else if (item.getItemId() == R.id.nav_profile) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
+                    new UserProfileFragment()).commit();
+            toolbar.setTitle(USER_PROFILE);
+        } else if (item.getItemId() == R.id.nav_logout) {
+            Intent intent = new Intent(this, IntroActivityView.class);
+            startActivity(intent);
+            MainActivityView.this.finish();
+            UserCredentials.getInstance().logoutAccount();
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

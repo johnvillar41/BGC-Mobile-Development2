@@ -301,20 +301,15 @@ public class UserProfileFragment extends Fragment implements IUser.IUserView, Vi
         }
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_select_picture:
-                presenter.onSelectImageButtonClicked();
-                break;
-            case R.id.btn_update:
-                isUpdateButtonClicked = true;
-                presenter.onUpdateProfileButtonClicked(FILE_INPUT_STREAM, textFieldData);
-                break;
-            case R.id.fab_update:
-                presenter.onFloatingUpdateButtonClicked();
-                break;
+        if (v.getId() == R.id.btn_select_picture) {
+            presenter.onSelectImageButtonClicked();
+        } else if (v.getId() == R.id.btn_update) {
+            isUpdateButtonClicked = true;
+            presenter.onUpdateProfileButtonClicked(FILE_INPUT_STREAM, textFieldData);
+        } else if (v.getId() == R.id.fab_update) {
+            presenter.onFloatingUpdateButtonClicked();
         }
     }
 

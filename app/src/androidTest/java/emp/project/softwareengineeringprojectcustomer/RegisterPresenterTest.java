@@ -40,7 +40,7 @@ public class RegisterPresenterTest {
             public int read() throws IOException {
                 return 0;
             }
-        }, );
+        });
         Thread.sleep(1000);
         Assert.assertTrue(((MockRegisterView)view).isErrorDisplayed);
     }
@@ -96,7 +96,8 @@ public class RegisterPresenterTest {
                     model.getUser_fullname(),
                     model.getUser_status(),
                     model.getUser_email(),
-                    model.getInputStream());
+                    model.getInputStream(),
+                    null);
             mockDatabase.add(model);
         }
     }
