@@ -89,7 +89,7 @@ public class CheckoutActivityView extends AppCompatActivity implements ICheckout
     }
 
     @Override
-    public void displayProgressLoader() {
+    public void displayProgressBar() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -99,7 +99,7 @@ public class CheckoutActivityView extends AppCompatActivity implements ICheckout
     }
 
     @Override
-    public void hideProgressLoader() {
+    public void hideProgressBar() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

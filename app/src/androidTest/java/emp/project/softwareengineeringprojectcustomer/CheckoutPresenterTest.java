@@ -90,12 +90,12 @@ public class CheckoutPresenterTest {
         }
 
         @Override
-        public void displayProgressLoader() {
+        public void displayProgressBar() {
             isProgressLoaderShowing = true;
         }
 
         @Override
-        public void hideProgressLoader() {
+        public void hideProgressBar() {
             isProgressLoaderNotShowing = true;
         }
 

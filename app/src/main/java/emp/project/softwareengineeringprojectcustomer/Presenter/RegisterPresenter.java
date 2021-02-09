@@ -28,7 +28,7 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                view.displayLoadingCircle();
+                view.displayProgressBar();
                 if (view.displayErrors()) {
                     try {
                         String code = generateCode();
@@ -40,17 +40,17 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                         service.insertCustomerToDB(model);
                         SendEmail sendEmail = new SendEmail(arrTexts.get(3), code);
                         sendEmail.sendMailCode();
-                        view.hideLoadingCircler();
+                        view.hideProgressBar();
                         view.onSuccess();
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
-                        view.hideLoadingCircler();
+                        view.hideProgressBar();
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
-                        view.hideLoadingCircler();
+                        view.hideProgressBar();
                     }
                 }
-                view.hideLoadingCircler();
+                view.hideProgressBar();
             }
         });
         thread.start();

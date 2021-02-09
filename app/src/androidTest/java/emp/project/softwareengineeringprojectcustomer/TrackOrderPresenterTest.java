@@ -128,12 +128,12 @@ public class TrackOrderPresenterTest {
         boolean isLoaderHiding;
 
         @Override
-        public void displayLoader() {
+        public void displayProgressBar() {
             isLoaderShowing = true;
         }
 
         @Override
-        public void hideLoader() {
+        public void hideProgressBar() {
             isLoaderHiding = true;
         }
 

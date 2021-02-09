@@ -22,7 +22,7 @@ public class LoginPresenter implements ILogin.ILoginPresenter {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                view.displayProgressLoader();
+                view.displayProgressBar();
                 if (view.displayErrors()) {
                     try {
                         if (service.fetchCustomerLoginCredentials(username, password).equals(ILogin.ILoginService.LoginStatus.ACTIVE)) {
@@ -39,7 +39,7 @@ public class LoginPresenter implements ILogin.ILoginPresenter {
                         e.printStackTrace();
                     }
                 }
-                view.hideProgressLoader();
+                view.hideProgressBar();
             }
         });
         thread.start();

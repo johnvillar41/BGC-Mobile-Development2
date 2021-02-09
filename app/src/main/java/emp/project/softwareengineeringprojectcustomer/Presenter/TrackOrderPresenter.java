@@ -22,10 +22,10 @@ public class TrackOrderPresenter implements ITrackOrder.ITrackOrderPresenter {
             @Override
             public void run() {
                 try {
-                    view.displayLoader();
+                    view.displayProgressBar();
                     List<CustomerOrdersModel> orderList = service.fetchOrdersFromDB();
                     view.displayOrders(orderList);
-                    view.hideLoader();
+                    view.hideProgressBar();
                     if (orderList.isEmpty()) {
                         view.displayEmptyResult();
                     } else {
@@ -53,10 +53,10 @@ public class TrackOrderPresenter implements ITrackOrder.ITrackOrderPresenter {
             @Override
             public void run() {
                 try {
-                    view.displayLoader();
+                    view.displayProgressBar();
                     List<CustomerOrdersModel> orderList = service.fetchSortedOrdersFromDB(sort_type);
                     view.displayOrders(orderList);
-                    view.hideLoader();
+                    view.hideProgressBar();
                     if (orderList.isEmpty()) {
                         view.displayEmptyResult();
                     } else {
@@ -78,10 +78,10 @@ public class TrackOrderPresenter implements ITrackOrder.ITrackOrderPresenter {
             @Override
             public void run() {
                 try {
-                    view.displayLoader();
+                    view.displayProgressBar();
                     List<CustomerOrdersModel> orderList = service.fetchOrderByDate(dateString);
                     view.displayOrders(orderList);
-                    view.hideLoader();
+                    view.hideProgressBar();
                     if (orderList.isEmpty()) {
                         view.displayEmptyResult();
                     } else {

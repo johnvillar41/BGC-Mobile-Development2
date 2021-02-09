@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment implements IHome.IHomeView {
     }
 
     @Override
-    public void displayProgressBarProducts() {
+    public void displayProgressBar() {
         if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -63,7 +63,7 @@ public class HomeFragment extends Fragment implements IHome.IHomeView {
     }
 
     @Override
-    public void hideProgressBarProducts() {
+    public void hideProgressBar() {
         if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override

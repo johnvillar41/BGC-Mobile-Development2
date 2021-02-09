@@ -64,12 +64,12 @@ public class RegisterPresenterTest {
         }
 
         @Override
-        public void displayLoadingCircle() {
+        public void displayProgressBar() {
 
         }
 
         @Override
-        public void hideLoadingCircler() {
+        public void hideProgressBar() {
 
         }
 

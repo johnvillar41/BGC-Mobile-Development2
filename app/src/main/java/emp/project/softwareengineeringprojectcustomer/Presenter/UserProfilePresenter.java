@@ -27,10 +27,10 @@ public class UserProfilePresenter implements IUser.IUserPresenter {
             @Override
             public void run() {
                 try {
-                    view.displayLoader();
+                    view.displayProgressBar();
                     CustomerModel userModel = service.fetchUserCredentials();
                     view.displayUserCredentials(userModel);
-                    view.hideLoader();
+                    view.hideProgressBar();
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 } catch (SQLException throwables) {

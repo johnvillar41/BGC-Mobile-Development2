@@ -66,12 +66,12 @@ public class LoginPresenterTest {
         }
 
         @Override
-        public void displayProgressLoader() {
+        public void displayProgressBar() {
 
         }
 
         @Override
-        public void hideProgressLoader() {
+        public void hideProgressBar() {
 
         }
 

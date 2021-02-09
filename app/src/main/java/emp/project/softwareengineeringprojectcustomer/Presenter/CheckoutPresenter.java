@@ -25,9 +25,9 @@ public class CheckoutPresenter implements ICheckout.ICheckoutPresenter {
                 } else {
                     view.hideEmptyCart();
                 }
-                view.displayProgressLoader();
+                view.displayProgressBar();
                 view.displayCartOrders();
-                view.hideProgressLoader();
+                view.hideProgressBar();
             }
         });
         thread.start();
@@ -48,7 +48,7 @@ public class CheckoutPresenter implements ICheckout.ICheckoutPresenter {
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    view.displayProgressLoader();
+                    view.displayProgressBar();
                     try {
                         service.insertOrdersToDB();
                         for (ProductModel model : CartModel.getInstance().getCartValues()) {
@@ -63,7 +63,7 @@ public class CheckoutPresenter implements ICheckout.ICheckoutPresenter {
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }
-                    view.hideProgressLoader();
+                    view.hideProgressBar();
                 }
             });
             thread.start();

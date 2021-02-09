@@ -6,11 +6,7 @@ import java.util.List;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
 
 public interface IHome {
-    interface IHomeView {
-        void displayProgressBarProducts();
-
-        void hideProgressBarProducts();
-
+    interface IHomeView extends IBaseView{
         void displayProgressBarCategories();
 
         void hideProgressBarCategories();

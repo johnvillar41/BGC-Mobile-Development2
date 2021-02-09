@@ -64,7 +64,7 @@ public class TrackOrderFragment extends Fragment implements ITrackOrder.ITrackOr
     }
 
     @Override
-    public void displayLoader() {
+    public void displayProgressBar() {
         if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -76,7 +76,7 @@ public class TrackOrderFragment extends Fragment implements ITrackOrder.ITrackOr
     }
 
     @Override
-    public void hideLoader() {
+    public void hideProgressBar() {
         if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override

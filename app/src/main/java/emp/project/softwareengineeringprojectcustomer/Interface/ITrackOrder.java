@@ -6,12 +6,8 @@ import java.util.List;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerOrdersModel;
 
 public interface ITrackOrder {
-    interface ITrackOrderView {
-        void displayLoader();
-
-        void hideLoader();
-
-        void displayOrders(List<CustomerOrdersModel>ordersList);
+    interface ITrackOrderView extends IBaseView {
+        void displayOrders(List<CustomerOrdersModel> ordersList);
 
         void displayPopupSortBy();
 
@@ -30,7 +26,7 @@ public interface ITrackOrder {
         void onDateSortConfirmClicked(String dateString);
     }
 
-    interface ITrackOrderService extends IStrictMode{
+    interface ITrackOrderService extends IStrictMode {
         List<CustomerOrdersModel> fetchOrdersFromDB() throws ClassNotFoundException, SQLException;
 
         List<CustomerOrdersModel> fetchSortedOrdersFromDB(String sort_type) throws ClassNotFoundException, SQLException;

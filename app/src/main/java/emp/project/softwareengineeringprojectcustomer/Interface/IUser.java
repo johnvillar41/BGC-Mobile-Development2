@@ -6,11 +6,7 @@ import java.sql.SQLException;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 
 public interface IUser {
-    interface IUserView {
-        void displayLoader();
-
-        void hideLoader();
-
+    interface IUserView extends IBaseView{
         void displayUserCredentials(CustomerModel userModel);
 
         void displayUpdatePopup();

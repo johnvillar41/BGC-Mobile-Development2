@@ -3,14 +3,10 @@ package emp.project.softwareengineeringprojectcustomer.Interface;
 import java.sql.SQLException;
 
 public interface ILogin {
-    interface ILoginView {
+    interface ILoginView extends IBaseView{
         void onSuccess();
 
         void displaySnackBarMessage(String errorMessage);
-
-        void displayProgressLoader();
-
-        void hideProgressLoader();
 
         Boolean displayErrors();
 

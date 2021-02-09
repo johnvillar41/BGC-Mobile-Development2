@@ -71,7 +71,7 @@ public class UserProfileFragment extends Fragment implements IUser.IUserView, Vi
     }
 
     @Override
-    public void displayLoader() {
+    public void displayProgressBar() {
         if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -83,7 +83,7 @@ public class UserProfileFragment extends Fragment implements IUser.IUserView, Vi
     }
 
     @Override
-    public void hideLoader() {
+    public void hideProgressBar() {
         if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override

@@ -116,12 +116,12 @@ public class UserProfilePresenterTest {
         boolean isProgressLoaderNotShowing;
 
         @Override
-        public void displayLoader() {
+        public void displayProgressBar() {
             isProgressLoaderShowing = true;
         }
 
         @Override
-        public void hideLoader() {
+        public void hideProgressBar() {
             isProgressLoaderNotShowing = true;
         }
 

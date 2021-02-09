@@ -7,14 +7,10 @@ import java.util.List;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 
 public interface IRegister {
-    interface IRegisterView {
+    interface IRegisterView extends IBaseView {
         void onSuccess();
 
         void onError(String errorMessage);
-
-        void displayLoadingCircle();
-
-        void hideLoadingCircler();
 
         void loadImageFromGallery();
 

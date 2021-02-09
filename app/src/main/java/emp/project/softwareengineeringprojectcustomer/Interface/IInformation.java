@@ -6,11 +6,7 @@ import java.util.List;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.InformationModel;
 
 public interface IInformation {
-    interface IInformationView {
-        void displayProgressBar();
-
-        void hideProgressBar();
-
+    interface IInformationView extends IBaseView{
         void displayRecyclerViewValues(List<InformationModel>informationModelList);
     }
 

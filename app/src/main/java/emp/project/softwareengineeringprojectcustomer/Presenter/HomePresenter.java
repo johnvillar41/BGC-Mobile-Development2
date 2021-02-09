@@ -45,7 +45,7 @@ public class HomePresenter implements IHome.IHomePresenter {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                view.displayProgressBarProducts();
+                view.displayProgressBar();
                 try {
                     List<ProductModel> productModelList = service.getProducts(category);
                     view.displayRecyclerViewHomeProducts(productModelList);
@@ -54,7 +54,7 @@ public class HomePresenter implements IHome.IHomePresenter {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-                view.hideProgressBarProducts();
+                view.hideProgressBar();
             }
         });
         thread.start();
@@ -66,7 +66,7 @@ public class HomePresenter implements IHome.IHomePresenter {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                view.displayProgressBarProducts();
+                view.displayProgressBar();
                 try {
                     List<ProductModel> productModelList = service.getProducts(service.getCategories().get(0));
                     view.displayRecyclerViewHomeProducts(productModelList);
@@ -75,7 +75,7 @@ public class HomePresenter implements IHome.IHomePresenter {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-                view.hideProgressBarProducts();
+                view.hideProgressBar();
             }
         });
         thread.start();
@@ -91,7 +91,7 @@ public class HomePresenter implements IHome.IHomePresenter {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                view.displayProgressBarProducts();
+                view.displayProgressBar();
                 try {
                     if (Integer.parseInt(totalNumberOrders) <= service.checkIfProductIsEnough(model.getProduct_id())) {
                         if (CartModel.getInstance().getCartValues().contains(model)) {
@@ -114,7 +114,7 @@ public class HomePresenter implements IHome.IHomePresenter {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-                view.hideProgressBarProducts();
+                view.hideProgressBar();
             }
         });
         thread.start();

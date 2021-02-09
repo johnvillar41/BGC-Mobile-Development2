@@ -82,12 +82,12 @@ public class HomePresenterTest {
         boolean isMessageDisplayed;
 
         @Override
-        public void displayProgressBarProducts() {
+        public void displayProgressBar() {
 
         }
 
         @Override
-        public void hideProgressBarProducts() {
+        public void hideProgressBar() {
             isProgressBarhidden = true;
         }
 

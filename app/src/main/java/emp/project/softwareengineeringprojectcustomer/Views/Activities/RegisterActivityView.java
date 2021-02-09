@@ -141,7 +141,7 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
     }
 
     @Override
-    public void displayLoadingCircle() {
+    public void displayProgressBar() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -151,7 +151,7 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
     }
 
     @Override
-    public void hideLoadingCircler() {
+    public void hideProgressBar() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
