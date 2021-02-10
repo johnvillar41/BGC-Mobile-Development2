@@ -17,7 +17,7 @@ import emp.project.softwareengineeringprojectcustomer.Interface.IStrictMode;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.UserCredentials;
 
-public class CheckoutService implements ICheckout.ICheckoutService, IStrictMode {
+public class CheckoutService implements ICheckout.ICheckoutService {
     private static CheckoutService instance;
 
     private CheckoutService() {
