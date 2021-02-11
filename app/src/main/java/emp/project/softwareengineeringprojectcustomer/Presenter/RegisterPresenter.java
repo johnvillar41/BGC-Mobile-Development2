@@ -1,5 +1,7 @@
 package emp.project.softwareengineeringprojectcustomer.Presenter;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
@@ -42,6 +44,8 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                         sendEmail.sendMailCode();
                         view.hideProgressBar();
                         view.onSuccess();
+                    } catch (com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException e) {
+                        view.onError("Duplicate values for email or username!");
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                         view.hideProgressBar();

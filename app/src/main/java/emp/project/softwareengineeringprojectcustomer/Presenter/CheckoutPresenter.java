@@ -59,9 +59,9 @@ public class CheckoutPresenter implements ICheckout.ICheckoutPresenter {
                         view.displayCartOrders();
                         view.displayCartValues();
                     } catch (SQLException throwables) {
-                        throwables.printStackTrace();
+                        view.displayErrorMessage(throwables.getMessage());
                     } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
+                        view.displayErrorMessage(e.getMessage());
                     }
                     view.hideProgressBar();
                 }

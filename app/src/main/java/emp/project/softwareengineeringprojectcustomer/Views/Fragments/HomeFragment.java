@@ -144,9 +144,23 @@ public class HomeFragment extends Fragment implements IHome.IHomeView {
                     View view = snack.getView();
                     TextView tv = view.findViewById(com.google.android.material.R.id.snackbar_text);
                     tv.setTextColor(ContextCompat.getColor(HomeFragment.this.getActivity(), android.R.color.holo_orange_dark));
-                    tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_error_24, 0, 0, 0);
-                    tv.setGravity(Gravity.CENTER);
-                    snack.show();
+                    switch (message) {
+                        case HomePresenter.SUCCESS_UPDATE_TO_CART:
+                            tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_update_24, 0, 0, 0);
+                            tv.setGravity(Gravity.CENTER);
+                            snack.show();
+                            break;
+                        case HomePresenter.PRODUCT_NOT_ENOUGH:
+                            tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_error_24, 0, 0, 0);
+                            tv.setGravity(Gravity.CENTER);
+                            snack.show();
+                            break;
+                        case HomePresenter.SUCCESS_ADD_TO_CART:
+                            tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check, 0, 0, 0);
+                            tv.setGravity(Gravity.CENTER);
+                            snack.show();
+                            break;
+                    }
                 }
             });
         }
