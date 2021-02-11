@@ -55,7 +55,7 @@ public class UserProfileService implements IUser.IUserService {
         strictMode();
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
         if (userModel.getInputStream() == null) {
-            String sqlUpdate = "UPDATE customer_table SET user_username=?,user_password=?,user_fullname=?,customer_email=?";
+            String sqlUpdate = "UPDATE IGNORE customer_table SET user_username=?,user_password=?,user_fullname=?,customer_email=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate);
             preparedStatement.setString(1, userModel.getUser_username());
             preparedStatement.setString(2, userModel.getUser_password());
@@ -63,7 +63,7 @@ public class UserProfileService implements IUser.IUserService {
             preparedStatement.setString(4, userModel.getUser_email());
             preparedStatement.execute();
         } else {
-            String sqlUpdate = "UPDATE customer_table SET user_username=?,user_password=?,user_fullname=?,customer_email=?,profile_picture=?";
+            String sqlUpdate = "UPDATE IGNORE customer_table SET user_username=?,user_password=?,user_fullname=?,customer_email=?,profile_picture=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate);
             preparedStatement.setString(1, userModel.getUser_username());
             preparedStatement.setString(2, userModel.getUser_password());
