@@ -24,6 +24,7 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
     }
 
     public static final String CUSTOMER_STATUS_PENDING = "Pending";
+    public static final String DUPLICATE_ERROR_MESSAGE = "Duplicate values for email or username!";
 
     @Override
     public void onRegisterButtonClicked(List<String> arrTexts, InputStream FILE_INPUT_STREAM) {
@@ -45,7 +46,7 @@ public class RegisterPresenter implements IRegister.IRegisterPresenter {
                         view.hideProgressBar();
                         view.onSuccess();
                     } catch (com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException e) {
-                        view.onError("Duplicate values for email or username!");
+                        view.onError(DUPLICATE_ERROR_MESSAGE);
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                         view.hideProgressBar();

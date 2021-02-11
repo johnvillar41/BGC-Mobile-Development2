@@ -17,6 +17,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +75,12 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
         holder.txt_product_name.setText(productName);
         holder.txt_date_ordered.setText(model.getOrder_date());
         holder.txt_total_order.setText(model.getTotal_number_of_orders());
-        holder.txt_total_price.setText(model.getOrder_price());
+
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        decimalFormat.setGroupingUsed(true);
+        decimalFormat.setGroupingSize(3);
+
+        holder.txt_total_price.setText(decimalFormat.format(Integer.parseInt(model.getOrder_price())));
         holder.cardView_Status.setCardBackgroundColor(Color.parseColor(setStatusColor(model.getOrder_status())));
         holder.btn_see_more.setOnClickListener(new View.OnClickListener() {
             @Override
