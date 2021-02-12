@@ -121,14 +121,18 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
     private static final String FINISHED = "Finished";
     private static final String CANCELLED = "Cancelled";
 
+    private static final String COLOR_BLUE = "#000080";
+    private static final String COLOR_GREEN = "#008000";
+    private static final String COLOR_RED = "#FF0000";
+
     private String setStatusColor(String orderStatus) {
         switch (orderStatus) {
             case PROCESSING:
-                return "#000080";
+                return COLOR_BLUE;
             case FINISHED:
-                return "#008000";
+                return COLOR_GREEN;
             case CANCELLED:
-                return "#FF0000";
+                return COLOR_RED;
             default:
                 return null;
         }
