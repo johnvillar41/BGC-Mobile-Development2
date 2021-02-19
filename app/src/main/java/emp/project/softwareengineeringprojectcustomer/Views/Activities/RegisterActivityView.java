@@ -211,6 +211,7 @@ public class RegisterActivityView extends AppCompatActivity implements IRegister
                 }
 
                 if (!Patterns.EMAIL_ADDRESS.matcher(textInputLayoutsArray[3].getEditText().getText().toString()).matches()) {
+                    errorCtr[0]++;
                     textInputLayoutsArray[3].setError("Error Email!");
                 } else {
                     textInputLayoutsArray[3].setError(null);
