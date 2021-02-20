@@ -74,6 +74,8 @@ public class HomePresenter implements IHome.IHomePresenter {
                     throwables.printStackTrace();
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
+                } catch (IndexOutOfBoundsException e) {
+                    view.displayMessage("No Products Availabe");
                 }
                 view.hideProgressBar();
             }
