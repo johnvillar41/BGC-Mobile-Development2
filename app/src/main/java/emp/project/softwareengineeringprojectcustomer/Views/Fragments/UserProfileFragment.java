@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -24,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mysql.jdbc.Blob;
 
@@ -40,6 +43,7 @@ import emp.project.softwareengineeringprojectcustomer.Models.Database.Service.Us
 import emp.project.softwareengineeringprojectcustomer.Presenter.UserProfilePresenter;
 import emp.project.softwareengineeringprojectcustomer.R;
 import emp.project.softwareengineeringprojectcustomer.UserCredentials;
+import emp.project.softwareengineeringprojectcustomer.Views.Activities.RegisterActivityView;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -50,10 +54,10 @@ public class UserProfileFragment extends Fragment implements IUser.IUserView, Vi
     private LottieAnimationView lottieAnimationViewLoader;
     private IUser.IUserPresenter presenter;
     private FloatingActionButton floatingActionButton_update;
-
+    private View rootView;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_user_profile, container, false);
+        rootView = inflater.inflate(R.layout.fragment_user_profile, container, false);
         txt_username = rootView.findViewById(R.id.txt_user_username);
         txt_email = rootView.findViewById(R.id.txt_user_email);
         txt_password = rootView.findViewById(R.id.txt_user_password);
@@ -299,6 +303,17 @@ public class UserProfileFragment extends Fragment implements IUser.IUserView, Vi
             }
             return true;
         }
+    }
+
+    @Override
+    public void displayMessage(String message) {
+        Snackbar snack = Snackbar.make(rootView, message, Snackbar.LENGTH_LONG);
+        View view = snack.getView();
+        TextView tv = view.findViewById(com.google.android.material.R.id.snackbar_text);
+        tv.setTextColor(ContextCompat.getColor(UserProfileFragment.this.getActivity(), android.R.color.holo_orange_dark));
+        tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_error_24, 0, 0, 0);
+        tv.setGravity(Gravity.CENTER);
+        snack.show();
     }
 
     @Override

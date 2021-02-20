@@ -22,6 +22,8 @@ public interface IUser {
         void logout();
 
         Boolean displayErrors();
+
+        void displayMessage(String message);
     }
 
     interface IUserPresenter {

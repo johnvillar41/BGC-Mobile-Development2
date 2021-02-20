@@ -52,7 +52,7 @@ public class UserProfilePresenter implements IUser.IUserPresenter {
             @Override
             public void run() {
                 view.displayProgressBarPopup();
-                if(view.displayErrors()){
+                if (view.displayErrors()) {
                     CustomerModel userModel = new CustomerModel(
                             arrTexts[0],
                             arrTexts[1],
@@ -60,14 +60,19 @@ public class UserProfilePresenter implements IUser.IUserPresenter {
                             arrTexts[3],
                             profilePicture
                     );
+                    boolean shouldLogout = true;
                     try {
                         service.updateUserCredentials(userModel);
                     } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
+                        view.displayMessage(e.getMessage());
+                        shouldLogout = false;
                     } catch (SQLException throwables) {
-                        throwables.printStackTrace();
+                        view.displayMessage(throwables.getMessage());
+                        shouldLogout = false;
                     }
-                    view.logout();
+                    if (shouldLogout) {
+                        view.logout();
+                    }
                 }
                 view.hideProgressBarPopup();
             }
