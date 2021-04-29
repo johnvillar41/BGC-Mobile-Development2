@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import emp.project.softwareengineeringprojectcustomer.Interface.ICheckout;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.SpecificOrdersModel;
 
 public class CheckoutPresenter implements ICheckout.ICheckoutPresenter {
     private ICheckout.ICheckoutView view;
@@ -52,7 +53,12 @@ public class CheckoutPresenter implements ICheckout.ICheckoutPresenter {
                     try {
                         service.insertOrdersToDB();
                         for (ProductModel model : CartModel.getInstance().getCartValues()) {
-                            service.insertToSpecificOrdersDB(model.getProduct_name(), model.getTotal_number_products_orders());
+                            SpecificOrdersModel specificOrdersModel = new SpecificOrdersModel(null,
+                                    null,
+                                    model,
+                                    Integer.parseInt(model.getTotal_number_products_orders()),
+                                    Integer.parseInt(model.getProduct_price())*(Integer.parseInt(model.getTotal_number_products_orders())));
+                            service.insertToSpecificOrdersDB(specificOrdersModel);
                         }
                         CartModel.getInstance().removeAllValuesOnCart();
                         view.displaySuccessfullPrompt();

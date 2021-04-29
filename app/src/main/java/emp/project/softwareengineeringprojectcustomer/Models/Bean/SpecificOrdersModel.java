@@ -1,53 +1,46 @@
 package emp.project.softwareengineeringprojectcustomer.Models.Bean;
 
-import java.sql.Blob;
-
 public class SpecificOrdersModel {
-    private String order_id,product_id,total_orders,product_name;
-    private Blob product_image;
-    private String product_price;
-    public SpecificOrdersModel(String order_id, String product_id, String total_orders, String product_name, Blob product_image, String product_price) {
+    private int specific_orders_id;
+    private Integer order_id;
+    private String administrator;
+    private ProductModel productModel;
+    private int total_orders;
+    private int subtotal_price;
+
+    public SpecificOrdersModel(Integer order_id, String administrator, ProductModel productModel, int total_orders, int subtotal_price) {
         this.order_id = order_id;
-        this.product_id = product_id;
+        this.administrator = administrator;
+        this.productModel = productModel;
         this.total_orders = total_orders;
-        this.product_name = product_name;
-        this.product_image = product_image;
-        this.product_price = product_price;
+        this.subtotal_price = subtotal_price;
     }
 
-    @Override
-    public String toString() {
-        return "SpecificOrdersModel{" +
-                "order_id='" + order_id + '\'' +
-                ", product_id='" + product_id + '\'' +
-                ", total_orders='" + total_orders + '\'' +
-                ", product_name='" + product_name + '\'' +
-                ", product_image=" + product_image +
-                ", product_price='" + product_price + '\'' +
-                '}';
+    public int getSpecific_orders_id() {
+        return specific_orders_id;
     }
 
-    public String getProduct_price() {
-        return product_price;
-    }
-
-    public String getOrder_id() {
+    public int getOrder_id() {
         return order_id;
     }
 
-    public String getProduct_id() {
-        return product_id;
+    public String getAdministrator() {
+        return administrator;
     }
 
-    public String getTotal_orders() {
+    public ProductModel getProductModel() {
+        return productModel;
+    }
+
+    public int getTotal_orders() {
         return total_orders;
     }
 
-    public String getProduct_name() {
-        return product_name;
+    public int getSubtotal_price() {
+        return subtotal_price;
     }
 
-    public Blob getProduct_image() {
-        return product_image;
+    public void setSpecific_orders_id(int specific_orders_id) {
+        this.specific_orders_id = specific_orders_id;
     }
 }

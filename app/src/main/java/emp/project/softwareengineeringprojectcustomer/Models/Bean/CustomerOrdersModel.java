@@ -3,51 +3,53 @@ package emp.project.softwareengineeringprojectcustomer.Models.Bean;
 import java.util.List;
 
 public class CustomerOrdersModel {
-    private String order_id, customer_name, customer_email, order_price, order_status, order_date, total_number_of_orders;
+    private int order_id;
+    private CustomerModel customerModel;
+    private int order_total_price;
+    private String orderStatus;
+    private String order_date;
+    private int total_number_of_orders;
     private List<SpecificOrdersModel> specificOrdersModel;
 
-
-    public CustomerOrdersModel(String order_id, String customer_name, String customer_email, String order_price, String order_status, String order_date, String total_number_of_orders, List<SpecificOrdersModel> specificOrdersModel) {
+    public CustomerOrdersModel(CustomerModel customerModel,int order_id, int order_total_price, String orderStatus, String order_date, int total_number_of_orders, List<SpecificOrdersModel> specificOrdersModel) {
+        this.customerModel = customerModel;
         this.order_id = order_id;
-        this.customer_name = customer_name;
-        this.customer_email = customer_email;
-        this.order_price = order_price;
-        this.order_status = order_status;
+        this.order_total_price = order_total_price;
+        this.orderStatus = orderStatus;
         this.order_date = order_date;
         this.total_number_of_orders = total_number_of_orders;
         this.specificOrdersModel = specificOrdersModel;
     }
 
-    public List<SpecificOrdersModel> getSpecificOrdersModelList() {
-        return specificOrdersModel;
+    public void setOrder_id(int order_id) {
+        this.order_id = order_id;
     }
 
-    public String getOrder_id() {
+    public int getOrder_id() {
         return order_id;
     }
 
-    public String getCustomer_name() {
-        return customer_name;
+    public CustomerModel getCustomerModel() {
+        return customerModel;
     }
 
-    public String getCustomer_email() {
-        return customer_email;
+    public int getOrder_total_price() {
+        return order_total_price;
     }
 
-    public String getOrder_price() {
-        return order_price;
-    }
-
-    public String getOrder_status() {
-        return order_status;
+    public String getOrderStatus() {
+        return orderStatus;
     }
 
     public String getOrder_date() {
         return order_date;
     }
 
-    public String getTotal_number_of_orders() {
+    public int getTotal_number_of_orders() {
         return total_number_of_orders;
     }
 
+    public List<SpecificOrdersModel> getSpecificOrdersModel() {
+        return specificOrdersModel;
+    }
 }

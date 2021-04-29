@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.ICheckout;
-import emp.project.softwareengineeringprojectcustomer.Interface.IStrictMode;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.SpecificOrdersModel;
 import emp.project.softwareengineeringprojectcustomer.UserCredentials;
 
 public class CheckoutService implements ICheckout.ICheckoutService {
@@ -30,6 +30,7 @@ public class CheckoutService implements ICheckout.ICheckoutService {
         }
         return instance;
     }
+
     /**
      * This function will insert orders in customer_orders_table
      * TODO: FIX this----------------------------------------------------------------------------------------------------
@@ -38,7 +39,7 @@ public class CheckoutService implements ICheckout.ICheckoutService {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    private static final String INITIAL_ORDER_STATUS = "Processing";
+    private static final String INITIAL_ORDER_STATUS = "Pending";
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -47,39 +48,40 @@ public class CheckoutService implements ICheckout.ICheckoutService {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDateTime now = LocalDateTime.now();
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
-        String insertOrdersToDb = "INSERT INTO customer_orders_table(customer_name,customer_email,order_total_price,order_status,order_date,total_number_of_orders)" +
-                "VALUES(?,?,?,?,?,?)";
+        String insertOrdersToDb = "INSERT INTO customer_orders_table(user_id,order_total_price,order_status,order_date,total_number_of_orders)" +
+                "VALUES(?,?,?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(insertOrdersToDb);
-        preparedStatement.setString(1, UserCredentials.getInstance().getUsername());
-        preparedStatement.setString(2, UserCredentials.getInstance().getUserEmail());
-        preparedStatement.setString(3, String.valueOf(CartModel.getInstance().calculateTotalOrderValues()));
-        preparedStatement.setString(4, INITIAL_ORDER_STATUS);
-        preparedStatement.setString(5, dtf.format(now));
-        preparedStatement.setString(6, CartModel.getInstance().getTotalNumberOfOrders());
+        preparedStatement.setInt(1, UserCredentials.getInstance().getUserID());
+        preparedStatement.setString(2, String.valueOf(CartModel.getInstance().calculateTotalOrderValues()));
+        preparedStatement.setString(3, INITIAL_ORDER_STATUS);
+        preparedStatement.setString(4, dtf.format(now));
+        preparedStatement.setString(5, CartModel.getInstance().getTotalNumberOfOrders());
         preparedStatement.execute();
     }
 
     /**
      * This will insert orders in the specific orders table
      *
-     * @param productName
+     * @param specificOrdersModel
      */
     @Override
-    public void insertToSpecificOrdersDB(String productName, String totalNumberOfOrders) throws ClassNotFoundException, SQLException {
+    public void insertToSpecificOrdersDB(SpecificOrdersModel specificOrdersModel) throws ClassNotFoundException, SQLException {
         strictMode();
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
         String order_id = String.valueOf(checkForHighestOrderIdinDB());
-        String product_id =  getProductId(productName);
+        String product_id = getProductId(specificOrdersModel.getProductModel().getProduct_name());
 
-        String insertOrdersToSpecific = "INSERT INTO specific_orders_table(order_id,product_id,total_orders)VALUES(" +
-                "?,?,?)";
+        String insertOrdersToSpecific = "INSERT INTO specific_orders_table(order_id,administrator_username,product_id,total_orders,subtotal_price)VALUES(" +
+                "?,?,?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(insertOrdersToSpecific);
         preparedStatement.setString(1, order_id);
-        preparedStatement.setString(2,product_id);
-        preparedStatement.setString(3, totalNumberOfOrders);
+        preparedStatement.setString(2, UserCredentials.getInstance().getUsername());
+        preparedStatement.setString(3, product_id);
+        preparedStatement.setInt(4, specificOrdersModel.getTotal_orders());
+        preparedStatement.setInt(5, specificOrdersModel.getSubtotal_price());
 
         preparedStatement.execute();
-        updateProductTotalinDB(totalNumberOfOrders,product_id);
+        updateProductTotalinDB(String.valueOf(specificOrdersModel.getTotal_orders()), product_id);
 
         //Close Db Connections
         preparedStatement.close();
@@ -121,17 +123,18 @@ public class CheckoutService implements ICheckout.ICheckoutService {
         preparedStatement.close();
         return highestNUm;
     }
+
     /**
      * -----------------------------------------------------------------------------------------------------------------------
      */
 
-    private void updateProductTotalinDB(String product_orders,String product_id) throws ClassNotFoundException, SQLException {
+    private void updateProductTotalinDB(String product_orders, String product_id) throws ClassNotFoundException, SQLException {
         strictMode();
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
         String updateTable = "UPDATE products_table SET product_stocks=product_stocks-? WHERE product_id=?";
         PreparedStatement preparedStatement = connection.prepareStatement(updateTable);
-        preparedStatement.setString(1,product_orders);
-        preparedStatement.setString(2,product_id);
+        preparedStatement.setString(1, product_orders);
+        preparedStatement.setString(2, product_id);
         preparedStatement.execute();
 
         preparedStatement.close();

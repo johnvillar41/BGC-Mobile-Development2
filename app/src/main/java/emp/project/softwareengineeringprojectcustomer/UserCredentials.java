@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import emp.project.softwareengineeringprojectcustomer.Interface.IStrictMode;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 
 public class UserCredentials implements IStrictMode {
     private String username;
@@ -56,6 +57,21 @@ public class UserCredentials implements IStrictMode {
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             return resultSet.getString("customer_email");
+        } else {
+            return null;
+        }
+    }
+
+    public Integer getUserID() throws ClassNotFoundException, SQLException {
+        strictMode();
+        Connection connection = DriverManager.getConnection(DB_NAME,USER,PASS);
+        String sqlQuery = "SELECT user_id FROM customer_table WHERE user_username=?";
+        strictMode();
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        preparedStatement.setString(1, getUsername());
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt("user_id");
         } else {
             return null;
         }

@@ -2,6 +2,8 @@ package emp.project.softwareengineeringprojectcustomer.Interface;
 
 import java.sql.SQLException;
 
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.SpecificOrdersModel;
+
 public interface ICheckout {
     interface ICheckoutView extends IBaseView {
         void displayCartOrders();
@@ -28,6 +30,6 @@ public interface ICheckout {
     interface ICheckoutService extends IStrictMode{
         void insertOrdersToDB() throws SQLException, ClassNotFoundException;
 
-        void insertToSpecificOrdersDB(String productName, String totalNumberOfOrders) throws ClassNotFoundException, SQLException;
+        void insertToSpecificOrdersDB(SpecificOrdersModel specificOrdersModel) throws ClassNotFoundException, SQLException;
     }
 }

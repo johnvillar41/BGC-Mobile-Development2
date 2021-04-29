@@ -7,6 +7,7 @@ import org.junit.Test;
 import emp.project.softwareengineeringprojectcustomer.Interface.ICheckout;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CartModel;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
+import emp.project.softwareengineeringprojectcustomer.Models.Bean.SpecificOrdersModel;
 import emp.project.softwareengineeringprojectcustomer.Presenter.CheckoutPresenter;
 
 import static emp.project.softwareengineeringprojectcustomer.CheckoutPresenterTest.MockProduct.PRODUCT_NAME;
@@ -134,10 +135,8 @@ public class CheckoutPresenterTest {
         }
 
         @Override
-        public void insertToSpecificOrdersDB(String productName, String totalNumberOfOrders) {
-            if(productName.equals(MockProduct.PRODUCT_NAME.getVal()) && totalNumberOfOrders.equals(MockProduct.PRODUCT_TOTAL_ORDERS.getVal())){
-                pass = true;
-            }
+        public void insertToSpecificOrdersDB(SpecificOrdersModel specificOrdersModel) {
+            pass = true;
         }
     }
 }

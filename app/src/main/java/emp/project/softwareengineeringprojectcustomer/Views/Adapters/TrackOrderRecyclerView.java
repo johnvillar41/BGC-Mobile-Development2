@@ -48,13 +48,13 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         CustomerOrdersModel model = getItem(position);
-        holder.txt_order_id.setText(model.getOrder_id());
-        holder.txt_status.setText(model.getOrder_status());
+        holder.txt_order_id.setText(String.valueOf(model.getOrder_id()));
+        holder.txt_status.setText(model.getOrderStatus());
 
         List<SpecificOrdersModel> finalList = new ArrayList<>();
 
-        for (SpecificOrdersModel specificOrdersModel : model.getSpecificOrdersModelList()) {
-            if (specificOrdersModel.getOrder_id().equals(model.getOrder_id())) {
+        for (SpecificOrdersModel specificOrdersModel : model.getSpecificOrdersModel()) {
+            if (specificOrdersModel.getOrder_id() == (model.getOrder_id())) {
                 finalList.add(specificOrdersModel);
             }
         }
@@ -66,7 +66,7 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
         String productName = "";
         String comma = ",";
         for (int i = 0; i < finalList.size(); i++) {
-            productName += finalList.get(i).getProduct_name();
+            productName += finalList.get(i).getProductModel().getProduct_name();
             productName = productName + "(" + finalList.get(i).getTotal_orders() + "x)";
             if (i < finalList.size() - 1) {
                 productName += comma + "\n";
@@ -74,14 +74,14 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
         }
         holder.txt_product_name.setText(productName);
         holder.txt_date_ordered.setText(model.getOrder_date());
-        holder.txt_total_order.setText(model.getTotal_number_of_orders());
+        holder.txt_total_order.setText(String.valueOf(model.getTotal_number_of_orders()));
 
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         decimalFormat.setGroupingUsed(true);
         decimalFormat.setGroupingSize(3);
 
-        holder.txt_total_price.setText(decimalFormat.format(Integer.parseInt(model.getOrder_price())));
-        holder.cardView_Status.setCardBackgroundColor(Color.parseColor(setStatusColor(model.getOrder_status())));
+        holder.txt_total_price.setText(decimalFormat.format(Integer.parseInt(String.valueOf(model.getOrder_total_price()))));
+        holder.cardView_Status.setCardBackgroundColor(Color.parseColor(setStatusColor(model.getOrderStatus())));
         holder.btn_see_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,8 +92,8 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
 
                 List<SpecificOrdersModel> finalList = new ArrayList<>();
 
-                for (SpecificOrdersModel specificOrdersModel : model.getSpecificOrdersModelList()) {
-                    if (specificOrdersModel.getOrder_id().equals(model.getOrder_id())) {
+                for (SpecificOrdersModel specificOrdersModel : model.getSpecificOrdersModel()) {
+                    if (specificOrdersModel.getOrder_id() == (model.getOrder_id())) {
                         finalList.add(specificOrdersModel);
                     }
                 }
@@ -117,7 +117,7 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
         });
     }
 
-    private static final String PROCESSING = "Processing";
+    private static final String PENDING = "Pending";
     private static final String FINISHED = "Finished";
     private static final String CANCELLED = "Cancelled";
 
@@ -127,7 +127,7 @@ public class TrackOrderRecyclerView extends RecyclerView.Adapter<TrackOrderRecyc
 
     private String setStatusColor(String orderStatus) {
         switch (orderStatus) {
-            case PROCESSING:
+            case PENDING:
                 return COLOR_BLUE;
             case FINISHED:
                 return COLOR_GREEN;

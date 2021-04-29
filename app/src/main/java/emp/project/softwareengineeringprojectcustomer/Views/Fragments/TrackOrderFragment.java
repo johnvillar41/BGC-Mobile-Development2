@@ -110,7 +110,7 @@ public class TrackOrderFragment extends Fragment implements ITrackOrder.ITrackOr
     private static final String SORT_BY_DATE = "Sort By Date";
     private static final String SORT_BY_FINISHED = "Show Finished Orders";
     private static final String SORT_BY_CANCELLED = "Show Cancelled Orders";
-    private static final String SORT_BY_PROCESSING = "Sort By Processing";
+    private static final String SORT_BY_PENDING = "Sort By Pending";
 
     @Override
     public void displayPopupSortBy() {
@@ -127,7 +127,7 @@ public class TrackOrderFragment extends Fragment implements ITrackOrder.ITrackOr
         sortList.add(SORT_BY_DATE);
         sortList.add(SORT_BY_FINISHED);
         sortList.add(SORT_BY_CANCELLED);
-        sortList.add(SORT_BY_PROCESSING);
+        sortList.add(SORT_BY_PENDING);
         SortByRecyclerView adapter = new SortByRecyclerView(this.getActivity(), sortList);
         recyclerView_Sort.setLayoutManager(layoutManager);
         recyclerView_Sort.setAdapter(adapter);
@@ -170,9 +170,9 @@ public class TrackOrderFragment extends Fragment implements ITrackOrder.ITrackOr
                             presenter.onButtonConfirmSortClicked(SORT_TYPE.SORT_CANCELLED.getVal());
                             Toast.makeText(TrackOrderFragment.this.getActivity(), SORT_TYPE.SORT_CANCELLED.getVal(), Toast.LENGTH_SHORT).show();
                             break;
-                        case SORT_BY_PROCESSING:
-                            presenter.onButtonConfirmSortClicked(SORT_TYPE.SORT_PROCESSING.getVal());
-                            Toast.makeText(TrackOrderFragment.this.getActivity(), SORT_TYPE.SORT_PROCESSING.getVal(), Toast.LENGTH_SHORT).show();
+                        case SORT_BY_PENDING:
+                            presenter.onButtonConfirmSortClicked(SORT_TYPE.SORT_PENDING.getVal());
+                            Toast.makeText(TrackOrderFragment.this.getActivity(), SORT_TYPE.SORT_PENDING.getVal(), Toast.LENGTH_SHORT).show();
                             break;
                     }
                 } catch (NullPointerException e) {
@@ -213,7 +213,7 @@ public class TrackOrderFragment extends Fragment implements ITrackOrder.ITrackOr
     public enum SORT_TYPE {
         SORT_FINSIHED("Finished"),
         SORT_CANCELLED("Cancelled"),
-        SORT_PROCESSING("Processing");
+        SORT_PENDING("Pending");
 
         private String val;
 
