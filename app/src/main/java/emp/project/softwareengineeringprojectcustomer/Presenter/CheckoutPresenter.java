@@ -57,7 +57,7 @@ public class CheckoutPresenter implements ICheckout.ICheckoutPresenter {
                                     null,
                                     model,
                                     Integer.parseInt(model.getTotal_number_products_orders()),
-                                    Integer.parseInt(model.getProduct_price())*(Integer.parseInt(model.getTotal_number_products_orders())));
+                                    Integer.parseInt(model.getProduct_price()) * (Integer.parseInt(model.getTotal_number_products_orders())));
                             service.insertToSpecificOrdersDB(specificOrdersModel);
                         }
                         CartModel.getInstance().removeAllValuesOnCart();

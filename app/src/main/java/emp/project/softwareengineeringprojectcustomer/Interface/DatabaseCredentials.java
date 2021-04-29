@@ -6,7 +6,9 @@ public interface DatabaseCredentials {
     //public static final String USER = "sql12394153";
     //public static final String PASS = "k7TngnBqxC";
 
-    /**Clever Cloud server**/
+    /**
+     * Clever Cloud server
+     **/
     //public static final String DB_NAME = "jdbc:mysql://bbqkcywrafsgjxlxecta-mysql.services.clever-cloud.com:3306/bbqkcywrafsgjxlxecta";
     //public static final String USER = "uf0mceexymqmcdl3";
     //public static final String PASS = "cx1yimaV0BM5yTw2IRgj";

@@ -11,7 +11,7 @@ public class CustomerOrdersModel {
     private int total_number_of_orders;
     private List<SpecificOrdersModel> specificOrdersModel;
 
-    public CustomerOrdersModel(CustomerModel customerModel,int order_id, int order_total_price, String orderStatus, String order_date, int total_number_of_orders, List<SpecificOrdersModel> specificOrdersModel) {
+    public CustomerOrdersModel(CustomerModel customerModel, int order_id, int order_total_price, String orderStatus, String order_date, int total_number_of_orders, List<SpecificOrdersModel> specificOrdersModel) {
         this.customerModel = customerModel;
         this.order_id = order_id;
         this.order_total_price = order_total_price;

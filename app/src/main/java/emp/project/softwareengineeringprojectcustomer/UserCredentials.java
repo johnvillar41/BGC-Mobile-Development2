@@ -64,7 +64,7 @@ public class UserCredentials implements IStrictMode {
 
     public Integer getUserID() throws ClassNotFoundException, SQLException {
         strictMode();
-        Connection connection = DriverManager.getConnection(DB_NAME,USER,PASS);
+        Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
         String sqlQuery = "SELECT user_id FROM customer_table WHERE user_username=?";
         strictMode();
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);

@@ -11,15 +11,18 @@ import emp.project.softwareengineeringprojectcustomer.Models.Bean.ProductModel;
 
 public class ProductService implements IStrictMode {
     private static ProductService instance = null;
+
     private ProductService() {
 
     }
+
     public static ProductService getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new ProductService();
         }
         return instance;
     }
+
     public ProductModel fetchProduct(int productID) throws SQLException, ClassNotFoundException {
         strictMode();
         ProductModel productModel = null;
@@ -28,7 +31,7 @@ public class ProductService implements IStrictMode {
         PreparedStatement preparedStatement = connection.prepareStatement(sqlGetProducts);
         preparedStatement.setInt(1, productID);
         ResultSet resultSet = preparedStatement.executeQuery();
-        while(resultSet.next()) {
+        while (resultSet.next()) {
             productModel = new ProductModel(resultSet.getString("product_id"),
                     resultSet.getString("product_name"),
                     resultSet.getString("product_description"),

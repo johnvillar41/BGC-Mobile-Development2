@@ -36,7 +36,7 @@ public class RegisterService implements IRegister.IRegisterService {
         preparedStatement.setString(4, model.getUser_status());
         preparedStatement.setString(5, model.getUser_email());
         preparedStatement.setBlob(6, model.getInputStream());
-        preparedStatement.setString(7,model.getCode());
+        preparedStatement.setString(7, model.getCode());
         preparedStatement.execute();
         preparedStatement.close();
         connection.close();

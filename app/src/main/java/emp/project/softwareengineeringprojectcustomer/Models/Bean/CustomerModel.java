@@ -11,8 +11,9 @@ public class CustomerModel {
     private InputStream inputStream;
     private Blob picture;
     private String code;
+
     //This constructor is for registering new users
-    public CustomerModel(String user_username, String user_password, String user_fullname, String user_status, String user_email, InputStream inputStream,String code) {
+    public CustomerModel(String user_username, String user_password, String user_fullname, String user_status, String user_email, InputStream inputStream, String code) {
         this.user_username = user_username;
         this.user_password = user_password;
         this.user_fullname = user_fullname;

@@ -28,6 +28,7 @@ public class InformationFragment extends Fragment implements IInformation.IInfor
     private RecyclerView recyclerView_Information;
     private LottieAnimationView lottieAnimationViewLoader;
     private IInformation.IInformationPresenter presenter;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -71,7 +72,7 @@ public class InformationFragment extends Fragment implements IInformation.IInfor
                 public void run() {
                     InformationRecyclerView adapter = new InformationRecyclerView(
                             InformationFragment.this.getActivity(), informationModelList);
-                    recyclerView_Information.setLayoutManager(new GridLayoutManager(InformationFragment.this.getActivity(),3));
+                    recyclerView_Information.setLayoutManager(new GridLayoutManager(InformationFragment.this.getActivity(), 3));
                     recyclerView_Information.setAdapter(adapter);
                     recyclerView_Information.scheduleLayoutAnimation();
                 }

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.CustomerModel;
 
 public interface IUser {
-    interface IUserView extends IBaseView{
+    interface IUserView extends IBaseView {
         void displayUserCredentials(CustomerModel userModel);
 
         void displayUpdatePopup();
@@ -33,12 +33,12 @@ public interface IUser {
 
         void onSelectImageButtonClicked();
 
-        void onUpdateProfileButtonClicked(InputStream profilePicture, String[]arrTexts);
+        void onUpdateProfileButtonClicked(InputStream profilePicture, String[] arrTexts);
 
         void loadPopupValues();
     }
 
-    interface IUserService extends IStrictMode{
+    interface IUserService extends IStrictMode {
         CustomerModel fetchUserCredentials() throws ClassNotFoundException, SQLException;
 
         void updateUserCredentials(CustomerModel userModel) throws ClassNotFoundException, SQLException;

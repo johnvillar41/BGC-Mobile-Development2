@@ -27,7 +27,7 @@ public interface ICheckout {
         void onCheckoutButtonClicked();
     }
 
-    interface ICheckoutService extends IStrictMode{
+    interface ICheckoutService extends IStrictMode {
         void insertOrdersToDB() throws SQLException, ClassNotFoundException;
 
         void insertToSpecificOrdersDB(SpecificOrdersModel specificOrdersModel) throws ClassNotFoundException, SQLException;

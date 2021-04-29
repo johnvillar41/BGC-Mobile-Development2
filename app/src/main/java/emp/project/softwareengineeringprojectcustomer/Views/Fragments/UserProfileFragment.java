@@ -55,6 +55,7 @@ public class UserProfileFragment extends Fragment implements IUser.IUserView, Vi
     private IUser.IUserPresenter presenter;
     private FloatingActionButton floatingActionButton_update;
     private View rootView;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_user_profile, container, false);

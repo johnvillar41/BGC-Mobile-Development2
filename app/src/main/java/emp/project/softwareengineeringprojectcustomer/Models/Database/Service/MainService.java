@@ -34,7 +34,7 @@ public class MainService implements IMain.IMainService {
         PreparedStatement preparedStatement = connection.prepareStatement(sqlFetchUser);
         preparedStatement.setString(1, UserCredentials.getInstance().getUsername());
         ResultSet resultSet = preparedStatement.executeQuery();
-        if(resultSet.next()){
+        if (resultSet.next()) {
             customerModel = new CustomerModel(
                     resultSet.getString("user_username"),
                     resultSet.getString("user_fullname"),

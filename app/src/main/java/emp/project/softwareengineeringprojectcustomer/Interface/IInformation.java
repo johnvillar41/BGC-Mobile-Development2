@@ -6,15 +6,15 @@ import java.util.List;
 import emp.project.softwareengineeringprojectcustomer.Models.Bean.InformationModel;
 
 public interface IInformation {
-    interface IInformationView extends IBaseView{
-        void displayRecyclerViewValues(List<InformationModel>informationModelList);
+    interface IInformationView extends IBaseView {
+        void displayRecyclerViewValues(List<InformationModel> informationModelList);
     }
 
     interface IInformationPresenter {
         void loadPageValues();
     }
 
-    interface IInformationService extends IStrictMode{
+    interface IInformationService extends IStrictMode {
         List<InformationModel> fetchInformationData() throws ClassNotFoundException, SQLException;
     }
 }

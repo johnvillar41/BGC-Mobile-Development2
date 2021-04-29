@@ -16,7 +16,7 @@ public class CustomerService implements IStrictMode {
     private static CustomerService instance = null;
 
     public static CustomerService getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new CustomerService();
         }
         return instance;

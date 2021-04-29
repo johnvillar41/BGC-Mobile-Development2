@@ -1,21 +1,21 @@
- package emp.project.softwareengineeringprojectcustomer.Views.Adapters;
+package emp.project.softwareengineeringprojectcustomer.Views.Adapters;
 
- import android.content.Context;
- import android.view.LayoutInflater;
- import android.view.View;
- import android.view.ViewGroup;
- import android.widget.TextView;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
- import androidx.annotation.NonNull;
- import androidx.cardview.widget.CardView;
- import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
- import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 
- import java.util.List;
+import java.util.List;
 
- import emp.project.softwareengineeringprojectcustomer.Interface.IHome;
- import emp.project.softwareengineeringprojectcustomer.R;
+import emp.project.softwareengineeringprojectcustomer.Interface.IHome;
+import emp.project.softwareengineeringprojectcustomer.R;
 
 public class HomeCategoryRecyclerView extends RecyclerView.Adapter<HomeCategoryRecyclerView.MyViewHolder> {
 

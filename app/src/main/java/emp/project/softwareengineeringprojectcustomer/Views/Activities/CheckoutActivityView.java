@@ -33,10 +33,11 @@ public class CheckoutActivityView extends AppCompatActivity implements ICheckout
     private RecyclerView recyclerViewOrders;
     private TextView txtCartTotal;
     private Button btnCheckout;
-    private LottieAnimationView lottieAnimationViewLoader,lottieAnimationView_emptyCart;
+    private LottieAnimationView lottieAnimationViewLoader, lottieAnimationView_emptyCart;
     private ICheckout.ICheckoutPresenter presenter;
 
     private View instance;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

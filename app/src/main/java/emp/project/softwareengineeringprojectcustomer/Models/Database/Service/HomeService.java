@@ -79,9 +79,9 @@ public class HomeService implements IHome.IHomeService {
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
         String sqlCheck = "SELECT product_stocks FROM products_table WHERE product_id=?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlCheck);
-        preparedStatement.setString(1,product_id);
+        preparedStatement.setString(1, product_id);
         ResultSet resultSet = preparedStatement.executeQuery();
-        if(resultSet.next()){
+        if (resultSet.next()) {
             int productTotal = resultSet.getInt("product_stocks");
             connection.close();
             preparedStatement.close();

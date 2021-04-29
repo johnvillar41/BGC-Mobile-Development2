@@ -32,6 +32,7 @@ public class InformationPresenter implements IInformation.IInformationPresenter 
                 }
                 view.hideProgressBar();
             }
-        });thread.start();
+        });
+        thread.start();
     }
 }

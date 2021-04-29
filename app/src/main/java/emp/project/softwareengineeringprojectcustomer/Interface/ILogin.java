@@ -3,7 +3,7 @@ package emp.project.softwareengineeringprojectcustomer.Interface;
 import java.sql.SQLException;
 
 public interface ILogin {
-    interface ILoginView extends IBaseView{
+    interface ILoginView extends IBaseView {
         void onSuccess();
 
         void displaySnackBarMessage(String errorMessage);
@@ -18,7 +18,7 @@ public interface ILogin {
     interface ILoginPresenter {
         void onLoginButtonClicked(String username, String password);
 
-        void onSubmitCodeButtonClicked(String code,String username);
+        void onSubmitCodeButtonClicked(String code, String username);
     }
 
     interface ILoginService extends IStrictMode {
@@ -32,6 +32,6 @@ public interface ILogin {
 
         LoginStatus fetchCustomerLoginCredentials(String username, String password) throws SQLException, ClassNotFoundException;
 
-        Boolean validateCode(String code,String username) throws ClassNotFoundException, SQLException;
+        Boolean validateCode(String code, String username) throws ClassNotFoundException, SQLException;
     }
 }

@@ -30,8 +30,8 @@ public class LoginService implements ILogin.ILoginService {
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
         String sqlUpdateUserStatus = "UPDATE customer_table SET user_status=? WHERE user_username=?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdateUserStatus);
-        preparedStatement.setString(1,"Active");
-        preparedStatement.setString(2,username);
+        preparedStatement.setString(1, "Active");
+        preparedStatement.setString(2, username);
         preparedStatement.execute();
     }
 
@@ -72,7 +72,7 @@ public class LoginService implements ILogin.ILoginService {
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
         String sqlGetCode = "SELECT user_code FROM customer_table WHERE user_username = ? ";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlGetCode);
-        preparedStatement.setString(1,username);
+        preparedStatement.setString(1, username);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             if (code.equals(resultSet.getString("user_code"))) {

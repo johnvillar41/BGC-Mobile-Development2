@@ -58,8 +58,8 @@ public class TrackOrderService implements ITrackOrder.ITrackOrderService {
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
         String sqlQuery = "SELECT * FROM customer_orders_table WHERE user_id=? AND order_status=?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-        preparedStatement.setString(1,UserCredentials.getInstance().getUserID().toString());
-        preparedStatement.setString(2,sort_type);
+        preparedStatement.setString(1, UserCredentials.getInstance().getUserID().toString());
+        preparedStatement.setString(2, sort_type);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             CustomerModel customerModel = CustomerService.getInstance().fetchCustomerDetails(resultSet.getInt("user_id"));
@@ -83,8 +83,8 @@ public class TrackOrderService implements ITrackOrder.ITrackOrderService {
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
         String sqlfetch = "SELECT * FROM customer_orders_table WHERE user_id=? AND order_date=?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlfetch);
-        preparedStatement.setString(1,UserCredentials.getInstance().getUserID().toString());
-        preparedStatement.setString(2,dateString);
+        preparedStatement.setString(1, UserCredentials.getInstance().getUserID().toString());
+        preparedStatement.setString(2, dateString);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             CustomerModel customerModel = CustomerService.getInstance().fetchCustomerDetails(resultSet.getInt("user_id"));
