@@ -62,8 +62,8 @@ public class TrackOrderService implements ITrackOrder.ITrackOrderService {
         preparedStatement.setString(2,sort_type);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
-            CustomerModel customerModel = CustomerService.getInstance().fetchCustomerDetails(resultSet.getInt("order_id"));
-            List<SpecificOrdersModel> specificOrdersModelList = SpecificOrdersService.getInstance().fetchSpecificOrders(resultSet.getInt("user_id"));
+            CustomerModel customerModel = CustomerService.getInstance().fetchCustomerDetails(resultSet.getInt("user_id"));
+            List<SpecificOrdersModel> specificOrdersModelList = SpecificOrdersService.getInstance().fetchSpecificOrders(resultSet.getInt("order_id"));
             CustomerOrdersModel customerOrdersModel = new CustomerOrdersModel(customerModel,
                     resultSet.getInt("order_id"),
                     resultSet.getInt("order_total_price"),
@@ -87,8 +87,8 @@ public class TrackOrderService implements ITrackOrder.ITrackOrderService {
         preparedStatement.setString(2,dateString);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
-            CustomerModel customerModel = CustomerService.getInstance().fetchCustomerDetails(resultSet.getInt("order_id"));
-            List<SpecificOrdersModel> specificOrdersModelList = SpecificOrdersService.getInstance().fetchSpecificOrders(resultSet.getInt("user_id"));
+            CustomerModel customerModel = CustomerService.getInstance().fetchCustomerDetails(resultSet.getInt("user_id"));
+            List<SpecificOrdersModel> specificOrdersModelList = SpecificOrdersService.getInstance().fetchSpecificOrders(resultSet.getInt("order_id"));
             CustomerOrdersModel customerOrdersModel = new CustomerOrdersModel(customerModel,
                     resultSet.getInt("order_id"),
                     resultSet.getInt("order_total_price"),
