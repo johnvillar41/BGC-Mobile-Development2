@@ -23,7 +23,7 @@
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AGT Seedling Supply"
+        android:text="BGC Seedling Supply"
         android:layout_marginLeft="50sp"/>
     <TextView
         android:textColor="#000000"

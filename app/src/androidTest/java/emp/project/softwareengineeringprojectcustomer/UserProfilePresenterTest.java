@@ -178,6 +178,11 @@ public class UserProfilePresenterTest {
         public Boolean displayErrors() {
             return true;
         }
+
+        @Override
+        public void displayMessage(String message) {
+
+        }
     }
 
     enum MockCustomerModel {

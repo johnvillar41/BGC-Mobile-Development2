@@ -14,7 +14,7 @@ public interface DatabaseCredentials {
     //public static final String PASS = "cx1yimaV0BM5yTw2IRgj";
 
     //LocalHost Server
-    public static final String DB_NAME = "jdbc:mysql://192.168.1.9:3306/agt_db_relations";
+    public static final String DB_NAME = "jdbc:mysql://192.168.1.105:3306/agt_db_relations";
     public static final String USER = "admin";
     public static final String PASS = "admin";
 
