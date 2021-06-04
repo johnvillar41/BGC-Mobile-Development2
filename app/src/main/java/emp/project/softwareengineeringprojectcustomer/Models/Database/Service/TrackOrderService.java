@@ -34,8 +34,9 @@ public class TrackOrderService implements ITrackOrder.ITrackOrderService {
         List<CustomerOrdersModel> customerOrdersModels = new ArrayList<>();
         strictMode();
         Connection connection = DriverManager.getConnection(DB_NAME, USER, PASS);
-        String sqlQuery = "SELECT * FROM customer_orders_table";
+        String sqlQuery = "SELECT * FROM customer_orders_table WHERE user_id=?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        preparedStatement.setInt(1,UserCredentials.getInstance().getUserID());
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             CustomerModel customerModel = CustomerService.getInstance().fetchCustomerDetails(resultSet.getInt("user_id"));

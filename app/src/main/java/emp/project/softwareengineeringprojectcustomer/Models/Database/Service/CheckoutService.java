@@ -71,14 +71,13 @@ public class CheckoutService implements ICheckout.ICheckoutService {
         String order_id = String.valueOf(checkForHighestOrderIdinDB());
         String product_id = getProductId(specificOrdersModel.getProductModel().getProduct_name());
 
-        String insertOrdersToSpecific = "INSERT INTO specific_orders_table(order_id,administrator_username,product_id,total_orders,subtotal_price)VALUES(" +
-                "?,?,?,?,?)";
+        String insertOrdersToSpecific = "INSERT INTO specific_orders_table(order_id,product_id,total_orders,subtotal_price)VALUES(" +
+                "?,?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(insertOrdersToSpecific);
         preparedStatement.setString(1, order_id);
-        preparedStatement.setString(2, UserCredentials.getInstance().getUsername());
-        preparedStatement.setString(3, product_id);
-        preparedStatement.setInt(4, specificOrdersModel.getTotal_orders());
-        preparedStatement.setInt(5, specificOrdersModel.getSubtotal_price());
+        preparedStatement.setString(2, product_id);
+        preparedStatement.setInt(3, specificOrdersModel.getTotal_orders());
+        preparedStatement.setInt(4, specificOrdersModel.getSubtotal_price());
 
         preparedStatement.execute();
         updateProductTotalinDB(String.valueOf(specificOrdersModel.getTotal_orders()), product_id);
